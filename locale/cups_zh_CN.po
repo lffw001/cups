@@ -1,6 +1,7 @@
 #
 # Chinese message catalog for CUPS.
 #
+# Copyright © 2020-2024 by OpenPrinting.
 # Copyright © 2007-2018 by Apple Inc.
 # Copyright © 2005-2007 by Easy Software Products.
 #
@@ -12,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2021-03-07 10:33-0500\n"
+"POT-Creation-Date: 2024-11-21 13:32-0500\n"
 "PO-Revision-Date: 2022-07-14 12:43+0800\n"
 "Last-Translator: Tyson Tan <tysontan@tysontan.com>\n"
 "Language-Team: Chinese (Simplified)\n"
@@ -786,6 +787,9 @@ msgstr "  --crlf                  使用 CR + LF 行末 (Windows)。"
 msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
 msgstr "  --lf                    使用 LF 行末 (UNIX/Linux/macOS)。"
 
+msgid "  --list-all              List all filters with the MIME media types."
+msgstr ""
+
 msgid "  --list-filters          List filters that will be used."
 msgstr "  --list-filters          列出要使用的滤镜。"
 
@@ -798,11 +802,11 @@ msgstr "  -D 名称=赋值           为指定变量赋值。"
 msgid "  -I include-dir          Add include directory to search path."
 msgstr "  -I include-dir          将引用目录加入到搜索路径。"
 
-msgid "  -P filename.ppd         Set PPD file."
-msgstr "  -P filename.ppd         设置 PPD 文件。"
+msgid "  -P FILENAME.ppd         Set PPD file."
+msgstr ""
 
-msgid "  -U username             Specify username."
-msgstr "  -U 用户名              指定用户名。"
+msgid "  -U USERNAME             Specify username."
+msgstr ""
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr "  -c catalog.po           载入指定的消息索引。"
@@ -810,22 +814,22 @@ msgstr "  -c catalog.po           载入指定的消息索引。"
 msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr "  -c cups-files.conf      设置要使用的 cups-files.conf 文件。"
 
+msgid "  -d PRINTER              Use the named printer."
+msgstr ""
+
 msgid "  -d output-dir           Specify the output directory."
 msgstr "  -d output-dir           指定输出目录。"
-
-msgid "  -d printer              Use the named printer."
-msgstr "  -d 打印机               使用指定的打印机。"
 
 msgid "  -e                      Use every filter from the PPD file."
 msgstr "  -e                      使用来自 PPD 文件的所有滤镜。"
 
-msgid "  -i mime/type            Set input MIME type (otherwise auto-typed)."
-msgstr "  -i mime/type            设置输入的 MIME 类型 (否则自动探测类型)。"
+msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
+msgstr ""
 
 msgid ""
-"  -j job-id[,N]           Filter file N from the specified job (default is "
+"  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
-msgstr "  -j job-id[,N]           从指定任务中过滤文件 N (默认为文件 1)。"
+msgstr ""
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr "  -l lang[,lang,...]      指定输出语言 (地域配置)。"
@@ -834,12 +838,14 @@ msgid "  -m                      Use the ModelName value as the filename."
 msgstr "  -m                      将 ModelName 值作为文件名。"
 
 msgid ""
-"  -m mime/type            Set output MIME type (otherwise application/pdf)."
+"  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
-"  -m mime/type            设置输出 MIME 类型 (缺省为 application/pdf)。"
 
-msgid "  -n copies               Set number of copies."
-msgstr "  -n 副本数               设置副本数量。"
+msgid "  -n COPIES               Set number of copies."
+msgstr ""
+
+msgid "  -o NAME=VALUE           Set option(s)."
+msgstr ""
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
@@ -848,17 +854,14 @@ msgstr "  -o filename.drv         指定驱动信息文件 (缺省为 ppdi.drv)�
 msgid "  -o filename.ppd[.gz]    Set output file (otherwise stdout)."
 msgstr "  -o filename.ppd[.gz]    设置输出文件 (缺省为标准输出)。"
 
-msgid "  -o name=value           Set option(s)."
-msgstr "  -o 名称=赋值            设置选项。"
-
-msgid "  -p filename.ppd         Set PPD file."
-msgstr "  -p filename.ppd         指定 PPD 文件。"
+msgid "  -p FILENAME.ppd         Set PPD file."
+msgstr ""
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      测试而非生成 PPD 文件。"
 
-msgid "  -t title                Set title."
-msgstr "  -t 标题                 设置标题。"
+msgid "  -t TITLE                Set title."
+msgstr ""
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      完成后删除 PPD 文件。"
@@ -1155,10 +1158,6 @@ msgid "%s: %s failed: %s"
 msgstr "%s：%s 失败：%s"
 
 #, c-format
-msgid "%s: Bad printer URI \"%s\"."
-msgstr "%s：无效的打印机 URI“%s”。"
-
-#, c-format
 msgid "%s: Bad version %s for \"-V\"."
 msgstr "%s：用于“-V”的版本 %s 无效。"
 
@@ -1329,9 +1328,9 @@ msgstr "%s：错误 — 在“-%c”选项后预期赋值。"
 
 #, c-format
 msgid ""
-"%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W\" "
-"option."
-msgstr "%s：错误 — 在“-W”选项后需要“completed”，“not-completed”或“all”值。"
+"%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
+"\" after \"-W\" option."
+msgstr ""
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -1390,12 +1389,20 @@ msgid "%s: Invalid filter string \"%s\"."
 msgstr "%s：无效的滤镜字串“%s”。"
 
 #, c-format
+msgid "%s: Missing client name after '--client-name'."
+msgstr ""
+
+#, c-format
 msgid "%s: Missing filename for \"-P\"."
 msgstr "%s：“-P”选项缺少文件名。"
 
 #, c-format
 msgid "%s: Missing timeout for \"-T\"."
 msgstr "%s：“-T”选项缺少超时。"
+
+#, c-format
+msgid "%s: Missing token after '--bearer-token'."
+msgstr ""
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
@@ -1414,12 +1421,8 @@ msgid "%s: Operation failed: %s"
 msgstr "%s：操作失败：%s"
 
 #, c-format
-msgid "%s: Sorry, no encryption support."
-msgstr "%s：抱歉，无加密支持。"
-
-#, c-format
-msgid "%s: Unable to connect to \"%s:%d\": %s"
-msgstr "%s：无法连接到“%s:%d”：%s"
+msgid "%s: Scheduler is not running."
+msgstr ""
 
 #, c-format
 msgid "%s: Unable to connect to server."
@@ -1428,10 +1431,6 @@ msgstr "%s：无法连接到服务器。"
 #, c-format
 msgid "%s: Unable to contact server."
 msgstr "%s：无法与服务器通信。"
-
-#, c-format
-msgid "%s: Unable to create PPD file: %s"
-msgstr "%s：无法创建 PPD 文件：%s"
 
 #, c-format
 msgid "%s: Unable to determine MIME type of \"%s\"."
@@ -1450,16 +1449,8 @@ msgid "%s: Unable to open PPD file: %s on line %d."
 msgstr "%1$s：无法打开 PPD 文件：行 %3$d 上的 %2$s。"
 
 #, c-format
-msgid "%s: Unable to query printer: %s"
-msgstr "%s：无法查询打印机：%s"
-
-#, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
 msgstr "%s：无法从“%s”或“%s”读取 MIME 数据库。"
-
-#, c-format
-msgid "%s: Unable to resolve \"%s\"."
-msgstr "%s：无法解析“%s”。"
 
 #, c-format
 msgid "%s: Unknown argument \"%s\"."
@@ -1536,6 +1527,16 @@ msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
 msgstr ""
 
 msgid ""
+"--bearer-token BEARER-TOKEN\n"
+"                        Set the OAuth Bearer token for authentication"
+msgstr ""
+
+msgid ""
+"--client-name CLIENT-NAME\n"
+"                        Set the TLS client certificate name"
+msgstr ""
+
+msgid ""
 "--device-id device-id   Show models matching the given IEEE 1284 device ID"
 msgstr ""
 
@@ -1556,6 +1557,9 @@ msgid "--false                 Always false"
 msgstr ""
 
 msgid "--help                  Show program help"
+msgstr ""
+
+msgid "--help                  Show this help"
 msgstr ""
 
 msgid "--hold                  Hold new jobs"
@@ -1653,122 +1657,14 @@ msgstr ""
 msgid "--version               Show version"
 msgstr ""
 
-msgid "-1"
-msgstr "-1"
-
-msgid "-10"
-msgstr "-10"
-
-msgid "-100"
-msgstr "-100"
-
-msgid "-105"
-msgstr "-105"
-
-msgid "-11"
-msgstr "-11"
-
-msgid "-110"
-msgstr "-110"
-
-msgid "-115"
-msgstr "-115"
-
-msgid "-12"
-msgstr "-12"
-
-msgid "-120"
-msgstr "-120"
-
-msgid "-13"
-msgstr "-13"
-
-msgid "-14"
-msgstr "-14"
-
-msgid "-15"
-msgstr "-15"
-
-msgid "-2"
-msgstr "-2"
-
 msgid "-2                      Set 2-sided printing support (default=1-sided)"
 msgstr ""
-
-msgid "-20"
-msgstr "-20"
-
-msgid "-25"
-msgstr "-25"
-
-msgid "-3"
-msgstr "-3"
-
-msgid "-30"
-msgstr "-30"
-
-msgid "-35"
-msgstr "-35"
-
-msgid "-4"
-msgstr "-4"
 
 msgid "-4                      Connect using IPv4"
 msgstr ""
 
-msgid "-40"
-msgstr "-40"
-
-msgid "-45"
-msgstr "-45"
-
-msgid "-5"
-msgstr "-5"
-
-msgid "-50"
-msgstr "-50"
-
-msgid "-55"
-msgstr "-55"
-
-msgid "-6"
-msgstr "-6"
-
 msgid "-6                      Connect using IPv6"
 msgstr ""
-
-msgid "-60"
-msgstr "-60"
-
-msgid "-65"
-msgstr "-65"
-
-msgid "-7"
-msgstr "-7"
-
-msgid "-70"
-msgstr "-70"
-
-msgid "-75"
-msgstr "-75"
-
-msgid "-8"
-msgstr "-8"
-
-msgid "-80"
-msgstr "-80"
-
-msgid "-85"
-msgstr "-85"
-
-msgid "-9"
-msgstr "-9"
-
-msgid "-90"
-msgstr "-90"
-
-msgid "-95"
-msgstr "-95"
 
 msgid "-A                      Enable authentication"
 msgstr ""
@@ -1854,13 +1750,13 @@ msgid ""
 "standard output"
 msgstr ""
 
-msgid "-P filename.ppd         Load printer attributes from PPD file"
-msgstr ""
-
 msgid "-P number[-number]      Match port to number or range"
 msgstr ""
 
 msgid "-P page-list            Specify a list of pages to print"
+msgstr ""
+
+msgid "-R                      Repeat tests on server-error-busy"
 msgstr ""
 
 msgid "-R                      Show the ranking of jobs"
@@ -2265,513 +2161,6 @@ msgstr ""
 msgid "/etc/cups/lpoptions file names default destination that does not exist."
 msgstr "/etc/cups/lpoptions 文件所指定的默认目标不存在。"
 
-msgid "0"
-msgstr "0"
-
-msgid "1"
-msgstr "1"
-
-msgid "1 inch/sec."
-msgstr "1 英寸/秒"
-
-msgid "1.25x0.25\""
-msgstr "1.25×0.25 英寸"
-
-msgid "1.25x2.25\""
-msgstr "1.25×2.25 英寸"
-
-msgid "1.5 inch/sec."
-msgstr "1.5 英寸/秒"
-
-msgid "1.50x0.25\""
-msgstr "1.50×0.25 英寸"
-
-msgid "1.50x0.50\""
-msgstr "1.50×0.50 英寸"
-
-msgid "1.50x1.00\""
-msgstr "1.50×1.00 英寸"
-
-msgid "1.50x2.00\""
-msgstr "1.50×2.00 英寸"
-
-msgid "10"
-msgstr "10"
-
-msgid "10 inches/sec."
-msgstr "10 英寸/秒"
-
-msgid "10 x 11"
-msgstr "10×11"
-
-msgid "10 x 13"
-msgstr "10×13"
-
-msgid "10 x 14"
-msgstr "10×14"
-
-msgid "100"
-msgstr "100"
-
-msgid "100 mm/sec."
-msgstr "100 毫米/秒"
-
-msgid "105"
-msgstr "105"
-
-msgid "11"
-msgstr "11"
-
-msgid "11 inches/sec."
-msgstr "11 英寸/秒"
-
-msgid "110"
-msgstr "110"
-
-msgid "115"
-msgstr "115"
-
-msgid "12"
-msgstr "12"
-
-msgid "12 inches/sec."
-msgstr "12 英寸/秒"
-
-msgid "12 x 11"
-msgstr "12×11"
-
-msgid "120"
-msgstr "120"
-
-msgid "120 mm/sec."
-msgstr "120 毫米/秒"
-
-msgid "120x60dpi"
-msgstr "120×60 dpi"
-
-msgid "120x72dpi"
-msgstr "120×72 dpi"
-
-msgid "13"
-msgstr "13"
-
-msgid "136dpi"
-msgstr "136 dpi"
-
-msgid "14"
-msgstr "14"
-
-msgid "15"
-msgstr "15"
-
-msgid "15 mm/sec."
-msgstr "15 毫米/秒"
-
-msgid "15 x 11"
-msgstr "15×11"
-
-msgid "150 mm/sec."
-msgstr "150 毫米/秒"
-
-msgid "150dpi"
-msgstr "150 dpi"
-
-msgid "16"
-msgstr "16"
-
-msgid "17"
-msgstr "17"
-
-msgid "18"
-msgstr "18"
-
-msgid "180dpi"
-msgstr "180 dpi"
-
-msgid "19"
-msgstr "19"
-
-msgid "2"
-msgstr "2"
-
-msgid "2 inches/sec."
-msgstr "2 英寸/秒"
-
-msgid "2-Sided Printing"
-msgstr "双面打印"
-
-msgid "2.00x0.37\""
-msgstr "2.00×0.37 英寸"
-
-msgid "2.00x0.50\""
-msgstr "2.00×0.50 英寸"
-
-msgid "2.00x1.00\""
-msgstr "2.00×1.00 英寸"
-
-msgid "2.00x1.25\""
-msgstr "2.00×1.25 英寸"
-
-msgid "2.00x2.00\""
-msgstr "2.00×2.00 英寸"
-
-msgid "2.00x3.00\""
-msgstr "2.00×3.00 英寸"
-
-msgid "2.00x4.00\""
-msgstr "2.00×4.00 英寸"
-
-msgid "2.00x5.50\""
-msgstr "2.00×5.50 英寸"
-
-msgid "2.25x0.50\""
-msgstr "2.25×0.50 英寸"
-
-msgid "2.25x1.25\""
-msgstr "2.25×1.25 英寸"
-
-msgid "2.25x4.00\""
-msgstr "2.25×4.00 英寸"
-
-msgid "2.25x5.50\""
-msgstr "2.25×5.50 英寸"
-
-msgid "2.38x5.50\""
-msgstr "2.38×5.50 英寸"
-
-msgid "2.5 inches/sec."
-msgstr "2.5 英寸/秒"
-
-msgid "2.50x1.00\""
-msgstr "2.50×1.00 英寸"
-
-msgid "2.50x2.00\""
-msgstr "2.50×2.00 英寸"
-
-msgid "2.75x1.25\""
-msgstr "2.75×1.25 英寸"
-
-msgid "2.9 x 1\""
-msgstr "2.9×1 英寸"
-
-msgid "20"
-msgstr "20"
-
-msgid "20 mm/sec."
-msgstr "20 毫米/秒"
-
-msgid "200 mm/sec."
-msgstr "200 毫米/秒"
-
-msgid "203dpi"
-msgstr "203 dpi"
-
-msgid "21"
-msgstr "21"
-
-msgid "22"
-msgstr "22"
-
-msgid "23"
-msgstr "23"
-
-msgid "24"
-msgstr "24"
-
-msgid "24-Pin Series"
-msgstr "24 针序列"
-
-msgid "240x72dpi"
-msgstr "240×72 dpi"
-
-msgid "25"
-msgstr "25"
-
-msgid "250 mm/sec."
-msgstr "250 毫米/秒"
-
-msgid "26"
-msgstr "26"
-
-msgid "27"
-msgstr "27"
-
-msgid "28"
-msgstr "28"
-
-msgid "29"
-msgstr "29"
-
-msgid "3"
-msgstr "3"
-
-msgid "3 inches/sec."
-msgstr "3 英寸/秒"
-
-msgid "3 x 5"
-msgstr "3×5"
-
-msgid "3.00x1.00\""
-msgstr "3.00×1.00 英寸"
-
-msgid "3.00x1.25\""
-msgstr "3.00×1.25 英寸"
-
-msgid "3.00x2.00\""
-msgstr "3.00×2.00 英寸"
-
-msgid "3.00x3.00\""
-msgstr "3.00×3.00 英寸"
-
-msgid "3.00x4.00\""
-msgstr ""
-
-msgid "3.00x5.00\""
-msgstr "3.00×5.00 英寸"
-
-msgid "3.00x6.00\""
-msgstr ""
-
-msgid "3.00x8.00\""
-msgstr ""
-
-msgid "3.25x2.00\""
-msgstr "3.25×2.00 英寸"
-
-msgid "3.25x5.00\""
-msgstr "3.25×5.00 英寸"
-
-msgid "3.25x5.50\""
-msgstr "3.25×5.50 英寸"
-
-msgid "3.25x5.83\""
-msgstr "3.25×5.83 英寸"
-
-msgid "3.25x7.83\""
-msgstr "3.25×7.83 英寸"
-
-msgid "3.5 x 5"
-msgstr "3.5×5"
-
-msgid "3.5\" Disk"
-msgstr "3.5 英寸磁盘"
-
-msgid "3.50x1.00\""
-msgstr "3.50×1.00 英寸"
-
-msgid "30"
-msgstr "30"
-
-msgid "30 mm/sec."
-msgstr "30 毫米/秒"
-
-msgid "300 mm/sec."
-msgstr "300 毫米/秒"
-
-msgid "300dpi"
-msgstr "300 dpi"
-
-msgid "30859 Paint Can Label"
-msgstr ""
-
-msgid "35"
-msgstr "35"
-
-msgid "360dpi"
-msgstr "360 dpi"
-
-msgid "360x180dpi"
-msgstr "360×180 dpi"
-
-msgid "4"
-msgstr "4"
-
-msgid "4 inches/sec."
-msgstr "4 英寸/秒"
-
-msgid "4.00x1.00\""
-msgstr "4.00×1.00 英寸"
-
-msgid "4.00x13.00\""
-msgstr "4.00×13.00 英寸"
-
-msgid "4.00x2.00\""
-msgstr "4.00×2.00 英寸"
-
-msgid "4.00x2.50\""
-msgstr "4.00×2.50 英寸"
-
-msgid "4.00x3.00\""
-msgstr "4.00×3.00 英寸"
-
-msgid "4.00x4.00\""
-msgstr "4.00×4.00 英寸"
-
-msgid "4.00x5.00\""
-msgstr "4.00×5.00 英寸"
-
-msgid "4.00x6.00\""
-msgstr "4.00×6.00 英寸"
-
-msgid "4.00x6.50\""
-msgstr "4.00×6.50 英寸"
-
-msgid "4.00x8.00\""
-msgstr ""
-
-msgid "40"
-msgstr "40"
-
-msgid "40 mm/sec."
-msgstr "40 毫米/秒"
-
-msgid "45"
-msgstr "45"
-
-msgid "5"
-msgstr "5"
-
-msgid "5 inches/sec."
-msgstr "5 英寸/秒"
-
-msgid "5 x 7"
-msgstr "5×7"
-
-msgid "50"
-msgstr "50"
-
-msgid "55"
-msgstr "55"
-
-msgid "6"
-msgstr "6"
-
-msgid "6 inches/sec."
-msgstr "6 英寸/秒"
-
-msgid "6.00x1.00\""
-msgstr "6.00×1.00 英寸"
-
-msgid "6.00x2.00\""
-msgstr "6.00×2.00 英寸"
-
-msgid "6.00x3.00\""
-msgstr "6.00×3.00 英寸"
-
-msgid "6.00x4.00\""
-msgstr "6.00×4.00 英寸"
-
-msgid "6.00x5.00\""
-msgstr "6.00×5.00 英寸"
-
-msgid "6.00x6.00\""
-msgstr "6.00×6.00 英寸"
-
-msgid "6.00x6.50\""
-msgstr "6.00×6.50 英寸"
-
-msgid "6.00x8.00\""
-msgstr ""
-
-msgid "60"
-msgstr "60"
-
-msgid "60 mm/sec."
-msgstr "60 毫米/秒"
-
-msgid "600dpi"
-msgstr "600 dpi"
-
-msgid "60dpi"
-msgstr "60 dpi"
-
-msgid "60x72dpi"
-msgstr "60×72 dpi"
-
-msgid "65"
-msgstr "65"
-
-msgid "7"
-msgstr "7"
-
-msgid "7 inches/sec."
-msgstr "7 英寸/秒"
-
-msgid "7 x 9"
-msgstr "7×9"
-
-msgid "70"
-msgstr "70"
-
-msgid "75"
-msgstr "75"
-
-msgid "8"
-msgstr "8"
-
-msgid "8 inches/sec."
-msgstr "8 英寸/秒"
-
-msgid "8 x 10"
-msgstr "8×10"
-
-msgid "8.00x1.00\""
-msgstr "8.00×1.00 英寸"
-
-msgid "8.00x2.00\""
-msgstr "8.00×2.00 英寸"
-
-msgid "8.00x3.00\""
-msgstr "8.00×3.00 英寸"
-
-msgid "8.00x4.00\""
-msgstr "8.00×4.00 英寸"
-
-msgid "8.00x5.00\""
-msgstr "8.00×5.00 英寸"
-
-msgid "8.00x6.00\""
-msgstr "8.00×6.00 英寸"
-
-msgid "8.00x6.50\""
-msgstr "8.00×6.50 英寸"
-
-msgid "8.26x1.00\""
-msgstr ""
-
-msgid "80"
-msgstr "80"
-
-msgid "80 mm/sec."
-msgstr "80 毫米/秒"
-
-msgid "80x50mm"
-msgstr ""
-
-msgid "85"
-msgstr "85"
-
-msgid "9"
-msgstr "9"
-
-msgid "9 inches/sec."
-msgstr "9 英寸/秒"
-
-msgid "9 x 11"
-msgstr "9×11"
-
-msgid "9 x 12"
-msgstr "9×12"
-
-msgid "9-Pin Series"
-msgstr "9 针序列"
-
-msgid "90"
-msgstr "90"
-
-msgid "95"
-msgstr "95"
-
 msgid "?Invalid help command unknown."
 msgstr "?无效 未知帮助命令。"
 
@@ -2782,108 +2171,6 @@ msgstr "已存在名为“%s”的类。"
 #, c-format
 msgid "A printer named \"%s\" already exists."
 msgstr "已存在名为“%s”的打印机。"
-
-msgid "A0"
-msgstr "A0"
-
-msgid "A0 Long Edge"
-msgstr "A0 长边"
-
-msgid "A1"
-msgstr "A1"
-
-msgid "A1 Long Edge"
-msgstr "A1 长边"
-
-msgid "A10"
-msgstr "A10"
-
-msgid "A2"
-msgstr "A2"
-
-msgid "A2 Long Edge"
-msgstr "A2 长边"
-
-msgid "A3"
-msgstr "A3"
-
-msgid "A3 Long Edge"
-msgstr "A3 长边"
-
-msgid "A3 Oversize"
-msgstr "A3 加大"
-
-msgid "A3 Oversize Long Edge"
-msgstr "A3 加大 长边"
-
-msgid "A4"
-msgstr "A4"
-
-msgid "A4 Long Edge"
-msgstr "A4 长边"
-
-msgid "A4 Oversize"
-msgstr "A4 加大"
-
-msgid "A4 Small"
-msgstr "A4 小号"
-
-msgid "A5"
-msgstr "A5"
-
-msgid "A5 Long Edge"
-msgstr "A5 长边"
-
-msgid "A5 Oversize"
-msgstr "A5 加大"
-
-msgid "A6"
-msgstr "A6"
-
-msgid "A6 Long Edge"
-msgstr "A6 长边"
-
-msgid "A7"
-msgstr "A7"
-
-msgid "A8"
-msgstr "A8"
-
-msgid "A9"
-msgstr "A9"
-
-msgid "ANSI A"
-msgstr "ANSI A"
-
-msgid "ANSI B"
-msgstr "ANSI B"
-
-msgid "ANSI C"
-msgstr "ANSI C"
-
-msgid "ANSI D"
-msgstr "ANSI D"
-
-msgid "ANSI E"
-msgstr "ANSI E"
-
-msgid "ARCH C"
-msgstr "ARCH C"
-
-msgid "ARCH C Long Edge"
-msgstr "ARCH C 长边缘"
-
-msgid "ARCH D"
-msgstr "ARCH D"
-
-msgid "ARCH D Long Edge"
-msgstr "ARCH D 长边缘"
-
-msgid "ARCH E"
-msgstr "ARCH E"
-
-msgid "ARCH E Long Edge"
-msgstr "ARCH E 长边缘"
 
 msgid "Accept Jobs"
 msgstr "接受任务"
@@ -2897,24 +2184,19 @@ msgstr "添加类"
 msgid "Add Printer"
 msgstr "添加打印机"
 
-msgid "Address"
-msgstr "地址"
-
 msgid "Administration"
 msgstr "管理"
-
-msgid "Always"
-msgstr "总是"
 
 msgid "AppSocket/HP JetDirect"
 msgstr "AppSocket/HP JetDirect"
 
-msgid "Applicator"
-msgstr "涂药器"
-
 #, c-format
 msgid "Attempt to set %s printer-state to bad value %d."
 msgstr "尝试设置 %s 打印机状态为无效值 %d。"
+
+#, c-format
+msgid "Attribute \"%s\" has empty value."
+msgstr ""
 
 #, c-format
 msgid "Attribute \"%s\" is in the wrong group."
@@ -2927,42 +2209,6 @@ msgstr "属性“%s”不是正确的值类型。"
 #, c-format
 msgid "Attribute groups are out of order (%x < %x)."
 msgstr "属性组排序错乱 (%x < %x)。"
-
-msgid "B0"
-msgstr "B0"
-
-msgid "B1"
-msgstr "B1"
-
-msgid "B10"
-msgstr "B10"
-
-msgid "B2"
-msgstr "B2"
-
-msgid "B3"
-msgstr "B3"
-
-msgid "B4"
-msgstr "B4"
-
-msgid "B5"
-msgstr "B5"
-
-msgid "B5 Oversize"
-msgstr "B5 超大"
-
-msgid "B6"
-msgstr "B6"
-
-msgid "B7"
-msgstr "B7"
-
-msgid "B8"
-msgstr "B8"
-
-msgid "B9"
-msgstr "B9"
 
 #, c-format
 msgid "Bad \"printer-id\" value %d."
@@ -3035,6 +2281,9 @@ msgstr "无效的 document-format 值“%s”。"
 msgid "Bad document-format-default \"%s\"."
 msgstr "无效的 document-format-default 值“%s”。"
 
+msgid "Bad extKeyUsage extension in X.509 certificate request."
+msgstr ""
+
 msgid "Bad filename buffer"
 msgstr "无效的文件名缓存"
 
@@ -3064,6 +2313,9 @@ msgstr "无效的 job-state 值。"
 #, c-format
 msgid "Bad job-uri \"%s\"."
 msgstr "无效的 job-uri 值“%s”。"
+
+msgid "Bad keyUsage extension in X.509 certificate request."
+msgstr ""
 
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
@@ -3113,6 +2365,9 @@ msgstr "URI 中的资源无效"
 msgid "Bad scheme in URI"
 msgstr "URI 中的方案无效"
 
+msgid "Bad subjectAltName extension in X.509 certificate request."
+msgstr ""
+
 msgid "Bad username in URI"
 msgstr "URI 中的用户名无效"
 
@@ -3125,24 +2380,12 @@ msgstr "无效或空的 URI"
 msgid "Banners"
 msgstr "条幅"
 
-msgid "Bond Paper"
-msgstr "证券纸"
-
-msgid "Booklet"
-msgstr "册子"
-
 #, c-format
 msgid "Boolean expected for waiteof option \"%s\"."
 msgstr "waiteof 选项“%s”预期布里值。"
 
 msgid "Buffer overflow detected, aborting."
 msgstr "检测到缓冲区溢出，正在中止。"
-
-msgid "CMYK"
-msgstr "CMYK"
-
-msgid "CPCL Label Printer"
-msgstr "CPCL 标签打印机"
 
 msgid "Cancel Jobs"
 msgstr "取消任务"
@@ -3155,9 +2398,6 @@ msgstr "无法为远程队列更改 printer-is-shared 值。"
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr "无法共享远程的通过 Kerberos 授权的打印机。"
-
-msgid "Cassette"
-msgstr "纸盒"
 
 msgid "Change Settings"
 msgstr "更改选项"
@@ -3177,9 +2417,6 @@ msgstr "Close-Job 指令不支持 job-uri 属性。"
 
 msgid "Color"
 msgstr "彩色"
-
-msgid "Color Mode"
-msgstr "色彩模式"
 
 msgid ""
 "Commands may be abbreviated.  Commands are:\n"
@@ -3202,17 +2439,21 @@ msgstr "正在连接到打印机。"
 msgid "Continue"
 msgstr "继续"
 
-msgid "Continuous"
-msgstr "连续"
-
 msgid "Control file sent successfully."
 msgstr "已成功发送控制文件。"
 
 msgid "Copying print data."
 msgstr "正在复制打印数据。"
 
+#, c-format
+msgid "Couldn't resolve mDNS URI \"%s\"."
+msgstr ""
+
 msgid "Created"
 msgstr "创建时间"
+
+msgid "Credentials are not CA-signed."
+msgstr ""
 
 msgid "Credentials do not validate against site CA certificate."
 msgstr "无法与站点 CA 证书验证凭据。"
@@ -3222,27 +2463,6 @@ msgstr "凭据已过期。"
 
 msgid "Custom"
 msgstr "自定义"
-
-msgid "CustominCutInterval"
-msgstr "CustominCutInterval"
-
-msgid "CustominTearInterval"
-msgstr "CustominTearInterval"
-
-msgid "Cut"
-msgstr "剪切"
-
-msgid "Cutter"
-msgstr "车床刀具"
-
-msgid "DYMO"
-msgstr ""
-
-msgid "Dark"
-msgstr "暗色"
-
-msgid "Darkness"
-msgstr "暗度"
 
 msgid "Data file sent successfully."
 msgstr "已成功发送数据文件。"
@@ -3258,9 +2478,6 @@ msgstr "删除类"
 
 msgid "Delete Printer"
 msgstr "删除打印机"
-
-msgid "DeskJet Series"
-msgstr "DeskJet 系列"
 
 #, c-format
 msgid "Destination \"%s\" is not accepting jobs."
@@ -3291,9 +2508,6 @@ msgstr ""
 "\tdevice-id = %s\n"
 "\tlocation = %s"
 
-msgid "Direct Thermal Media"
-msgstr "直接热敏介质"
-
 #, c-format
 msgid "Directory \"%s\" contains a relative path."
 msgstr "目录“%s”包含相对路径。"
@@ -3314,24 +2528,9 @@ msgstr "目录“%s”不可用：%s"
 msgid "Directory \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
 msgstr "目录“%s”的权限许可无问题 (0%o/uid=%d/gid=%d)。"
 
-msgid "Disabled"
-msgstr "已禁用"
-
 #, c-format
 msgid "Document #%d does not exist in job #%d."
 msgstr "任务 #%2$d 中不包含文档 #%1$d。"
-
-msgid "Draft"
-msgstr "草稿"
-
-msgid "Duplexer"
-msgstr "双面打印器"
-
-msgid "EPL1 Label Printer"
-msgstr "EPL1 标签打印机"
-
-msgid "EPL2 Label Printer"
-msgstr "EPL2 标签打印机"
 
 msgid "Edit Configuration File"
 msgstr "编辑配置文件"
@@ -3343,9 +2542,6 @@ msgstr "不支持加密。"
 msgid "Ending Banner"
 msgstr "结尾横幅"
 
-msgid "English"
-msgstr "英语"
-
 msgid ""
 "Enter your username and password or the root username and password to access "
 "this page. If you are using Kerberos authentication, make sure you have a "
@@ -3354,170 +2550,8 @@ msgstr ""
 "输入你的用户名和密码或 root 的用户名和密码以访问此页面。如果您正在使用 "
 "Kerberos 认证，请求确定您拥有有效的 Kerberos 凭据。"
 
-msgid "Envelope #10"
-msgstr "国际信封 (Envelope) 10 号"
-
-msgid "Envelope #11"
-msgstr "国际信封 (Envelope) 11 号"
-
-msgid "Envelope #12"
-msgstr "国际信封 (Envelope) 12 号"
-
-msgid "Envelope #14"
-msgstr "国际信封 (Envelope) 14 号"
-
-msgid "Envelope #9"
-msgstr "国际信封 (Envelope) 9 号"
-
-msgid "Envelope B4"
-msgstr "国际信封 (Envelope) B4"
-
-msgid "Envelope B5"
-msgstr "国际信封 (Envelope) B5"
-
-msgid "Envelope B6"
-msgstr "国际信封 (Envelope) B6"
-
-msgid "Envelope C0"
-msgstr "国际信封 (Envelope) C0"
-
-msgid "Envelope C1"
-msgstr "国际信封 (Envelope) C1"
-
-msgid "Envelope C2"
-msgstr "国际信封 (Envelope) C2"
-
-msgid "Envelope C3"
-msgstr "国际信封 (Envelope) C3"
-
-msgid "Envelope C4"
-msgstr "国际信封 (Envelope) C4"
-
-msgid "Envelope C5"
-msgstr "国际信封 (Envelope) C5"
-
-msgid "Envelope C6"
-msgstr "国际信封 (Envelope) C6"
-
-msgid "Envelope C65"
-msgstr "国际信封 (Envelope) C65"
-
-msgid "Envelope C7"
-msgstr "国际信封 (Envelope) C7"
-
-msgid "Envelope Choukei 3"
-msgstr "日本信封长形 3 号"
-
-msgid "Envelope Choukei 3 Long Edge"
-msgstr "日本信封长形 3 号 长边"
-
-msgid "Envelope Choukei 4"
-msgstr "日本信封长形 4 号"
-
-msgid "Envelope Choukei 4 Long Edge"
-msgstr "日本信封长形 4 号 长边"
-
-msgid "Envelope DL"
-msgstr "国际信封 (Envelope) DL"
-
-msgid "Envelope Feed"
-msgstr "国际信封自供 (Envelope Feed)"
-
-msgid "Envelope Invite"
-msgstr "国际信封意式 (Envelope Italian)"
-
-msgid "Envelope Italian"
-msgstr "国际信封意式 (Envelope Italian)"
-
-msgid "Envelope Kaku2"
-msgstr "日本信封角形 2 号"
-
-msgid "Envelope Kaku2 Long Edge"
-msgstr "日本信封角形 2 号 长边"
-
-msgid "Envelope Kaku3"
-msgstr "日本信封角形 3 号"
-
-msgid "Envelope Kaku3 Long Edge"
-msgstr "日本信封角形 3 号 长边"
-
-msgid "Envelope Monarch"
-msgstr "美国信封君王 (Envelope Monarch)"
-
-msgid "Envelope PRC1"
-msgstr "中国大陆信封 1 号"
-
-msgid "Envelope PRC1 Long Edge"
-msgstr "中国大陆信封 1 号 长边"
-
-msgid "Envelope PRC10"
-msgstr "中国大陆信封 10 号"
-
-msgid "Envelope PRC10 Long Edge"
-msgstr "中国大陆信封 10 号长边"
-
-msgid "Envelope PRC2"
-msgstr "中国大陆信封 2 号"
-
-msgid "Envelope PRC2 Long Edge"
-msgstr "中国大陆信封 2 号 长边"
-
-msgid "Envelope PRC3"
-msgstr "中国大陆信封 3 号"
-
-msgid "Envelope PRC3 Long Edge"
-msgstr "中国大陆信封 3 号 长边"
-
-msgid "Envelope PRC4"
-msgstr "中国大陆信封 4 号"
-
-msgid "Envelope PRC4 Long Edge"
-msgstr "中国大陆信封 4 号 长边"
-
-msgid "Envelope PRC5 Long Edge"
-msgstr "中国大陆信封 5 号 长边"
-
-msgid "Envelope PRC5PRC5"
-msgstr "中国大陆信封 5 号"
-
-msgid "Envelope PRC6"
-msgstr "中国大陆信封 6 号"
-
-msgid "Envelope PRC6 Long Edge"
-msgstr "中国大陆信封 6 号 长边"
-
-msgid "Envelope PRC7"
-msgstr "中国大陆信封 7 号"
-
-msgid "Envelope PRC7 Long Edge"
-msgstr "中国大陆信封 7 号 长边"
-
-msgid "Envelope PRC8"
-msgstr "中国大陆信封 8 号"
-
-msgid "Envelope PRC8 Long Edge"
-msgstr "中国大陆信封 8 号 长边"
-
-msgid "Envelope PRC9"
-msgstr "中国大陆信封 9 号"
-
-msgid "Envelope PRC9 Long Edge"
-msgstr "中国大陆信封 9 号 长边"
-
-msgid "Envelope Personal"
-msgstr "美国信封个人 (Envelope Personal)"
-
-msgid "Envelope You4"
-msgstr "日本信封洋形 4 号"
-
-msgid "Envelope You4 Long Edge"
-msgstr "日本信封洋形 4 号 长边"
-
 msgid "Environment Variables:"
 msgstr "环境变量："
-
-msgid "Epson"
-msgstr "Epson"
 
 msgid "Error Policy"
 msgstr "错误策略"
@@ -3530,45 +2564,6 @@ msgstr "发送栅格化数据出错。"
 
 msgid "Error: need hostname after \"-h\" option."
 msgstr "错误：“-h”选项后需要主机名。"
-
-msgid "European Fanfold"
-msgstr "欧洲连张 (Fanfold)"
-
-msgid "European Fanfold Legal"
-msgstr "欧洲连张法律 (Fanfold Legal)"
-
-msgid "Every 10 Labels"
-msgstr "每 10 个标签"
-
-msgid "Every 2 Labels"
-msgstr "每 2 个标签"
-
-msgid "Every 3 Labels"
-msgstr "每 3 个标签"
-
-msgid "Every 4 Labels"
-msgstr "每 4 个标签"
-
-msgid "Every 5 Labels"
-msgstr "每 5 个标签"
-
-msgid "Every 6 Labels"
-msgstr "每 6 个标签"
-
-msgid "Every 7 Labels"
-msgstr "每 7 个标签"
-
-msgid "Every 8 Labels"
-msgstr "每 8 个标签"
-
-msgid "Every 9 Labels"
-msgstr "每 9 个标签"
-
-msgid "Every Label"
-msgstr "每个标签"
-
-msgid "Executive"
-msgstr "执行"
 
 msgid "Expectation Failed"
 msgstr "未满足期望"
@@ -3599,9 +2594,6 @@ msgstr "文件“%s”不可用：%s"
 msgid "File \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
 msgstr "文件“%s”的权限许可无问题 (0%o/uid=%d/gid=%d)。"
 
-msgid "File Folder"
-msgstr "文件夹"
-
 #, c-format
 msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
@@ -3614,17 +2606,11 @@ msgstr ""
 msgid "Finished page %d."
 msgstr "已完成第 %d 页。"
 
-msgid "Finishing Preset"
-msgstr "结尾预设"
-
-msgid "Fold"
-msgstr "折纸"
-
-msgid "Folio"
-msgstr "对开本"
-
 msgid "Forbidden"
 msgstr "已禁止"
+
+msgid "Form data too large."
+msgstr ""
 
 msgid "Found"
 msgstr "已发现"
@@ -3632,14 +2618,8 @@ msgstr "已发现"
 msgid "General"
 msgstr "常规"
 
-msgid "Generic"
-msgstr "通用"
-
 msgid "Get-Response-PDU uses indefinite length"
 msgstr "Get-Response-PDU 使用无限长度"
-
-msgid "Glossy Paper"
-msgstr "光面纸"
 
 msgid "Got a printer-uri attribute but no job-id."
 msgstr "获取到了 printer-uri 属性却未获取到 job-id。"
@@ -3650,23 +2630,20 @@ msgstr ""
 msgid "Grayscale"
 msgstr "灰度"
 
-msgid "HP"
-msgstr "HP"
-
-msgid "Hanging Folder"
-msgstr "倒挂文件夹"
-
 msgid "Hash buffer too small."
 msgstr "哈希值缓冲区太小。"
 
 msgid "Help file not in index."
 msgstr "帮助文件不在索引中。"
 
-msgid "High"
-msgstr "高"
+msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
+msgstr ""
 
 msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr "带有不兼容值标签的 IPP 1setOf 属性。"
+
+msgid "IPP Everywhere driver requires an IPP connection."
+msgstr ""
 
 msgid "IPP attribute has no name."
 msgstr "IPP 属性未命名。"
@@ -3689,9 +2666,6 @@ msgstr "IPP endCollection 值大小不是 0 字节。"
 msgid "IPP enum value not 4 bytes."
 msgstr "IPP enum 值大小不是 4 字节。"
 
-msgid "IPP extension tag larger than 0x7FFFFFFF."
-msgstr "IPP 扩展标签大于 0x7FFFFFFF。"
-
 msgid "IPP integer value not 4 bytes."
 msgstr "IPP 整数值大小不是 4 字节。"
 
@@ -3701,14 +2675,17 @@ msgstr "IPP 语言长度溢出值限制。"
 msgid "IPP language length too large."
 msgstr "IPP 语言长度太长。"
 
+msgid "IPP member attribute outside of collection."
+msgstr ""
+
 msgid "IPP member name is not empty."
 msgstr "IPP 成员名称非空。"
 
 msgid "IPP memberName value is empty."
 msgstr "IPP memberName 值为空。"
 
-msgid "IPP memberName with no attribute."
-msgstr "IPP memberName 无属性。"
+msgid "IPP message nested too deeply."
+msgstr ""
 
 msgid "IPP name larger than 32767 bytes."
 msgstr "IPP 名称大小超过 32767 字节。"
@@ -3760,9 +2737,6 @@ msgstr ""
 msgid "IPPFIND_TXT_*           Value of TXT record key"
 msgstr ""
 
-msgid "ISOLatin1"
-msgstr "ISOLatin1"
-
 msgid "Illegal control character"
 msgstr "非法控制字符"
 
@@ -3778,32 +2752,23 @@ msgstr "非法翻译字串"
 msgid "Illegal whitespace character"
 msgstr "非法空白字符"
 
-msgid "Installable Options"
-msgstr "可安装选项"
-
-msgid "Installed"
-msgstr "已安装"
-
-msgid "IntelliBar Label Printer"
-msgstr "IntelliBar 标签打印机"
-
-msgid "Intellitech"
-msgstr "Intellitech"
-
 msgid "Internal Server Error"
 msgstr "内部服务器错误"
 
 msgid "Internal error"
 msgstr "内部错误"
 
-msgid "Internet Postage 2-Part"
-msgstr "网邮 2 部"
-
-msgid "Internet Postage 3-Part"
-msgstr "网邮 3 部"
-
 msgid "Internet Printing Protocol"
 msgstr "互联网打印协议"
+
+msgid "Invalid JSON data."
+msgstr ""
+
+msgid "Invalid JSON web token."
+msgstr ""
+
+msgid "Invalid form data."
+msgstr ""
 
 msgid "Invalid group tag."
 msgstr "无效的组标签。"
@@ -3827,47 +2792,8 @@ msgstr "无效的打印机命令“%s”。"
 msgid "JCL"
 msgstr "JCL"
 
-msgid "JIS B0"
-msgstr "JIS B0"
-
-msgid "JIS B1"
-msgstr "JIS B1"
-
-msgid "JIS B10"
-msgstr "JIS B10"
-
-msgid "JIS B2"
-msgstr "JIS B2"
-
-msgid "JIS B3"
-msgstr "JIS B3"
-
-msgid "JIS B4"
-msgstr "JIS B4"
-
-msgid "JIS B4 Long Edge"
-msgstr "JIS B4 长边"
-
-msgid "JIS B5"
-msgstr "JIS B5"
-
-msgid "JIS B5 Long Edge"
-msgstr "JIS B5 长边"
-
-msgid "JIS B6"
-msgstr "JIS B6"
-
-msgid "JIS B6 Long Edge"
-msgstr "JIS B6 长边"
-
-msgid "JIS B7"
-msgstr "JIS B7"
-
-msgid "JIS B8"
-msgstr "JIS B8"
-
-msgid "JIS B9"
-msgstr "JIS B9"
+msgid "JSON file too large."
+msgstr ""
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
@@ -3939,30 +2865,9 @@ msgid ""
 "LPDEST environment variable names default destination that does not exist."
 msgstr "LPDEST 环境变量所指定的默认目标不存在。"
 
-msgid "Label Printer"
-msgstr "标签打印机"
-
-msgid "Label Top"
-msgstr "标签顶部"
-
 #, c-format
 msgid "Language \"%s\" not supported."
 msgstr "不支持的语言“%s”。"
-
-msgid "Large Address"
-msgstr "大地址"
-
-msgid "LaserJet Series PCL 4/5"
-msgstr "LaserJet 系列 PCL 4/5"
-
-msgid "Letter Oversize"
-msgstr "信函超大"
-
-msgid "Letter Oversize Long Edge"
-msgstr "信函超大长边缘"
-
-msgid "Light"
-msgstr "轻"
 
 msgid "Line longer than the maximum allowed (255 characters)"
 msgstr "行长度超过允许的最大值 (255 字符)"
@@ -3977,32 +2882,14 @@ msgstr ""
 msgid "Local printer created."
 msgstr "已创建本地打印机。"
 
-msgid "Long-Edge (Portrait)"
-msgstr "长边翻转 (竖版)"
-
-msgid "Looking for printer."
-msgstr "正在寻找打印机。"
-
-msgid "Main Roll"
-msgstr ""
-
-msgid "Manual Feed"
-msgstr "手动供纸"
-
 msgid "Media Size"
 msgstr "媒体大小"
 
 msgid "Media Source"
 msgstr "媒体来源"
 
-msgid "Media Tracking"
-msgstr "媒体跟踪"
-
 msgid "Media Type"
 msgstr "媒体类型"
-
-msgid "Medium"
-msgstr "介质"
 
 msgid "Memory allocation error"
 msgstr "内存分配错误"
@@ -4104,9 +2991,6 @@ msgstr "名称 OID 使用不定长度"
 msgid "Nested classes are not allowed."
 msgstr "不允许嵌套类。"
 
-msgid "Never"
-msgstr "从不"
-
 msgid "New credentials are not valid for name."
 msgstr "新凭据不可用于名称。"
 
@@ -4143,9 +3027,6 @@ msgstr "请求中无属性。"
 
 msgid "No authentication information provided."
 msgstr "未提供认证信息。"
-
-msgid "No common name specified."
-msgstr "未指定通用名称。"
 
 msgid "No community name"
 msgstr "无社群名称"
@@ -4192,6 +3073,9 @@ msgstr "未找到类的 print-uri"
 msgid "No printer-uri in request."
 msgstr "请求中无 printer-uri。"
 
+msgid "No printer-uri-supported attribute."
+msgstr ""
+
 msgid "No request URI."
 msgstr "无请求 URI。"
 
@@ -4219,26 +3103,11 @@ msgstr "无 variable-bindings SEQUENCE"
 msgid "No version number"
 msgstr "无版本号"
 
-msgid "Non-continuous (Mark sensing)"
-msgstr "非连续 (标记嗅探)"
-
-msgid "Non-continuous (Web sensing)"
-msgstr "非连续 (Web 嗅探)"
-
-msgid "None"
-msgstr "无"
-
-msgid "Normal"
-msgstr "一般"
-
 msgid "Not Found"
 msgstr "未找到"
 
 msgid "Not Implemented"
 msgstr "未实现"
-
-msgid "Not Installed"
-msgstr "未安装"
 
 msgid "Not Modified"
 msgstr "未修改"
@@ -4249,20 +3118,14 @@ msgstr "未支持"
 msgid "Not allowed to print."
 msgstr "不允许打印。"
 
-msgid "Note"
-msgstr "美国笔记 (Note)"
-
 msgid "OK"
 msgstr "确定"
 
-msgid "Off (1-Sided)"
-msgstr "关 (单面打印)"
-
-msgid "Oki"
-msgstr "日冲"
-
 msgid "Online Help"
 msgstr "在线帮助"
+
+msgid "Only WGS-84 coordinates are supported."
+msgstr ""
 
 msgid "Only local users can create a local printer."
 msgstr "本地打印机只能使用本地用户创建。"
@@ -4305,27 +3168,6 @@ msgstr "内存耗尽。"
 msgid "Output Mode"
 msgstr "输出模式"
 
-msgid "PCL Laser Printer"
-msgstr "PCL 激光打印机"
-
-msgid "PRC16K"
-msgstr "中国大陆 16 开"
-
-msgid "PRC16K Long Edge"
-msgstr "中国大陆 16 开 长边"
-
-msgid "PRC32K"
-msgstr "中国大陆 32 开"
-
-msgid "PRC32K Long Edge"
-msgstr "中国大陆 32 开 长边"
-
-msgid "PRC32K Oversize"
-msgstr "中国大陆大 32 开"
-
-msgid "PRC32K Oversize Long Edge"
-msgstr "中国大陆大 32 开 长边"
-
 msgid ""
 "PRINTER environment variable names default destination that does not exist."
 msgstr "PRINTER 环境变量所指定的默认目标不存在。"
@@ -4335,12 +3177,6 @@ msgstr "包裹中未包含 Get-Response-PDU"
 
 msgid "Packet does not start with SEQUENCE"
 msgstr "包裹未使用 SEQUENCE 开头"
-
-msgid "ParamCustominCutInterval"
-msgstr "ParamCustominCutInterval"
-
-msgid "ParamCustominTearInterval"
-msgstr "ParamCustominTearInterval"
 
 #, c-format
 msgid "Password for %s on %s? "
@@ -4352,71 +3188,23 @@ msgstr "暂停类"
 msgid "Pause Printer"
 msgstr "暂停打印机"
 
-msgid "Peel-Off"
-msgstr "剥片"
-
-msgid "Photo"
-msgstr "照片"
-
-msgid "Photo Labels"
-msgstr "照片标签"
-
-msgid "Plain Paper"
-msgstr "普通纸"
-
 msgid "Policies"
 msgstr "策略"
 
 msgid "Port Monitor"
 msgstr "端口监视器"
 
-msgid "PostScript Printer"
-msgstr "PostScript 打印机"
-
-msgid "Postcard"
-msgstr "美国明信片 (Postcard)"
-
-msgid "Postcard Double"
-msgstr "美国明信片双倍 (Postcard Double)"
-
-msgid "Postcard Double Long Edge"
-msgstr "美国明信片双倍 (Postcard Double) 长边"
-
-msgid "Postcard Long Edge"
-msgstr "美国明信片 (Postcard) 长边"
-
 msgid "Preparing to print."
 msgstr "正在准备打印。"
-
-msgid "Print Density"
-msgstr "打印密度"
 
 msgid "Print Job:"
 msgstr "打印任务："
 
-msgid "Print Mode"
-msgstr "打印模式"
-
-msgid "Print Quality"
-msgstr "打印质量"
-
-msgid "Print Rate"
-msgstr "打印频率"
-
 msgid "Print Self-Test Page"
 msgstr "打印自检页"
 
-msgid "Print Speed"
-msgstr "打印速度"
-
 msgid "Print Test Page"
 msgstr "打印测试页"
-
-msgid "Print and Cut"
-msgstr "打印和裁剪"
-
-msgid "Print and Tear"
-msgstr "打印和撕纸"
 
 msgid "Print file sent."
 msgstr "已发送打印文件。"
@@ -4437,9 +3225,6 @@ msgstr "打印机“%s”已存在。"
 msgid "Printer Added"
 msgstr "已添加打印机"
 
-msgid "Printer Default"
-msgstr "打印机默认值"
-
 msgid "Printer Deleted"
 msgstr "已删除打印机"
 
@@ -4448,9 +3233,6 @@ msgstr "已编辑打印机"
 
 msgid "Printer Paused"
 msgstr "打印机已暂停"
-
-msgid "Printer Settings"
-msgstr "打印机设置"
 
 msgid "Printer cannot print supplied content."
 msgstr "打印机无法打印所提供的内容。"
@@ -4461,6 +3243,10 @@ msgstr "打印机无法使用所提供的选项打印。"
 msgid "Printer does not support required IPP attributes or document formats."
 msgstr "打印机不支持必要的 IPP 属性或文档格式。"
 
+#, c-format
+msgid "Printer returned invalid data: %s"
+msgstr ""
+
 msgid "Printer:"
 msgstr "打印机："
 
@@ -4470,12 +3256,6 @@ msgstr "打印机"
 #, c-format
 msgid "Printing page %d, %u%% complete."
 msgstr "正在打印第 %d 页，已完成 %u%%。"
-
-msgid "Punch"
-msgstr "冲压"
-
-msgid "Quarto"
-msgstr "美国四分 (Quarto)"
 
 msgid "Quota limit reached."
 msgstr "已达到限额上限。"
@@ -4497,9 +3277,6 @@ msgstr "远程主机未接受控制文件 (%d)。"
 msgid "Remote host did not accept data file (%d)."
 msgstr "远程主机未接受数据文件 (%d)。"
 
-msgid "Reprint After Error"
-msgstr "错误后重新打印"
-
 msgid "Request Entity Too Large"
 msgstr "请求的条目过大"
 
@@ -4512,20 +3289,11 @@ msgstr "继续类"
 msgid "Resume Printer"
 msgstr "继续打印机"
 
-msgid "Return Address"
-msgstr "返回地址"
-
-msgid "Rewind"
-msgstr "回退"
-
 msgid "SEQUENCE uses indefinite length"
 msgstr "SEQUENCE 使用不定长度"
 
 msgid "SSL/TLS Negotiation Error"
 msgstr "SSL/TLS 协商错误"
-
-msgid "Second Roll (DUO/Twin Only)"
-msgstr ""
 
 msgid "See Other"
 msgstr "查看其他"
@@ -4569,27 +3337,9 @@ msgstr "设置类选项"
 msgid "Set Printer Options"
 msgstr "设置打印机选项"
 
-msgid "Set Publishing"
-msgstr "设置出版"
-
-msgid "Shipping Address"
-msgstr "邮寄地址"
-
-msgid "Short-Edge (Landscape)"
-msgstr "短边翻转 (横版)"
-
-msgid "Special Paper"
-msgstr "特殊纸张"
-
 #, c-format
 msgid "Spooling job, %.0f%% complete."
 msgstr "正在转存任务，已完成 %.0f%%。"
-
-msgid "Standard"
-msgstr "标准"
-
-msgid "Staple"
-msgstr "装订"
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
 msgid "Starting Banner"
@@ -4599,9 +3349,6 @@ msgstr "起始横幅"
 msgid "Starting page %d."
 msgstr "正在开始第 %d 页。"
 
-msgid "Statement"
-msgstr "美国声明 (Statement)"
-
 #, c-format
 msgid "Subscription #%d does not exist."
 msgstr "订阅 #%d 不存在。"
@@ -4609,35 +3356,8 @@ msgstr "订阅 #%d 不存在。"
 msgid "Substitutions:"
 msgstr "替代："
 
-msgid "Super A"
-msgstr "美国相纸 (Super) A"
-
-msgid "Super B"
-msgstr "美国相纸 (Super) B"
-
-msgid "Super B/A3"
-msgstr "美国相纸 (Super) B/A3"
-
 msgid "Switching Protocols"
 msgstr "正在切换协议"
-
-msgid "Tabloid"
-msgstr "美国小报 (Tabloid)"
-
-msgid "Tabloid Oversize"
-msgstr "美国小报 (Tabloid) 加大"
-
-msgid "Tabloid Oversize Long Edge"
-msgstr "美国小报 (Tabloid) 加大 长边"
-
-msgid "Tear"
-msgstr "撕纸"
-
-msgid "Tear-Off"
-msgstr "撕纸"
-
-msgid "Tear-Off Adjust Position"
-msgstr "调整撕纸位置"
 
 #, c-format
 msgid "The \"%s\" attribute is required for print jobs."
@@ -4686,6 +3406,9 @@ msgstr "打印机配置不正确或打印机已不存在。"
 
 msgid "The printer did not respond."
 msgstr "打印机无响应。"
+
+msgid "The printer does not provide attributes required for IPP Everywhere."
+msgstr ""
 
 msgid "The printer is in use."
 msgstr "打印机正在使用中。"
@@ -4755,9 +3478,6 @@ msgstr "订阅过多。"
 msgid "There was an unrecoverable USB error."
 msgstr "遇到了不可恢复的 USB 错误。"
 
-msgid "Thermal Transfer Media"
-msgstr "热敏介质"
-
 msgid "Too many active jobs."
 msgstr "活动任务过多。"
 
@@ -4769,24 +3489,6 @@ msgstr "job-sheets 值过多 (%d > 2)。"
 msgid "Too many printer-state-reasons values (%d > %d)."
 msgstr "printer-state-reasons 值过多 (%d > %d)。"
 
-msgid "Transparency"
-msgstr "透明度"
-
-msgid "Tray"
-msgstr "托盘"
-
-msgid "Tray 1"
-msgstr "托盘 1"
-
-msgid "Tray 2"
-msgstr "托盘 2"
-
-msgid "Tray 3"
-msgstr "托盘 3"
-
-msgid "Tray 4"
-msgstr "托盘 4"
-
 msgid "Trust on first use is disabled."
 msgstr "初次使用信任已禁用。"
 
@@ -4795,33 +3497,6 @@ msgstr "URI 过长"
 
 msgid "URI too large"
 msgstr "URI 过大"
-
-msgid "US Fanfold"
-msgstr "美国连张 (Fanfold)"
-
-msgid "US Ledger"
-msgstr "美国账簿 (Ledger)"
-
-msgid "US Legal"
-msgstr "美国法律 (Legal)"
-
-msgid "US Legal Oversize"
-msgstr "美国法律 (Legal) 加大"
-
-msgid "US Letter"
-msgstr "美国信纸 (Letter)"
-
-msgid "US Letter Long Edge"
-msgstr "美国信纸 (Letter) 长边"
-
-msgid "US Letter Oversize"
-msgstr "美国信纸 (Letter) 加大"
-
-msgid "US Letter Oversize Long Edge"
-msgstr "美国信纸 (Letter) 加大 长边"
-
-msgid "US Letter Small"
-msgstr "美国信纸 (Letter) 小号"
 
 msgid "Unable to access cupsd.conf file"
 msgstr "无法访问 cupsd.conf 文件。"
@@ -4834,6 +3509,9 @@ msgstr "无法添加类"
 
 msgid "Unable to add document to print job."
 msgstr "无法向打印任务添加文档。"
+
+msgid "Unable to add extension to X.509 certificate."
+msgstr ""
 
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
@@ -4851,7 +3529,8 @@ msgstr "无法为页面信息分配内存"
 msgid "Unable to allocate memory for pages array"
 msgstr "无法为页面组分配内存"
 
-msgid "Unable to allocate memory for printer"
+#, c-format
+msgid "Unable to allocate memory for printer: %s"
 msgstr ""
 
 msgid "Unable to cancel print job."
@@ -4860,11 +3539,12 @@ msgstr "无法取消打印任务。"
 msgid "Unable to change printer"
 msgstr "无法更换打印机"
 
-msgid "Unable to change printer-is-shared attribute"
-msgstr "无法更改 printer-is-shared 属性"
-
 msgid "Unable to change server settings"
 msgstr "无法更改服务器选项"
+
+#, c-format
+msgid "Unable to commit PPD file: %s"
+msgstr ""
 
 #, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
@@ -4877,6 +3557,13 @@ msgstr "无法编译 naturalLanguage 正则表达式：%s。"
 msgid "Unable to configure printer options."
 msgstr "无法配置打印机选项。"
 
+msgid "Unable to configure private key context."
+msgstr ""
+
+#, c-format
+msgid "Unable to connect to %s:%d: %s"
+msgstr ""
+
 msgid "Unable to connect to host."
 msgstr "无法连接主机。"
 
@@ -4887,17 +3574,31 @@ msgstr "无法联系打印机，已列队于类中的下一台打印机。"
 msgid "Unable to copy PPD file - %s"
 msgstr "无法复制 PPD 文件 — %s"
 
-msgid "Unable to copy PPD file."
-msgstr "无法复制 PPD 文件。"
+#, c-format
+msgid "Unable to create PPD for printer: %s"
+msgstr ""
 
-msgid "Unable to create credentials from array."
-msgstr "无法从打印组创建服务器凭据。"
+#, c-format
+msgid "Unable to create PPD: %s"
+msgstr ""
+
+msgid "Unable to create X.509 certificate signing request."
+msgstr ""
+
+msgid "Unable to create X.509 certificate."
+msgstr ""
 
 msgid "Unable to create printer-uri"
 msgstr "无法创建 printer-uri。"
 
 msgid "Unable to create printer."
 msgstr "无法创建打印机。"
+
+msgid "Unable to create private key context."
+msgstr ""
+
+msgid "Unable to create private key."
+msgstr ""
 
 msgid "Unable to create server credentials."
 msgstr "无法创建服务器凭据。"
@@ -4922,51 +3623,14 @@ msgid "Unable to edit cupsd.conf files larger than 1MB"
 msgstr "无法编辑大小超过 1MB 的 cupsd.conf 文件"
 
 #, c-format
-msgid "Unable to establish a secure connection to host (%d)."
-msgstr ""
-
-msgid ""
-"Unable to establish a secure connection to host (certificate chain invalid)."
-msgstr "无法建立到主机的安全连接 (无效证书链)。"
-
-msgid ""
-"Unable to establish a secure connection to host (certificate not yet valid)."
-msgstr "无法建立到主机的安全连接 (证书尚未生效)。"
-
-msgid "Unable to establish a secure connection to host (expired certificate)."
-msgstr "无法建立到主机的安全连接 (证书已过期)。"
-
-msgid "Unable to establish a secure connection to host (host name mismatch)."
-msgstr "无法建立到主机的安全连接 (主机名不匹配)。"
-
-msgid ""
-"Unable to establish a secure connection to host (peer dropped connection "
-"before responding)."
-msgstr "无法建立到主机的安全连接 (对方在回复前断开连接)。"
-
-msgid ""
-"Unable to establish a secure connection to host (self-signed certificate)."
-msgstr "无法建立到主机的安全连接 (自签发证书)。"
-
-msgid ""
-"Unable to establish a secure connection to host (untrusted certificate)."
-msgstr "无法建立到主机的安全连接 (未信任的证书)。"
-
-msgid "Unable to establish a secure connection to host."
-msgstr "无法建立到主机的安全连接。"
-
-#, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "找不到任务目的地"
 
-msgid "Unable to find printer."
-msgstr "找不到打印机。"
-
-msgid "Unable to find server credentials."
-msgstr "找不到服务器凭据。"
+msgid "Unable to finish request."
+msgstr ""
 
 msgid "Unable to get backend exit status."
 msgstr "无法获取后端退出状态。"
@@ -4991,6 +3655,18 @@ msgstr "无法获取打印机状态"
 
 msgid "Unable to get printer status."
 msgstr "无法获取打印机状态。"
+
+msgid "Unable to import X.509 certificate request."
+msgstr ""
+
+msgid "Unable to import credentials."
+msgstr ""
+
+msgid "Unable to initialize private key context."
+msgstr ""
+
+msgid "Unable to load X.509 CA certificate and private key."
+msgstr ""
 
 msgid "Unable to load help index."
 msgstr "无法载入帮助索引。"
@@ -5039,11 +3715,17 @@ msgstr "无法打开栅格文件"
 msgid "Unable to print test page"
 msgstr "无法打印测试页"
 
+#, c-format
+msgid "Unable to read generated PPD: %s"
+msgstr ""
+
 msgid "Unable to read print data."
 msgstr "无法读取打印数据。"
 
-#, c-format
-msgid "Unable to register \"%s.%s\": %d"
+msgid "Unable to read response."
+msgstr ""
+
+msgid "Unable to reallocate IPP attribute value."
 msgstr ""
 
 msgid "Unable to rename job document file."
@@ -5051,6 +3733,18 @@ msgstr "无法重命名任务文档。"
 
 msgid "Unable to resolve printer-uri."
 msgstr "无法解析 printer-uri。"
+
+#, c-format
+msgid "Unable to run cups-driverd: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save PPD file: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save value for \"%s\" with a temporary printer."
+msgstr ""
 
 # "Unable to read file" perhaps?
 msgid "Unable to see in file"
@@ -5077,8 +3771,23 @@ msgstr "无法上传 cupsd.conf 文件"
 msgid "Unable to use legacy USB class driver."
 msgstr "无法使用老式 USB 类驱动。"
 
+msgid "Unable to verify X.509 certificate request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate signing request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate."
+msgstr ""
+
 msgid "Unable to write print data"
 msgstr "无法写入打印数据"
+
+msgid "Unable to write private key."
+msgstr ""
+
+msgid "Unable to write public key."
+msgstr ""
 
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
@@ -5096,10 +3805,6 @@ msgstr "未知"
 #, c-format
 msgid "Unknown choice \"%s\" for option \"%s\"."
 msgstr "选项“%2$s”带有未知选择“%1$s”。"
-
-#, c-format
-msgid "Unknown directive \"%s\" on line %d of \"%s\" ignored."
-msgstr ""
 
 #, c-format
 msgid "Unknown encryption option value: \"%s\"."
@@ -5236,8 +3941,8 @@ msgstr "用法：cupsctl [options] [param=value ... paramN=valueN]"
 msgid "Usage: cupsd [options]"
 msgstr "用法：cupsd [options]"
 
-msgid "Usage: cupsfilter [ options ] [ -- ] filename"
-msgstr "用法：cupsfilter [ options ] [ -- ] filename"
+msgid "Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"
+msgstr ""
 
 msgid ""
 "Usage: cupstestppd [options] filename1.ppd[.gz] [... filenameN.ppd[.gz]]\n"
@@ -5329,6 +4034,9 @@ msgstr "用法：snmp [host-or-ip-address]"
 msgid "Using spool directory \"%s\"."
 msgstr ""
 
+msgid "Validation of subjectAltName in X.509 certificate request failed."
+msgstr ""
+
 msgid "Value uses indefinite length"
 msgstr "Value 使用不定长度"
 
@@ -5365,12 +4073,6 @@ msgstr "你必须通过此 URL 访问此页面：https://%s:%d%s"
 
 msgid "Your account does not have the necessary privileges."
 msgstr ""
-
-msgid "ZPL Label Printer"
-msgstr "ZPL 标签打印机"
-
-msgid "Zebra"
-msgstr "Zebra"
 
 msgid "aborted"
 msgstr "已中止"
@@ -5662,6 +4364,9 @@ msgstr "无法执行 cups-deviced。"
 
 msgid "cups-driverd failed to execute."
 msgstr "无法执行 cups-driverd。"
+
+msgid "cups-driverd failed to get PPD file - see error_log for details."
+msgstr ""
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
@@ -7019,10 +5724,6 @@ msgid "insert-sheet"
 msgstr ""
 
 #, c-format
-msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
-msgstr ""
-
-#, c-format
 msgid "ippfind: Bad regular expression: %s"
 msgstr "ippfind：无效的正则表达式：%s"
 
@@ -7087,16 +5788,8 @@ msgid "ippfind: Too many parenthesis."
 msgstr "ippfind：括号过多。"
 
 #, c-format
-msgid "ippfind: Unable to browse or resolve: %s"
-msgstr "ippfind：无法浏览或解析：%s"
-
-#, c-format
 msgid "ippfind: Unable to execute \"%s\": %s"
 msgstr "ippfind：无法执行“%s”：%s"
-
-#, c-format
-msgid "ippfind: Unable to use Bonjour: %s"
-msgstr "ippfind：无法使用 Bonjour：%s"
 
 #, c-format
 msgid "ippfind: Unknown variable \"{%s}\"."
@@ -7137,6 +5830,10 @@ msgstr "ipptool：“-i”选项后缺少秒数。"
 
 msgid "ipptool: URI required before test file."
 msgstr "ipptool：测试文件前需要 URI。"
+
+#, c-format
+msgid "ipptool: Unable to allocate memory: %s"
+msgstr ""
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
@@ -10556,6 +9253,42 @@ msgstr ""
 msgid "number-up"
 msgstr ""
 
+#. TRANSLATORS: Number-Up Layout
+msgid "number-up-layout"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Top, Left-Right
+msgid "number-up-layout.btlr"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Top, Right-Left
+msgid "number-up-layout.btrl"
+msgstr ""
+
+#. TRANSLATORS: Left-Right, Bottom-Top
+msgid "number-up-layout.lrbt"
+msgstr ""
+
+#. TRANSLATORS: Left-Right, Top-Bottom
+msgid "number-up-layout.lrtb"
+msgstr ""
+
+#. TRANSLATORS: Right-Left, Bottom-Top
+msgid "number-up-layout.rlbt"
+msgstr ""
+
+#. TRANSLATORS: Right-Left, Top-Bottom
+msgid "number-up-layout.rltb"
+msgstr ""
+
+#. TRANSLATORS: Top-Bottom, Left-Right
+msgid "number-up-layout.tblr"
+msgstr ""
+
+#. TRANSLATORS: Top-Bottom, Right-Left
+msgid "number-up-layout.tbrl"
+msgstr ""
+
 #. TRANSLATORS: Object Offset
 msgid "object-offset"
 msgstr ""
@@ -10776,6 +9509,30 @@ msgstr ""
 msgid "output-compression-quality-factor"
 msgstr ""
 
+#. TRANSLATORS: Page Border
+msgid "page-border"
+msgstr ""
+
+#. TRANSLATORS: Thin Double Border
+msgid "page-border.double"
+msgstr ""
+
+#. TRANSLATORS: Thick Double Border
+msgid "page-border.double-thick"
+msgstr ""
+
+#. TRANSLATORS: No Border
+msgid "page-border.none"
+msgstr ""
+
+#. TRANSLATORS: Thin Single Border
+msgid "page-border.single"
+msgstr ""
+
+#. TRANSLATORS: Thick Single Border
+msgid "page-border.single-thick"
+msgstr ""
+
 #. TRANSLATORS: Page Delivery
 msgid "page-delivery"
 msgstr ""
@@ -10814,6 +9571,22 @@ msgstr ""
 
 #. TRANSLATORS: Page Ranges
 msgid "page-ranges"
+msgstr ""
+
+#. TRANSLATORS: Page Set
+msgid "page-set"
+msgstr ""
+
+#. TRANSLATORS: All Pages
+msgid "page-set.all"
+msgstr ""
+
+#. TRANSLATORS: Even Pages
+msgid "page-set.even"
+msgstr ""
+
+#. TRANSLATORS: Odd Pages
+msgid "page-set.odd"
 msgstr ""
 
 #. TRANSLATORS: Pages
@@ -10861,6 +9634,46 @@ msgstr ""
 
 #. TRANSLATORS: Platform Temperature
 msgid "platform-temperature"
+msgstr ""
+
+#. TRANSLATORS: Image Position
+msgid "position"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Center
+msgid "position.bottom"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Left
+msgid "position.bottom-left"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Right
+msgid "position.bottom-right"
+msgstr ""
+
+#. TRANSLATORS: Center
+msgid "position.center"
+msgstr ""
+
+#. TRANSLATORS: Left-Center
+msgid "position.left"
+msgstr ""
+
+#. TRANSLATORS: Right-Center
+msgid "position.right"
+msgstr ""
+
+#. TRANSLATORS: Top-Center
+msgid "position.top"
+msgstr ""
+
+#. TRANSLATORS: Top-Left
+msgid "position.top-left"
+msgstr ""
+
+#. TRANSLATORS: Top-Right
+msgid "position.top-right"
 msgstr ""
 
 #. TRANSLATORS: Post-dial String
@@ -15231,20 +14044,1508 @@ msgstr ""
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr "~/.cups/lpoptions 文件所指定的默认目标不存在。"
 
+#~ msgid "  -P filename.ppd         Set PPD file."
+#~ msgstr "  -P filename.ppd         设置 PPD 文件。"
+
+#~ msgid "  -U username             Specify username."
+#~ msgstr "  -U 用户名              指定用户名。"
+
+#~ msgid "  -d printer              Use the named printer."
+#~ msgstr "  -d 打印机               使用指定的打印机。"
+
+#~ msgid ""
+#~ "  -i mime/type            Set input MIME type (otherwise auto-typed)."
+#~ msgstr "  -i mime/type            设置输入的 MIME 类型 (否则自动探测类型)。"
+
+#~ msgid ""
+#~ "  -j job-id[,N]           Filter file N from the specified job (default "
+#~ "is file 1)."
+#~ msgstr "  -j job-id[,N]           从指定任务中过滤文件 N (默认为文件 1)。"
+
+#~ msgid ""
+#~ "  -m mime/type            Set output MIME type (otherwise application/"
+#~ "pdf)."
+#~ msgstr ""
+#~ "  -m mime/type            设置输出 MIME 类型 (缺省为 application/pdf)。"
+
+#~ msgid "  -n copies               Set number of copies."
+#~ msgstr "  -n 副本数               设置副本数量。"
+
+#~ msgid "  -o name=value           Set option(s)."
+#~ msgstr "  -o 名称=赋值            设置选项。"
+
+#~ msgid "  -p filename.ppd         Set PPD file."
+#~ msgstr "  -p filename.ppd         指定 PPD 文件。"
+
+#~ msgid "  -t title                Set title."
+#~ msgstr "  -t 标题                 设置标题。"
+
+#, c-format
+#~ msgid "%s: Bad printer URI \"%s\"."
+#~ msgstr "%s：无效的打印机 URI“%s”。"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W"
+#~ "\" option."
+#~ msgstr "%s：错误 — 在“-W”选项后需要“completed”，“not-completed”或“all”值。"
+
+#, c-format
+#~ msgid "%s: Sorry, no encryption support."
+#~ msgstr "%s：抱歉，无加密支持。"
+
+#, c-format
+#~ msgid "%s: Unable to connect to \"%s:%d\": %s"
+#~ msgstr "%s：无法连接到“%s:%d”：%s"
+
+#, c-format
+#~ msgid "%s: Unable to create PPD file: %s"
+#~ msgstr "%s：无法创建 PPD 文件：%s"
+
+#, c-format
+#~ msgid "%s: Unable to query printer: %s"
+#~ msgstr "%s：无法查询打印机：%s"
+
+#, c-format
+#~ msgid "%s: Unable to resolve \"%s\"."
+#~ msgstr "%s：无法解析“%s”。"
+
+#~ msgid "-1"
+#~ msgstr "-1"
+
+#~ msgid "-10"
+#~ msgstr "-10"
+
+#~ msgid "-100"
+#~ msgstr "-100"
+
+#~ msgid "-105"
+#~ msgstr "-105"
+
+#~ msgid "-11"
+#~ msgstr "-11"
+
+#~ msgid "-110"
+#~ msgstr "-110"
+
+#~ msgid "-115"
+#~ msgstr "-115"
+
+#~ msgid "-12"
+#~ msgstr "-12"
+
+#~ msgid "-120"
+#~ msgstr "-120"
+
+#~ msgid "-13"
+#~ msgstr "-13"
+
+#~ msgid "-14"
+#~ msgstr "-14"
+
+#~ msgid "-15"
+#~ msgstr "-15"
+
+#~ msgid "-2"
+#~ msgstr "-2"
+
+#~ msgid "-20"
+#~ msgstr "-20"
+
+#~ msgid "-25"
+#~ msgstr "-25"
+
+#~ msgid "-3"
+#~ msgstr "-3"
+
+#~ msgid "-30"
+#~ msgstr "-30"
+
+#~ msgid "-35"
+#~ msgstr "-35"
+
+#~ msgid "-4"
+#~ msgstr "-4"
+
+#~ msgid "-40"
+#~ msgstr "-40"
+
+#~ msgid "-45"
+#~ msgstr "-45"
+
+#~ msgid "-5"
+#~ msgstr "-5"
+
+#~ msgid "-50"
+#~ msgstr "-50"
+
+#~ msgid "-55"
+#~ msgstr "-55"
+
+#~ msgid "-6"
+#~ msgstr "-6"
+
+#~ msgid "-60"
+#~ msgstr "-60"
+
+#~ msgid "-65"
+#~ msgstr "-65"
+
+#~ msgid "-7"
+#~ msgstr "-7"
+
+#~ msgid "-70"
+#~ msgstr "-70"
+
+#~ msgid "-75"
+#~ msgstr "-75"
+
+#~ msgid "-8"
+#~ msgstr "-8"
+
+#~ msgid "-80"
+#~ msgstr "-80"
+
+#~ msgid "-85"
+#~ msgstr "-85"
+
+#~ msgid "-9"
+#~ msgstr "-9"
+
+#~ msgid "-90"
+#~ msgstr "-90"
+
+#~ msgid "-95"
+#~ msgstr "-95"
+
+#~ msgid "0"
+#~ msgstr "0"
+
+#~ msgid "1"
+#~ msgstr "1"
+
+#~ msgid "1 inch/sec."
+#~ msgstr "1 英寸/秒"
+
+#~ msgid "1.25x0.25\""
+#~ msgstr "1.25×0.25 英寸"
+
+#~ msgid "1.25x2.25\""
+#~ msgstr "1.25×2.25 英寸"
+
+#~ msgid "1.5 inch/sec."
+#~ msgstr "1.5 英寸/秒"
+
+#~ msgid "1.50x0.25\""
+#~ msgstr "1.50×0.25 英寸"
+
+#~ msgid "1.50x0.50\""
+#~ msgstr "1.50×0.50 英寸"
+
+#~ msgid "1.50x1.00\""
+#~ msgstr "1.50×1.00 英寸"
+
+#~ msgid "1.50x2.00\""
+#~ msgstr "1.50×2.00 英寸"
+
+#~ msgid "10"
+#~ msgstr "10"
+
+#~ msgid "10 inches/sec."
+#~ msgstr "10 英寸/秒"
+
+#~ msgid "10 x 11"
+#~ msgstr "10×11"
+
+#~ msgid "10 x 13"
+#~ msgstr "10×13"
+
+#~ msgid "10 x 14"
+#~ msgstr "10×14"
+
+#~ msgid "100"
+#~ msgstr "100"
+
+#~ msgid "100 mm/sec."
+#~ msgstr "100 毫米/秒"
+
+#~ msgid "105"
+#~ msgstr "105"
+
+#~ msgid "11"
+#~ msgstr "11"
+
+#~ msgid "11 inches/sec."
+#~ msgstr "11 英寸/秒"
+
+#~ msgid "110"
+#~ msgstr "110"
+
+#~ msgid "115"
+#~ msgstr "115"
+
+#~ msgid "12"
+#~ msgstr "12"
+
+#~ msgid "12 inches/sec."
+#~ msgstr "12 英寸/秒"
+
+#~ msgid "12 x 11"
+#~ msgstr "12×11"
+
+#~ msgid "120"
+#~ msgstr "120"
+
+#~ msgid "120 mm/sec."
+#~ msgstr "120 毫米/秒"
+
+#~ msgid "120x60dpi"
+#~ msgstr "120×60 dpi"
+
+#~ msgid "120x72dpi"
+#~ msgstr "120×72 dpi"
+
+#~ msgid "13"
+#~ msgstr "13"
+
+#~ msgid "136dpi"
+#~ msgstr "136 dpi"
+
+#~ msgid "14"
+#~ msgstr "14"
+
+#~ msgid "15"
+#~ msgstr "15"
+
+#~ msgid "15 mm/sec."
+#~ msgstr "15 毫米/秒"
+
+#~ msgid "15 x 11"
+#~ msgstr "15×11"
+
+#~ msgid "150 mm/sec."
+#~ msgstr "150 毫米/秒"
+
+#~ msgid "150dpi"
+#~ msgstr "150 dpi"
+
+#~ msgid "16"
+#~ msgstr "16"
+
+#~ msgid "17"
+#~ msgstr "17"
+
+#~ msgid "18"
+#~ msgstr "18"
+
+#~ msgid "180dpi"
+#~ msgstr "180 dpi"
+
+#~ msgid "19"
+#~ msgstr "19"
+
+#~ msgid "2"
+#~ msgstr "2"
+
+#~ msgid "2 inches/sec."
+#~ msgstr "2 英寸/秒"
+
+#~ msgid "2-Sided Printing"
+#~ msgstr "双面打印"
+
+#~ msgid "2.00x0.37\""
+#~ msgstr "2.00×0.37 英寸"
+
+#~ msgid "2.00x0.50\""
+#~ msgstr "2.00×0.50 英寸"
+
+#~ msgid "2.00x1.00\""
+#~ msgstr "2.00×1.00 英寸"
+
+#~ msgid "2.00x1.25\""
+#~ msgstr "2.00×1.25 英寸"
+
+#~ msgid "2.00x2.00\""
+#~ msgstr "2.00×2.00 英寸"
+
+#~ msgid "2.00x3.00\""
+#~ msgstr "2.00×3.00 英寸"
+
+#~ msgid "2.00x4.00\""
+#~ msgstr "2.00×4.00 英寸"
+
+#~ msgid "2.00x5.50\""
+#~ msgstr "2.00×5.50 英寸"
+
+#~ msgid "2.25x0.50\""
+#~ msgstr "2.25×0.50 英寸"
+
+#~ msgid "2.25x1.25\""
+#~ msgstr "2.25×1.25 英寸"
+
+#~ msgid "2.25x4.00\""
+#~ msgstr "2.25×4.00 英寸"
+
+#~ msgid "2.25x5.50\""
+#~ msgstr "2.25×5.50 英寸"
+
+#~ msgid "2.38x5.50\""
+#~ msgstr "2.38×5.50 英寸"
+
+#~ msgid "2.5 inches/sec."
+#~ msgstr "2.5 英寸/秒"
+
+#~ msgid "2.50x1.00\""
+#~ msgstr "2.50×1.00 英寸"
+
+#~ msgid "2.50x2.00\""
+#~ msgstr "2.50×2.00 英寸"
+
+#~ msgid "2.75x1.25\""
+#~ msgstr "2.75×1.25 英寸"
+
+#~ msgid "2.9 x 1\""
+#~ msgstr "2.9×1 英寸"
+
+#~ msgid "20"
+#~ msgstr "20"
+
+#~ msgid "20 mm/sec."
+#~ msgstr "20 毫米/秒"
+
+#~ msgid "200 mm/sec."
+#~ msgstr "200 毫米/秒"
+
+#~ msgid "203dpi"
+#~ msgstr "203 dpi"
+
+#~ msgid "21"
+#~ msgstr "21"
+
+#~ msgid "22"
+#~ msgstr "22"
+
+#~ msgid "23"
+#~ msgstr "23"
+
+#~ msgid "24"
+#~ msgstr "24"
+
+#~ msgid "24-Pin Series"
+#~ msgstr "24 针序列"
+
+#~ msgid "240x72dpi"
+#~ msgstr "240×72 dpi"
+
+#~ msgid "25"
+#~ msgstr "25"
+
+#~ msgid "250 mm/sec."
+#~ msgstr "250 毫米/秒"
+
+#~ msgid "26"
+#~ msgstr "26"
+
+#~ msgid "27"
+#~ msgstr "27"
+
+#~ msgid "28"
+#~ msgstr "28"
+
+#~ msgid "29"
+#~ msgstr "29"
+
+#~ msgid "3"
+#~ msgstr "3"
+
+#~ msgid "3 inches/sec."
+#~ msgstr "3 英寸/秒"
+
+#~ msgid "3 x 5"
+#~ msgstr "3×5"
+
+#~ msgid "3.00x1.00\""
+#~ msgstr "3.00×1.00 英寸"
+
+#~ msgid "3.00x1.25\""
+#~ msgstr "3.00×1.25 英寸"
+
+#~ msgid "3.00x2.00\""
+#~ msgstr "3.00×2.00 英寸"
+
+#~ msgid "3.00x3.00\""
+#~ msgstr "3.00×3.00 英寸"
+
+#~ msgid "3.00x5.00\""
+#~ msgstr "3.00×5.00 英寸"
+
+#~ msgid "3.25x2.00\""
+#~ msgstr "3.25×2.00 英寸"
+
+#~ msgid "3.25x5.00\""
+#~ msgstr "3.25×5.00 英寸"
+
+#~ msgid "3.25x5.50\""
+#~ msgstr "3.25×5.50 英寸"
+
+#~ msgid "3.25x5.83\""
+#~ msgstr "3.25×5.83 英寸"
+
+#~ msgid "3.25x7.83\""
+#~ msgstr "3.25×7.83 英寸"
+
+#~ msgid "3.5 x 5"
+#~ msgstr "3.5×5"
+
+#~ msgid "3.5\" Disk"
+#~ msgstr "3.5 英寸磁盘"
+
+#~ msgid "3.50x1.00\""
+#~ msgstr "3.50×1.00 英寸"
+
+#~ msgid "30"
+#~ msgstr "30"
+
+#~ msgid "30 mm/sec."
+#~ msgstr "30 毫米/秒"
+
+#~ msgid "300 mm/sec."
+#~ msgstr "300 毫米/秒"
+
+#~ msgid "300dpi"
+#~ msgstr "300 dpi"
+
+#~ msgid "35"
+#~ msgstr "35"
+
+#~ msgid "360dpi"
+#~ msgstr "360 dpi"
+
+#~ msgid "360x180dpi"
+#~ msgstr "360×180 dpi"
+
+#~ msgid "4"
+#~ msgstr "4"
+
+#~ msgid "4 inches/sec."
+#~ msgstr "4 英寸/秒"
+
+#~ msgid "4.00x1.00\""
+#~ msgstr "4.00×1.00 英寸"
+
+#~ msgid "4.00x13.00\""
+#~ msgstr "4.00×13.00 英寸"
+
+#~ msgid "4.00x2.00\""
+#~ msgstr "4.00×2.00 英寸"
+
+#~ msgid "4.00x2.50\""
+#~ msgstr "4.00×2.50 英寸"
+
+#~ msgid "4.00x3.00\""
+#~ msgstr "4.00×3.00 英寸"
+
+#~ msgid "4.00x4.00\""
+#~ msgstr "4.00×4.00 英寸"
+
+#~ msgid "4.00x5.00\""
+#~ msgstr "4.00×5.00 英寸"
+
+#~ msgid "4.00x6.00\""
+#~ msgstr "4.00×6.00 英寸"
+
+#~ msgid "4.00x6.50\""
+#~ msgstr "4.00×6.50 英寸"
+
+#~ msgid "40"
+#~ msgstr "40"
+
+#~ msgid "40 mm/sec."
+#~ msgstr "40 毫米/秒"
+
+#~ msgid "45"
+#~ msgstr "45"
+
+#~ msgid "5"
+#~ msgstr "5"
+
+#~ msgid "5 inches/sec."
+#~ msgstr "5 英寸/秒"
+
+#~ msgid "5 x 7"
+#~ msgstr "5×7"
+
+#~ msgid "50"
+#~ msgstr "50"
+
+#~ msgid "55"
+#~ msgstr "55"
+
+#~ msgid "6"
+#~ msgstr "6"
+
+#~ msgid "6 inches/sec."
+#~ msgstr "6 英寸/秒"
+
+#~ msgid "6.00x1.00\""
+#~ msgstr "6.00×1.00 英寸"
+
+#~ msgid "6.00x2.00\""
+#~ msgstr "6.00×2.00 英寸"
+
+#~ msgid "6.00x3.00\""
+#~ msgstr "6.00×3.00 英寸"
+
+#~ msgid "6.00x4.00\""
+#~ msgstr "6.00×4.00 英寸"
+
+#~ msgid "6.00x5.00\""
+#~ msgstr "6.00×5.00 英寸"
+
+#~ msgid "6.00x6.00\""
+#~ msgstr "6.00×6.00 英寸"
+
+#~ msgid "6.00x6.50\""
+#~ msgstr "6.00×6.50 英寸"
+
+#~ msgid "60"
+#~ msgstr "60"
+
+#~ msgid "60 mm/sec."
+#~ msgstr "60 毫米/秒"
+
+#~ msgid "600dpi"
+#~ msgstr "600 dpi"
+
+#~ msgid "60dpi"
+#~ msgstr "60 dpi"
+
+#~ msgid "60x72dpi"
+#~ msgstr "60×72 dpi"
+
+#~ msgid "65"
+#~ msgstr "65"
+
+#~ msgid "7"
+#~ msgstr "7"
+
+#~ msgid "7 inches/sec."
+#~ msgstr "7 英寸/秒"
+
+#~ msgid "7 x 9"
+#~ msgstr "7×9"
+
+#~ msgid "70"
+#~ msgstr "70"
+
+#~ msgid "75"
+#~ msgstr "75"
+
+#~ msgid "8"
+#~ msgstr "8"
+
+#~ msgid "8 inches/sec."
+#~ msgstr "8 英寸/秒"
+
+#~ msgid "8 x 10"
+#~ msgstr "8×10"
+
+#~ msgid "8.00x1.00\""
+#~ msgstr "8.00×1.00 英寸"
+
+#~ msgid "8.00x2.00\""
+#~ msgstr "8.00×2.00 英寸"
+
+#~ msgid "8.00x3.00\""
+#~ msgstr "8.00×3.00 英寸"
+
+#~ msgid "8.00x4.00\""
+#~ msgstr "8.00×4.00 英寸"
+
+#~ msgid "8.00x5.00\""
+#~ msgstr "8.00×5.00 英寸"
+
+#~ msgid "8.00x6.00\""
+#~ msgstr "8.00×6.00 英寸"
+
+#~ msgid "8.00x6.50\""
+#~ msgstr "8.00×6.50 英寸"
+
+#~ msgid "80"
+#~ msgstr "80"
+
+#~ msgid "80 mm/sec."
+#~ msgstr "80 毫米/秒"
+
+#~ msgid "85"
+#~ msgstr "85"
+
+#~ msgid "9"
+#~ msgstr "9"
+
+#~ msgid "9 inches/sec."
+#~ msgstr "9 英寸/秒"
+
+#~ msgid "9 x 11"
+#~ msgstr "9×11"
+
+#~ msgid "9 x 12"
+#~ msgstr "9×12"
+
+#~ msgid "9-Pin Series"
+#~ msgstr "9 针序列"
+
+#~ msgid "90"
+#~ msgstr "90"
+
+#~ msgid "95"
+#~ msgstr "95"
+
 #~ msgid "A Samba password is required to export printer drivers"
 #~ msgstr "需要 Samba 密码以导出打印机驱动"
 
 #~ msgid "A Samba username is required to export printer drivers"
 #~ msgstr "需要 Samba 用户名以导出打印机驱动"
 
+#~ msgid "A0"
+#~ msgstr "A0"
+
+#~ msgid "A0 Long Edge"
+#~ msgstr "A0 长边"
+
+#~ msgid "A1"
+#~ msgstr "A1"
+
+#~ msgid "A1 Long Edge"
+#~ msgstr "A1 长边"
+
+#~ msgid "A10"
+#~ msgstr "A10"
+
+#~ msgid "A2"
+#~ msgstr "A2"
+
+#~ msgid "A2 Long Edge"
+#~ msgstr "A2 长边"
+
+#~ msgid "A3"
+#~ msgstr "A3"
+
+#~ msgid "A3 Long Edge"
+#~ msgstr "A3 长边"
+
+#~ msgid "A3 Oversize"
+#~ msgstr "A3 加大"
+
+#~ msgid "A3 Oversize Long Edge"
+#~ msgstr "A3 加大 长边"
+
+#~ msgid "A4"
+#~ msgstr "A4"
+
+#~ msgid "A4 Long Edge"
+#~ msgstr "A4 长边"
+
+#~ msgid "A4 Oversize"
+#~ msgstr "A4 加大"
+
+#~ msgid "A4 Small"
+#~ msgstr "A4 小号"
+
+#~ msgid "A5"
+#~ msgstr "A5"
+
+#~ msgid "A5 Long Edge"
+#~ msgstr "A5 长边"
+
+#~ msgid "A5 Oversize"
+#~ msgstr "A5 加大"
+
+#~ msgid "A6"
+#~ msgstr "A6"
+
+#~ msgid "A6 Long Edge"
+#~ msgstr "A6 长边"
+
+#~ msgid "A7"
+#~ msgstr "A7"
+
+#~ msgid "A8"
+#~ msgstr "A8"
+
+#~ msgid "A9"
+#~ msgstr "A9"
+
+#~ msgid "ANSI A"
+#~ msgstr "ANSI A"
+
+#~ msgid "ANSI B"
+#~ msgstr "ANSI B"
+
+#~ msgid "ANSI C"
+#~ msgstr "ANSI C"
+
+#~ msgid "ANSI D"
+#~ msgstr "ANSI D"
+
+#~ msgid "ANSI E"
+#~ msgstr "ANSI E"
+
+#~ msgid "ARCH C"
+#~ msgstr "ARCH C"
+
+#~ msgid "ARCH C Long Edge"
+#~ msgstr "ARCH C 长边缘"
+
+#~ msgid "ARCH D"
+#~ msgstr "ARCH D"
+
+#~ msgid "ARCH D Long Edge"
+#~ msgstr "ARCH D 长边缘"
+
+#~ msgid "ARCH E"
+#~ msgstr "ARCH E"
+
+#~ msgid "ARCH E Long Edge"
+#~ msgstr "ARCH E 长边缘"
+
+#~ msgid "Address"
+#~ msgstr "地址"
+
+#~ msgid "Always"
+#~ msgstr "总是"
+
+#~ msgid "Applicator"
+#~ msgstr "涂药器"
+
+#~ msgid "B0"
+#~ msgstr "B0"
+
+#~ msgid "B1"
+#~ msgstr "B1"
+
+#~ msgid "B10"
+#~ msgstr "B10"
+
+#~ msgid "B2"
+#~ msgstr "B2"
+
+#~ msgid "B3"
+#~ msgstr "B3"
+
+#~ msgid "B4"
+#~ msgstr "B4"
+
+#~ msgid "B5"
+#~ msgstr "B5"
+
+#~ msgid "B5 Oversize"
+#~ msgstr "B5 超大"
+
+#~ msgid "B6"
+#~ msgstr "B6"
+
+#~ msgid "B7"
+#~ msgstr "B7"
+
+#~ msgid "B8"
+#~ msgstr "B8"
+
+#~ msgid "B9"
+#~ msgstr "B9"
+
+#~ msgid "Bond Paper"
+#~ msgstr "证券纸"
+
+#~ msgid "Booklet"
+#~ msgstr "册子"
+
+#~ msgid "CMYK"
+#~ msgstr "CMYK"
+
+#~ msgid "CPCL Label Printer"
+#~ msgstr "CPCL 标签打印机"
+
+#~ msgid "Cassette"
+#~ msgstr "纸盒"
+
+#~ msgid "Color Mode"
+#~ msgstr "色彩模式"
+
+#~ msgid "Continuous"
+#~ msgstr "连续"
+
+#~ msgid "CustominCutInterval"
+#~ msgstr "CustominCutInterval"
+
+#~ msgid "CustominTearInterval"
+#~ msgstr "CustominTearInterval"
+
+#~ msgid "Cut"
+#~ msgstr "剪切"
+
+#~ msgid "Cutter"
+#~ msgstr "车床刀具"
+
+#~ msgid "Dark"
+#~ msgstr "暗色"
+
+#~ msgid "Darkness"
+#~ msgstr "暗度"
+
+#~ msgid "DeskJet Series"
+#~ msgstr "DeskJet 系列"
+
+#~ msgid "Direct Thermal Media"
+#~ msgstr "直接热敏介质"
+
+#~ msgid "Disabled"
+#~ msgstr "已禁用"
+
+#~ msgid "Draft"
+#~ msgstr "草稿"
+
+#~ msgid "Duplexer"
+#~ msgstr "双面打印器"
+
 #~ msgid "Dymo"
 #~ msgstr "Dymo"
+
+#~ msgid "EPL1 Label Printer"
+#~ msgstr "EPL1 标签打印机"
+
+#~ msgid "EPL2 Label Printer"
+#~ msgstr "EPL2 标签打印机"
+
+#~ msgid "English"
+#~ msgstr "英语"
+
+#~ msgid "Envelope #10"
+#~ msgstr "国际信封 (Envelope) 10 号"
+
+#~ msgid "Envelope #11"
+#~ msgstr "国际信封 (Envelope) 11 号"
+
+#~ msgid "Envelope #12"
+#~ msgstr "国际信封 (Envelope) 12 号"
+
+#~ msgid "Envelope #14"
+#~ msgstr "国际信封 (Envelope) 14 号"
+
+#~ msgid "Envelope #9"
+#~ msgstr "国际信封 (Envelope) 9 号"
+
+#~ msgid "Envelope B4"
+#~ msgstr "国际信封 (Envelope) B4"
+
+#~ msgid "Envelope B5"
+#~ msgstr "国际信封 (Envelope) B5"
+
+#~ msgid "Envelope B6"
+#~ msgstr "国际信封 (Envelope) B6"
+
+#~ msgid "Envelope C0"
+#~ msgstr "国际信封 (Envelope) C0"
+
+#~ msgid "Envelope C1"
+#~ msgstr "国际信封 (Envelope) C1"
+
+#~ msgid "Envelope C2"
+#~ msgstr "国际信封 (Envelope) C2"
+
+#~ msgid "Envelope C3"
+#~ msgstr "国际信封 (Envelope) C3"
+
+#~ msgid "Envelope C4"
+#~ msgstr "国际信封 (Envelope) C4"
+
+#~ msgid "Envelope C5"
+#~ msgstr "国际信封 (Envelope) C5"
+
+#~ msgid "Envelope C6"
+#~ msgstr "国际信封 (Envelope) C6"
+
+#~ msgid "Envelope C65"
+#~ msgstr "国际信封 (Envelope) C65"
+
+#~ msgid "Envelope C7"
+#~ msgstr "国际信封 (Envelope) C7"
+
+#~ msgid "Envelope Choukei 3"
+#~ msgstr "日本信封长形 3 号"
+
+#~ msgid "Envelope Choukei 3 Long Edge"
+#~ msgstr "日本信封长形 3 号 长边"
+
+#~ msgid "Envelope Choukei 4"
+#~ msgstr "日本信封长形 4 号"
+
+#~ msgid "Envelope Choukei 4 Long Edge"
+#~ msgstr "日本信封长形 4 号 长边"
+
+#~ msgid "Envelope DL"
+#~ msgstr "国际信封 (Envelope) DL"
+
+#~ msgid "Envelope Feed"
+#~ msgstr "国际信封自供 (Envelope Feed)"
+
+#~ msgid "Envelope Invite"
+#~ msgstr "国际信封意式 (Envelope Italian)"
+
+#~ msgid "Envelope Italian"
+#~ msgstr "国际信封意式 (Envelope Italian)"
+
+#~ msgid "Envelope Kaku2"
+#~ msgstr "日本信封角形 2 号"
+
+#~ msgid "Envelope Kaku2 Long Edge"
+#~ msgstr "日本信封角形 2 号 长边"
+
+#~ msgid "Envelope Kaku3"
+#~ msgstr "日本信封角形 3 号"
+
+#~ msgid "Envelope Kaku3 Long Edge"
+#~ msgstr "日本信封角形 3 号 长边"
+
+#~ msgid "Envelope Monarch"
+#~ msgstr "美国信封君王 (Envelope Monarch)"
+
+#~ msgid "Envelope PRC1"
+#~ msgstr "中国大陆信封 1 号"
+
+#~ msgid "Envelope PRC1 Long Edge"
+#~ msgstr "中国大陆信封 1 号 长边"
+
+#~ msgid "Envelope PRC10"
+#~ msgstr "中国大陆信封 10 号"
+
+#~ msgid "Envelope PRC10 Long Edge"
+#~ msgstr "中国大陆信封 10 号长边"
+
+#~ msgid "Envelope PRC2"
+#~ msgstr "中国大陆信封 2 号"
+
+#~ msgid "Envelope PRC2 Long Edge"
+#~ msgstr "中国大陆信封 2 号 长边"
+
+#~ msgid "Envelope PRC3"
+#~ msgstr "中国大陆信封 3 号"
+
+#~ msgid "Envelope PRC3 Long Edge"
+#~ msgstr "中国大陆信封 3 号 长边"
+
+#~ msgid "Envelope PRC4"
+#~ msgstr "中国大陆信封 4 号"
+
+#~ msgid "Envelope PRC4 Long Edge"
+#~ msgstr "中国大陆信封 4 号 长边"
+
+#~ msgid "Envelope PRC5 Long Edge"
+#~ msgstr "中国大陆信封 5 号 长边"
+
+#~ msgid "Envelope PRC5PRC5"
+#~ msgstr "中国大陆信封 5 号"
+
+#~ msgid "Envelope PRC6"
+#~ msgstr "中国大陆信封 6 号"
+
+#~ msgid "Envelope PRC6 Long Edge"
+#~ msgstr "中国大陆信封 6 号 长边"
+
+#~ msgid "Envelope PRC7"
+#~ msgstr "中国大陆信封 7 号"
+
+#~ msgid "Envelope PRC7 Long Edge"
+#~ msgstr "中国大陆信封 7 号 长边"
+
+#~ msgid "Envelope PRC8"
+#~ msgstr "中国大陆信封 8 号"
+
+#~ msgid "Envelope PRC8 Long Edge"
+#~ msgstr "中国大陆信封 8 号 长边"
+
+#~ msgid "Envelope PRC9"
+#~ msgstr "中国大陆信封 9 号"
+
+#~ msgid "Envelope PRC9 Long Edge"
+#~ msgstr "中国大陆信封 9 号 长边"
+
+#~ msgid "Envelope Personal"
+#~ msgstr "美国信封个人 (Envelope Personal)"
+
+#~ msgid "Envelope You4"
+#~ msgstr "日本信封洋形 4 号"
+
+#~ msgid "Envelope You4 Long Edge"
+#~ msgstr "日本信封洋形 4 号 长边"
+
+#~ msgid "Epson"
+#~ msgstr "Epson"
+
+#~ msgid "European Fanfold"
+#~ msgstr "欧洲连张 (Fanfold)"
+
+#~ msgid "European Fanfold Legal"
+#~ msgstr "欧洲连张法律 (Fanfold Legal)"
+
+#~ msgid "Every 10 Labels"
+#~ msgstr "每 10 个标签"
+
+#~ msgid "Every 2 Labels"
+#~ msgstr "每 2 个标签"
+
+#~ msgid "Every 3 Labels"
+#~ msgstr "每 3 个标签"
+
+#~ msgid "Every 4 Labels"
+#~ msgstr "每 4 个标签"
+
+#~ msgid "Every 5 Labels"
+#~ msgstr "每 5 个标签"
+
+#~ msgid "Every 6 Labels"
+#~ msgstr "每 6 个标签"
+
+#~ msgid "Every 7 Labels"
+#~ msgstr "每 7 个标签"
+
+#~ msgid "Every 8 Labels"
+#~ msgstr "每 8 个标签"
+
+#~ msgid "Every 9 Labels"
+#~ msgstr "每 9 个标签"
+
+#~ msgid "Every Label"
+#~ msgstr "每个标签"
+
+#~ msgid "Executive"
+#~ msgstr "执行"
 
 #~ msgid "Export Printers to Samba"
 #~ msgstr "将打印机导出到 Samba"
 
+#~ msgid "File Folder"
+#~ msgstr "文件夹"
+
+#~ msgid "Finishing Preset"
+#~ msgstr "结尾预设"
+
+#~ msgid "Fold"
+#~ msgstr "折纸"
+
+#~ msgid "Folio"
+#~ msgstr "对开本"
+
+#~ msgid "Generic"
+#~ msgstr "通用"
+
+#~ msgid "Glossy Paper"
+#~ msgstr "光面纸"
+
+#~ msgid "HP"
+#~ msgstr "HP"
+
+#~ msgid "Hanging Folder"
+#~ msgstr "倒挂文件夹"
+
+#~ msgid "High"
+#~ msgstr "高"
+
+#~ msgid "IPP extension tag larger than 0x7FFFFFFF."
+#~ msgstr "IPP 扩展标签大于 0x7FFFFFFF。"
+
+#~ msgid "IPP memberName with no attribute."
+#~ msgstr "IPP memberName 无属性。"
+
+#~ msgid "ISOLatin1"
+#~ msgstr "ISOLatin1"
+
+#~ msgid "Installable Options"
+#~ msgstr "可安装选项"
+
+#~ msgid "Installed"
+#~ msgstr "已安装"
+
+#~ msgid "IntelliBar Label Printer"
+#~ msgstr "IntelliBar 标签打印机"
+
+#~ msgid "Intellitech"
+#~ msgstr "Intellitech"
+
+#~ msgid "Internet Postage 2-Part"
+#~ msgstr "网邮 2 部"
+
+#~ msgid "Internet Postage 3-Part"
+#~ msgstr "网邮 3 部"
+
+#~ msgid "JIS B0"
+#~ msgstr "JIS B0"
+
+#~ msgid "JIS B1"
+#~ msgstr "JIS B1"
+
+#~ msgid "JIS B10"
+#~ msgstr "JIS B10"
+
+#~ msgid "JIS B2"
+#~ msgstr "JIS B2"
+
+#~ msgid "JIS B3"
+#~ msgstr "JIS B3"
+
+#~ msgid "JIS B4"
+#~ msgstr "JIS B4"
+
+#~ msgid "JIS B4 Long Edge"
+#~ msgstr "JIS B4 长边"
+
+#~ msgid "JIS B5"
+#~ msgstr "JIS B5"
+
+#~ msgid "JIS B5 Long Edge"
+#~ msgstr "JIS B5 长边"
+
+#~ msgid "JIS B6"
+#~ msgstr "JIS B6"
+
+#~ msgid "JIS B6 Long Edge"
+#~ msgstr "JIS B6 长边"
+
+#~ msgid "JIS B7"
+#~ msgstr "JIS B7"
+
+#~ msgid "JIS B8"
+#~ msgstr "JIS B8"
+
+#~ msgid "JIS B9"
+#~ msgstr "JIS B9"
+
+#~ msgid "Label Printer"
+#~ msgstr "标签打印机"
+
+#~ msgid "Label Top"
+#~ msgstr "标签顶部"
+
+#~ msgid "Large Address"
+#~ msgstr "大地址"
+
+#~ msgid "LaserJet Series PCL 4/5"
+#~ msgstr "LaserJet 系列 PCL 4/5"
+
+#~ msgid "Letter Oversize"
+#~ msgstr "信函超大"
+
+#~ msgid "Letter Oversize Long Edge"
+#~ msgstr "信函超大长边缘"
+
+#~ msgid "Light"
+#~ msgstr "轻"
+
+#~ msgid "Long-Edge (Portrait)"
+#~ msgstr "长边翻转 (竖版)"
+
+#~ msgid "Looking for printer."
+#~ msgstr "正在寻找打印机。"
+
+#~ msgid "Manual Feed"
+#~ msgstr "手动供纸"
+
+#~ msgid "Media Tracking"
+#~ msgstr "媒体跟踪"
+
+#~ msgid "Medium"
+#~ msgstr "介质"
+
+#~ msgid "Never"
+#~ msgstr "从不"
+
+#~ msgid "No common name specified."
+#~ msgstr "未指定通用名称。"
+
+#~ msgid "Non-continuous (Mark sensing)"
+#~ msgstr "非连续 (标记嗅探)"
+
+#~ msgid "Non-continuous (Web sensing)"
+#~ msgstr "非连续 (Web 嗅探)"
+
+#~ msgid "None"
+#~ msgstr "无"
+
+#~ msgid "Normal"
+#~ msgstr "一般"
+
+#~ msgid "Not Installed"
+#~ msgstr "未安装"
+
+#~ msgid "Note"
+#~ msgstr "美国笔记 (Note)"
+
+#~ msgid "Off (1-Sided)"
+#~ msgstr "关 (单面打印)"
+
+#~ msgid "Oki"
+#~ msgstr "日冲"
+
+#~ msgid "PCL Laser Printer"
+#~ msgstr "PCL 激光打印机"
+
+#~ msgid "PRC16K"
+#~ msgstr "中国大陆 16 开"
+
+#~ msgid "PRC16K Long Edge"
+#~ msgstr "中国大陆 16 开 长边"
+
+#~ msgid "PRC32K"
+#~ msgstr "中国大陆 32 开"
+
+#~ msgid "PRC32K Long Edge"
+#~ msgstr "中国大陆 32 开 长边"
+
+#~ msgid "PRC32K Oversize"
+#~ msgstr "中国大陆大 32 开"
+
+#~ msgid "PRC32K Oversize Long Edge"
+#~ msgstr "中国大陆大 32 开 长边"
+
+#~ msgid "ParamCustominCutInterval"
+#~ msgstr "ParamCustominCutInterval"
+
+#~ msgid "ParamCustominTearInterval"
+#~ msgstr "ParamCustominTearInterval"
+
+#~ msgid "Peel-Off"
+#~ msgstr "剥片"
+
+#~ msgid "Photo"
+#~ msgstr "照片"
+
+#~ msgid "Photo Labels"
+#~ msgstr "照片标签"
+
+#~ msgid "Plain Paper"
+#~ msgstr "普通纸"
+
+#~ msgid "PostScript Printer"
+#~ msgstr "PostScript 打印机"
+
+#~ msgid "Postcard"
+#~ msgstr "美国明信片 (Postcard)"
+
+#~ msgid "Postcard Double"
+#~ msgstr "美国明信片双倍 (Postcard Double)"
+
+#~ msgid "Postcard Double Long Edge"
+#~ msgstr "美国明信片双倍 (Postcard Double) 长边"
+
+#~ msgid "Postcard Long Edge"
+#~ msgstr "美国明信片 (Postcard) 长边"
+
+#~ msgid "Print Density"
+#~ msgstr "打印密度"
+
+#~ msgid "Print Mode"
+#~ msgstr "打印模式"
+
+#~ msgid "Print Quality"
+#~ msgstr "打印质量"
+
+#~ msgid "Print Rate"
+#~ msgstr "打印频率"
+
+#~ msgid "Print Speed"
+#~ msgstr "打印速度"
+
+#~ msgid "Print and Cut"
+#~ msgstr "打印和裁剪"
+
+#~ msgid "Print and Tear"
+#~ msgstr "打印和撕纸"
+
+#~ msgid "Printer Default"
+#~ msgstr "打印机默认值"
+
+#~ msgid "Printer Settings"
+#~ msgstr "打印机设置"
+
+#~ msgid "Punch"
+#~ msgstr "冲压"
+
+#~ msgid "Quarto"
+#~ msgstr "美国四分 (Quarto)"
+
+#~ msgid "Reprint After Error"
+#~ msgstr "错误后重新打印"
+
+#~ msgid "Return Address"
+#~ msgstr "返回地址"
+
+#~ msgid "Rewind"
+#~ msgstr "回退"
+
+#~ msgid "Set Publishing"
+#~ msgstr "设置出版"
+
+#~ msgid "Shipping Address"
+#~ msgstr "邮寄地址"
+
+#~ msgid "Short-Edge (Landscape)"
+#~ msgstr "短边翻转 (横版)"
+
+#~ msgid "Special Paper"
+#~ msgstr "特殊纸张"
+
+#~ msgid "Standard"
+#~ msgstr "标准"
+
+#~ msgid "Staple"
+#~ msgstr "装订"
+
+#~ msgid "Statement"
+#~ msgstr "美国声明 (Statement)"
+
+#~ msgid "Super A"
+#~ msgstr "美国相纸 (Super) A"
+
+#~ msgid "Super B"
+#~ msgstr "美国相纸 (Super) B"
+
+#~ msgid "Super B/A3"
+#~ msgstr "美国相纸 (Super) B/A3"
+
+#~ msgid "Tabloid"
+#~ msgstr "美国小报 (Tabloid)"
+
+#~ msgid "Tabloid Oversize"
+#~ msgstr "美国小报 (Tabloid) 加大"
+
+#~ msgid "Tabloid Oversize Long Edge"
+#~ msgstr "美国小报 (Tabloid) 加大 长边"
+
+#~ msgid "Tear"
+#~ msgstr "撕纸"
+
+#~ msgid "Tear-Off"
+#~ msgstr "撕纸"
+
+#~ msgid "Tear-Off Adjust Position"
+#~ msgstr "调整撕纸位置"
+
+#~ msgid "Thermal Transfer Media"
+#~ msgstr "热敏介质"
+
+#~ msgid "Transparency"
+#~ msgstr "透明度"
+
+#~ msgid "Tray"
+#~ msgstr "托盘"
+
+#~ msgid "Tray 1"
+#~ msgstr "托盘 1"
+
+#~ msgid "Tray 2"
+#~ msgstr "托盘 2"
+
+#~ msgid "Tray 3"
+#~ msgstr "托盘 3"
+
+#~ msgid "Tray 4"
+#~ msgstr "托盘 4"
+
+#~ msgid "US Fanfold"
+#~ msgstr "美国连张 (Fanfold)"
+
+#~ msgid "US Ledger"
+#~ msgstr "美国账簿 (Ledger)"
+
+#~ msgid "US Legal"
+#~ msgstr "美国法律 (Legal)"
+
+#~ msgid "US Legal Oversize"
+#~ msgstr "美国法律 (Legal) 加大"
+
+#~ msgid "US Letter"
+#~ msgstr "美国信纸 (Letter)"
+
+#~ msgid "US Letter Long Edge"
+#~ msgstr "美国信纸 (Letter) 长边"
+
+#~ msgid "US Letter Oversize"
+#~ msgstr "美国信纸 (Letter) 加大"
+
+#~ msgid "US Letter Oversize Long Edge"
+#~ msgstr "美国信纸 (Letter) 加大 长边"
+
+#~ msgid "US Letter Small"
+#~ msgstr "美国信纸 (Letter) 小号"
+
+#~ msgid "Unable to change printer-is-shared attribute"
+#~ msgstr "无法更改 printer-is-shared 属性"
+
+#~ msgid "Unable to copy PPD file."
+#~ msgstr "无法复制 PPD 文件。"
+
+#~ msgid "Unable to create credentials from array."
+#~ msgstr "无法从打印组创建服务器凭据。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate chain "
+#~ "invalid)."
+#~ msgstr "无法建立到主机的安全连接 (无效证书链)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate not yet "
+#~ "valid)."
+#~ msgstr "无法建立到主机的安全连接 (证书尚未生效)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (expired certificate)."
+#~ msgstr "无法建立到主机的安全连接 (证书已过期)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (host name mismatch)."
+#~ msgstr "无法建立到主机的安全连接 (主机名不匹配)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (peer dropped connection "
+#~ "before responding)."
+#~ msgstr "无法建立到主机的安全连接 (对方在回复前断开连接)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (self-signed certificate)."
+#~ msgstr "无法建立到主机的安全连接 (自签发证书)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (untrusted certificate)."
+#~ msgstr "无法建立到主机的安全连接 (未信任的证书)。"
+
+#~ msgid "Unable to establish a secure connection to host."
+#~ msgstr "无法建立到主机的安全连接。"
+
+#~ msgid "Unable to find printer."
+#~ msgstr "找不到打印机。"
+
+#~ msgid "Unable to find server credentials."
+#~ msgstr "找不到服务器凭据。"
+
+#~ msgid "Usage: cupsfilter [ options ] [ -- ] filename"
+#~ msgstr "用法：cupsfilter [ options ] [ -- ] filename"
+
+#~ msgid "ZPL Label Printer"
+#~ msgstr "ZPL 标签打印机"
+
+#~ msgid "Zebra"
+#~ msgstr "Zebra"
+
 #~ msgid "cupsctl: Cannot set Listen or Port directly."
 #~ msgstr "cupsctl：无法直接设置 Listen 或 Port 值。"
+
+#, c-format
+#~ msgid "ippfind: Unable to browse or resolve: %s"
+#~ msgstr "ippfind：无法浏览或解析：%s"
+
+#, c-format
+#~ msgid "ippfind: Unable to use Bonjour: %s"
+#~ msgstr "ippfind：无法使用 Bonjour：%s"
 
 #~ msgid "lpadmin: Unable to open PPD file \"%s\" - %s"
 #~ msgstr "lpadmin：无法打开 PPD 文件“%s”- %s"

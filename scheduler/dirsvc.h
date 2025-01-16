@@ -1,7 +1,7 @@
 /*
  * Directory services definitions for the CUPS scheduler.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2017 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -28,7 +28,6 @@ VAR int			Browsing	VALUE(TRUE),
 			BrowseLocalProtocols
 					VALUE(BROWSE_ALL);
 					/* Protocols to support for local printers */
-#ifdef HAVE_DNSSD
 VAR char		*DNSSDComputerName VALUE(NULL),
 					/* Computer/server name */
 			*DNSSDHostName	VALUE(NULL),
@@ -39,20 +38,12 @@ VAR cups_array_t	*DNSSDAlias	VALUE(NULL);
 					/* List of dynamic ServerAlias's */
 VAR int			DNSSDPort	VALUE(0);
 					/* Port number to register */
+VAR cups_dnssd_t	*DNSSDContext	VALUE(NULL);
+					/* DNS-SD context */
 VAR cups_array_t	*DNSSDPrinters	VALUE(NULL);
 					/* Printers we have registered */
-#  ifdef HAVE_MDNSRESPONDER
-VAR DNSServiceRef	DNSSDMaster	VALUE(NULL);
-					/* Master DNS-SD service reference */
-#  else /* HAVE_AVAHI */
-VAR AvahiThreadedPoll	*DNSSDMaster	VALUE(NULL);
-					/* Master polling interface for Avahi */
-VAR AvahiClient		*DNSSDClient	VALUE(NULL);
-					/* Client information */
-#  endif /* HAVE_MDNSRESPONDER */
-VAR cupsd_srv_t		WebIFSrv	VALUE(NULL);
-					/* Service reference for the web interface */
-#endif /* HAVE_DNSSD */
+VAR cups_dnssd_service_t *DNSSDWebIF	VALUE(NULL);
+					/* Web interface service */
 
 
 /*
@@ -63,6 +54,4 @@ extern void	cupsdDeregisterPrinter(cupsd_printer_t *p, int removeit);
 extern void	cupsdRegisterPrinter(cupsd_printer_t *p);
 extern void	cupsdStartBrowsing(void);
 extern void	cupsdStopBrowsing(void);
-#ifdef HAVE_DNSSD
 extern void	cupsdUpdateDNSSDName(void);
-#endif /* HAVE_DNSSD */

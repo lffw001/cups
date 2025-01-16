@@ -1,7 +1,7 @@
 /*
  * Global variable access routines for CUPS.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -28,14 +28,14 @@
 static int		cups_global_index = 0;
 					/* Next thread number */
 #endif /* DEBUG */
-static _cups_threadkey_t cups_globals_key = _CUPS_THREADKEY_INITIALIZER;
+static cups_thread_key_t cups_globals_key = CUPS_THREADKEY_INITIALIZER;
 					/* Thread local storage key */
 #ifdef HAVE_PTHREAD_H
 static pthread_once_t	cups_globals_key_once = PTHREAD_ONCE_INIT;
 					/* One-time initialization object */
 #endif /* HAVE_PTHREAD_H */
 #if defined(HAVE_PTHREAD_H) || defined(_WIN32)
-static _cups_mutex_t	cups_global_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t	cups_global_mutex = CUPS_MUTEX_INITIALIZER;
 					/* Global critical section */
 #endif /* HAVE_PTHREAD_H || _WIN32 */
 
@@ -63,11 +63,7 @@ static void		cups_globals_init(void);
 void
 _cupsGlobalLock(void)
 {
-#ifdef HAVE_PTHREAD_H
-  pthread_mutex_lock(&cups_global_mutex);
-#elif defined(_WIN32)
-  EnterCriticalSection(&cups_global_mutex.m_criticalSection);
-#endif /* HAVE_PTHREAD_H */
+  cupsMutexLock(&cups_global_mutex);
 }
 
 
@@ -93,14 +89,14 @@ _cupsGlobals(void)
   * See if we have allocated the data yet...
   */
 
-  if ((cg = (_cups_globals_t *)_cupsThreadGetData(cups_globals_key)) == NULL)
+  if ((cg = (_cups_globals_t *)cupsThreadGetData(cups_globals_key)) == NULL)
   {
    /*
     * No, allocate memory as set the pointer for the key...
     */
 
     if ((cg = cups_globals_alloc()) != NULL)
-      _cupsThreadSetData(cups_globals_key, cg);
+      cupsThreadSetData(cups_globals_key, cg);
   }
 
  /*
@@ -118,11 +114,7 @@ _cupsGlobals(void)
 void
 _cupsGlobalUnlock(void)
 {
-#ifdef HAVE_PTHREAD_H
-  pthread_mutex_unlock(&cups_global_mutex);
-#elif defined(_WIN32)
-  LeaveCriticalSection(&cups_global_mutex.m_criticalSection);
-#endif /* HAVE_PTHREAD_H */
+  cupsMutexUnlock(&cups_global_mutex);
 }
 
 
@@ -145,7 +137,7 @@ DllMain(HINSTANCE hinst,		/* I - DLL module handle */
   switch (reason)
   {
     case DLL_PROCESS_ATTACH :		/* Called on library initialization */
-        InitializeCriticalSection(&cups_global_mutex.m_criticalSection);
+        cupsMutexInit(&cups_global_mutex);
 
         if ((cups_globals_key = TlsAlloc()) == TLS_OUT_OF_INDEXES)
           return (FALSE);
@@ -161,7 +153,7 @@ DllMain(HINSTANCE hinst,		/* I - DLL module handle */
           cups_globals_free(cg);
 
         TlsFree(cups_globals_key);
-        DeleteCriticalSection(&cups_global_mutex.m_criticalSection);
+	cupsMutexDestroy(&cups_global_mutex);
         break;
 
     default:
@@ -180,16 +172,8 @@ DllMain(HINSTANCE hinst,		/* I - DLL module handle */
 static _cups_globals_t *		/* O - Pointer to global data */
 cups_globals_alloc(void)
 {
-  _cups_globals_t *cg = malloc(sizeof(_cups_globals_t));
+  _cups_globals_t *cg = calloc(1, sizeof(_cups_globals_t));
 					/* Pointer to global data */
-#ifdef _WIN32
-  HKEY		key;			/* Registry key */
-  DWORD		size;			/* Size of string */
-  static char	homedir[1024] = "",	/* Home directory */
-		installdir[1024] = "",	/* Install directory */
-		confdir[1024] = "",	/* Server root directory */
-		localedir[1024] = "";	/* Locale directory */
-#endif /* _WIN32 */
 
 
   if (!cg)
@@ -200,7 +184,6 @@ cups_globals_alloc(void)
   * callback values...
   */
 
-  memset(cg, 0, sizeof(_cups_globals_t));
   cg->encryption     = (http_encryption_t)-1;
   cg->password_cb    = (cups_password_cb2_t)_cupsGetPassword;
   cg->trust_first    = -1;
@@ -221,13 +204,20 @@ cups_globals_alloc(void)
   */
 
 #ifdef _WIN32
+  HKEY		key;			/* Registry key */
+  DWORD		size;			/* Size of string */
+  static char	installdir[1024] = "",	/* Install directory */
+		localedir[1024] = "",	/* Locale directory */
+		sysconfig[1024] = "",	/* Server configuration directory */
+		userconfig[1024] = "";	/* User configuration directory */
+
   if (!installdir[0])
   {
    /*
     * Open the registry...
     */
 
-    strlcpy(installdir, "C:/Program Files/cups.org", sizeof(installdir));
+    cupsCopyString(installdir, "C:/Program Files/cups.org", sizeof(installdir));
 
     if (!RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\cups.org", 0, KEY_READ, &key))
     {
@@ -257,7 +247,7 @@ cups_globals_alloc(void)
       }
     }
 
-    snprintf(confdir, sizeof(confdir), "%s/conf", installdir);
+    snprintf(sysconfig, sizeof(sysconfig), "%s/conf", installdir);
     snprintf(localedir, sizeof(localedir), "%s/locale", installdir);
   }
 
@@ -267,40 +257,45 @@ cups_globals_alloc(void)
   if ((cg->cups_serverbin = getenv("CUPS_SERVERBIN")) == NULL)
     cg->cups_serverbin = installdir;
 
-  if ((cg->cups_serverroot = getenv("CUPS_SERVERROOT")) == NULL)
-    cg->cups_serverroot = confdir;
+  if ((cg->sysconfig = getenv("CUPS_SERVERROOT")) == NULL)
+    cg->sysconfig = sysconfig;
 
   if ((cg->cups_statedir = getenv("CUPS_STATEDIR")) == NULL)
-    cg->cups_statedir = confdir;
+    cg->cups_statedir = sysconfig;
 
   if ((cg->localedir = getenv("LOCALEDIR")) == NULL)
     cg->localedir = localedir;
 
-  if (!homedir[0])
+  if (!userconfig[0])
   {
     const char	*userprofile = getenv("USERPROFILE");
 				// User profile (home) directory
-    char	*homeptr;	// Pointer into homedir
+    char	*userptr;	// Pointer into userconfig
 
-    DEBUG_printf(("cups_globals_alloc: USERPROFILE=\"%s\"", userprofile));
+    DEBUG_printf("cups_globals_alloc: USERPROFILE=\"%s\"", userprofile);
 
-    if (!strncmp(userprofile, "C:\\", 3))
-      userprofile += 2;
-
-    strlcpy(homedir, userprofile, sizeof(homedir));
-    for (homeptr = homedir; *homeptr; homeptr ++)
+    snprintf(userconfig, sizeof(userconfig), "%s/AppData/Local/cups", userprofile);
+    for (userptr = userconfig; *userptr; userptr ++)
     {
       // Convert back slashes to forward slashes
-      if (*homeptr == '\\')
-        *homeptr = '/';
+      if (*userptr == '\\')
+        *userptr = '/';
     }
 
-    DEBUG_printf(("cups_globals_alloc: homedir=\"%s\"", homedir));
+    DEBUG_printf("cups_globals_alloc: userconfig=\"%s\"", userconfig);
   }
 
-  cg->home = homedir;
+  cg->userconfig = userconfig;
 
 #else
+  const char	*home = getenv("HOME");	// HOME environment variable
+  char		homedir[1024],		// Home directory from account
+		temp[1024];		// Temporary directory string
+#  ifndef __APPLE__
+  const char	*snap_common = getenv("SNAP_COMMON"),
+		*xdg_config_home = getenv("XDG_CONFIG_HOME");
+					// Environment variables
+#  endif // !__APPLE__
 #  ifdef HAVE_GETEUID
   if ((geteuid() != getuid() && getuid()) || getegid() != getgid())
 #  else
@@ -314,7 +309,7 @@ cups_globals_alloc(void)
 
     cg->cups_datadir    = CUPS_DATADIR;
     cg->cups_serverbin  = CUPS_SERVERBIN;
-    cg->cups_serverroot = CUPS_SERVERROOT;
+    cg->sysconfig       = CUPS_SERVERROOT;
     cg->cups_statedir   = CUPS_STATEDIR;
     cg->localedir       = CUPS_LOCALEDIR;
   }
@@ -330,32 +325,80 @@ cups_globals_alloc(void)
     if ((cg->cups_serverbin = getenv("CUPS_SERVERBIN")) == NULL)
       cg->cups_serverbin = CUPS_SERVERBIN;
 
-    if ((cg->cups_serverroot = getenv("CUPS_SERVERROOT")) == NULL)
-      cg->cups_serverroot = CUPS_SERVERROOT;
+    if ((cg->sysconfig = getenv("CUPS_SERVERROOT")) == NULL)
+      cg->sysconfig = CUPS_SERVERROOT;
 
     if ((cg->cups_statedir = getenv("CUPS_STATEDIR")) == NULL)
       cg->cups_statedir = CUPS_STATEDIR;
 
     if ((cg->localedir = getenv("LOCALEDIR")) == NULL)
       cg->localedir = CUPS_LOCALEDIR;
-
-    cg->home = getenv("HOME");
-
-#  ifdef __APPLE__ /* Sandboxing now exposes the container as the home directory */
-    if (cg->home && strstr(cg->home, "/Library/Containers/"))
-      cg->home = NULL;
-#  endif /* !__APPLE__ */
   }
 
-  if (!cg->home)
+  if (!getuid())
+  {
+    // When running as root, make "userconfig" the same as "sysconfig"...
+    cg->userconfig = strdup(cg->sysconfig);
+    return (cg);
+  }
+
+#  ifdef __APPLE__
+  if (!home)
+#else
+  if (!home && !xdg_config_home)
+#  endif // __APPLE__
+  if (!home)
   {
     struct passwd	pw;		/* User info */
     struct passwd	*result;	/* Auxiliary pointer */
 
     getpwuid_r(getuid(), &pw, cg->pw_buf, PW_BUF_SIZE, &result);
     if (result)
-      cg->home = _cupsStrAlloc(pw.pw_dir);
+    {
+      cupsCopyString(homedir, pw.pw_dir, sizeof(homedir));
+      home = homedir;
+    }
   }
+
+#  ifdef __APPLE__
+  if (home)
+  {
+    // macOS uses ~/Library/Application Support/FOO
+    snprintf(temp, sizeof(temp), "%s/Library/Application Support/cups", home);
+  }
+  else
+  {
+    // Something went wrong, use temporary directory...
+    snprintf(temp, sizeof(temp), "/private/tmp/cups%u", (unsigned)getuid());
+  }
+
+#  else
+  if (snap_common)
+  {
+    // Snaps use $SNAP_COMMON/FOO
+    snprintf(temp, sizeof(temp), "%s/cups", snap_common);
+  }
+  else if (xdg_config_home)
+  {
+    // XDG uses $XDG_CONFIG_HOME/FOO
+    snprintf(temp, sizeof(temp), "%s/cups", xdg_config_home);
+  }
+  else if (home)
+  {
+    // Use ~/.cups if it exists, otherwise ~/.config/cups (XDG standard)
+    snprintf(temp, sizeof(temp), "%s/.cups", home);
+    if (access(temp, 0))
+      snprintf(temp, sizeof(temp), "%s/.config/cups", home);
+  }
+  else
+  {
+    // Something went wrong, use temporary directory...
+    snprintf(temp, sizeof(temp), "/tmp/cups%u", (unsigned)getuid());
+  }
+#  endif // __APPLE__
+
+  // Can't use _cupsStrAlloc since it causes a loop with debug logging enabled
+  cg->userconfig = strdup(temp);
 #endif /* _WIN32 */
 
   return (cg);
@@ -389,9 +432,7 @@ cups_globals_free(_cups_globals_t *cg)	/* I - Pointer to global data */
 
   httpClose(cg->http);
 
-#ifdef HAVE_TLS
-  _httpFreeCredentials(cg->tls_credentials);
-#endif /* HAVE_TLS */
+  _httpFreeCredentials(cg->credentials);
 
   cupsFileClose(cg->stdio_files[0]);
   cupsFileClose(cg->stdio_files[1]);
@@ -399,8 +440,8 @@ cups_globals_free(_cups_globals_t *cg)	/* I - Pointer to global data */
 
   cupsFreeOptions(cg->cupsd_num_settings, cg->cupsd_settings);
 
-  if (cg->raster_error.start)
-    free(cg->raster_error.start);
+  free(cg->userconfig);
+  free(cg->raster_error.start);
 
   free(cg);
 }

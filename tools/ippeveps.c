@@ -1,7 +1,7 @@
 /*
  * Generic Adobe PostScript printer command for ippeveprinter/CUPS.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -248,7 +248,7 @@ dsc_header(int num_pages)		/* I - Number of pages or 0 if not known */
   const char	*job_id = getenv("IPP_JOB_ID");
 					/* job-id value */
 
-  ppdEmitJCL(ppd, stdout, job_id ? atoi(job_id) : 0, cupsUser(), job_name ? job_name : "Unknown");
+  ppdEmitJCL(ppd, stdout, job_id ? atoi(job_id) : 0, cupsGetUser(), job_name ? job_name : "Unknown");
 #endif /* !CUPS_LITE */
 
   puts("%!PS-Adobe-3.0");
@@ -421,24 +421,29 @@ get_options(cups_option_t **options)	/* O - Options */
   * Load PPD file and the corresponding IPP <-> PPD cache data...
   */
 
-  if ((ppd = ppdOpenFile(getenv("PPD"))) != NULL && (ppd_cache = _ppdCacheCreateWithPPD(ppd)) != NULL)
+  if ((ppd = ppdOpenFile(getenv("PPD"))) != NULL && (ppd_cache = _ppdCacheCreateWithPPD(/*langs*/NULL, ppd)) != NULL)
   {
-    /* TODO: Fix me - values are names, not numbers... Also need to support finishings-col */
     if ((value = getenv("IPP_FINISHINGS")) == NULL)
       value = getenv("IPP_FINISHINGS_DEFAULT");
 
     if (value)
     {
-      char	*ptr;			/* Pointer into value */
-      long	fin;			/* Current value */
+      cups_array_t	*finishings;	/* Array of finishings values */
+      const char	*keyword;	/* Keyword/number value */
+      ipp_finishings_t	fin;		/* Current value */
 
-      for (fin = strtol(value, &ptr, 10); fin > 0; fin = strtol(ptr + 1, &ptr, 10))
+      finishings = cupsArrayNewStrings(value, ',');
+      for (keyword = (const char *)cupsArrayGetFirst(finishings); keyword; keyword = (const char *)cupsArrayGetNext(finishings))
       {
-	num_options = _ppdCacheGetFinishingOptions(ppd_cache, NULL, (ipp_finishings_t)fin, num_options, options);
+        if (isdigit(*keyword & 255))
+          fin = (ipp_finishings_t)strtol(keyword, /*endptr*/NULL, 10);
+	else
+	  fin = (ipp_finishings_t)ippEnumValue("finishings", keyword);
 
-	if (*ptr != ',')
-	  break;
+	num_options = _ppdCacheGetFinishingOptions(ppd_cache, /*job*/NULL, fin, num_options, options);
       }
+
+      cupsArrayDelete(finishings);
     }
 
     if ((value = cupsGetOption("media-source", num_media_col, media_col)) != NULL)
@@ -816,7 +821,7 @@ pdf_to_ps(const char    *filename,	/* I - Filename */
 
   pdf_argv[0] = "printer";
   pdf_argv[1] = job_id;
-  pdf_argv[2] = cupsUser();
+  pdf_argv[2] = cupsGetUser();
   pdf_argv[3] = job_name;
   pdf_argv[4] = "1";
   pdf_argv[5] = pdf_options;

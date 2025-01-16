@@ -1,6 +1,7 @@
 /*
  * RSS notifier for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2015 by Apple Inc.
  * Copyright 2007 by Easy Software Products.
  *
@@ -45,7 +46,7 @@ static char		*rss_password;	/* Password for remote RSS */
  * Local functions...
  */
 
-static int		compare_rss(_cups_rss_t *a, _cups_rss_t *b);
+static int		compare_rss(_cups_rss_t *a, _cups_rss_t *b, void *data);
 static void		delete_message(_cups_rss_t *msg);
 static void		load_rss(cups_array_t *rss, const char *filename);
 static _cups_rss_t	*new_message(int sequence_number, char *subject,
@@ -110,7 +111,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (httpSeparateURI(HTTP_URI_CODING_ALL, argv[1], scheme, sizeof(scheme),
                       username, sizeof(username), host, sizeof(host), &port,
-		      resource, sizeof(resource)) < HTTP_URI_OK)
+		      resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
   {
     fprintf(stderr, "ERROR: Bad RSS URI \"%s\"!\n", argv[1]);
     return (1);
@@ -171,7 +172,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
     close(fd);
 
-    if (status != HTTP_OK && status != HTTP_NOT_FOUND)
+    if (status != HTTP_STATUS_OK && status != HTTP_STATUS_NOT_FOUND)
     {
       fprintf(stderr, "ERROR: Unable to GET %s from %s on port %d: %d %s\n",
 	      resource, host, port, status, httpStatus(status));
@@ -182,7 +183,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       return (1);
     }
 
-    strlcpy(newname, filename, sizeof(newname));
+    cupsCopyString(newname, filename, sizeof(newname));
 
     httpAssembleURI(HTTP_URI_CODING_ALL, baseurl, sizeof(baseurl), "http",
                     NULL, host, port, resource);
@@ -246,7 +247,7 @@ main(int  argc,				/* I - Number of command-line arguments */
           * Upload the RSS file...
 	  */
 
-          if ((status = cupsPutFile(http, resource, filename)) != HTTP_CREATED)
+          if ((status = cupsPutFile(http, resource, filename)) != HTTP_STATUS_CREATED)
             fprintf(stderr, "ERROR: Unable to PUT %s from %s on port %d: %d %s\n",
 	            resource, host, port, status, httpStatus(status));
 	}
@@ -288,16 +289,16 @@ main(int  argc,				/* I - Number of command-line arguments */
     */
 
     event = ippNew();
-    while ((state = ippReadFile(0, event)) != IPP_DATA)
+    while ((state = ippReadFile(0, event)) != IPP_STATE_DATA)
     {
-      if (state <= IPP_IDLE)
+      if (state <= IPP_STATE_IDLE)
         break;
     }
 
-    if (state == IPP_ERROR)
+    if (state == IPP_STATE_ERROR)
       fputs("DEBUG: ippReadFile() returned IPP_ERROR!\n", stderr);
 
-    if (state <= IPP_IDLE)
+    if (state <= IPP_STATE_IDLE)
       break;
 
    /*
@@ -397,10 +398,12 @@ main(int  argc,				/* I - Number of command-line arguments */
  * 'compare_rss()' - Compare two messages.
  */
 
-static int				/* O - Result of comparison */
-compare_rss(_cups_rss_t *a,		/* I - First message */
-            _cups_rss_t *b)		/* I - Second message */
+static int                  /* O - Result of comparison */
+compare_rss(_cups_rss_t *a, /* I - First message */
+            _cups_rss_t *b, /* I - Second message */
+            void *data)     /* Unused */
 {
+  (void)data;
   return (a->sequence_number - b->sequence_number);
 }
 

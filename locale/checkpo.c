@@ -2,7 +2,7 @@
  * Verify that translations in the .po file have the same number and type of
  * printf-style format strings.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2017 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -24,7 +24,7 @@
  * Local functions...
  */
 
-static char		*abbreviate(const char *s, char *buf, int bufsize);
+static char		*abbreviate(const char *s, char *buf, size_t bufsize);
 static cups_array_t	*collect_formats(const char *id);
 static void		free_formats(cups_array_t *fmts);
 
@@ -69,9 +69,9 @@ main(int  argc,				/* I - Number of command-line args */
     */
 
     if (strstr(argv[i], ".strings"))
-      po = _cupsMessageLoad(argv[i], _CUPS_MESSAGE_STRINGS);
+      po = _cupsMessageLoad(NULL, argv[i], _CUPS_MESSAGE_STRINGS);
     else
-      po = _cupsMessageLoad(argv[i], _CUPS_MESSAGE_PO | _CUPS_MESSAGE_EMPTY);
+      po = _cupsMessageLoad(NULL, argv[i], _CUPS_MESSAGE_PO | _CUPS_MESSAGE_EMPTY);
 
     if (!po)
     {
@@ -292,10 +292,16 @@ main(int  argc,				/* I - Number of command-line args */
 static char *				/* O - Abbreviated string */
 abbreviate(const char *s,		/* I - String to abbreviate */
            char       *buf,		/* I - Buffer */
-	   int        bufsize)		/* I - Size of buffer */
+	   size_t     bufsize)		/* I - Size of buffer */
 {
   char	*bufptr;			/* Pointer into buffer */
 
+
+  if (bufsize < 4)
+  {
+    *buf = '\0';
+    return (buf);
+  }
 
   for (bufptr = buf, bufsize -= 4; *s && bufsize > 0; s ++)
   {

@@ -1,7 +1,7 @@
 /*
  * Authorization definitions for the CUPS scheduler.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2014 by Apple Inc.
  * Copyright 1997-2006 by Easy Software Products, all rights reserved.
  *
@@ -98,8 +98,6 @@ typedef struct
   http_encryption_t	encryption;	/* To encrypt or not to encrypt... */
 } cupsd_location_t;
 
-typedef struct cupsd_client_s cupsd_client_t;
-
 
 /*
  * Globals...
@@ -107,10 +105,8 @@ typedef struct cupsd_client_s cupsd_client_t;
 
 VAR cups_array_t	*Locations	VALUE(NULL);
 					/* Authorization locations */
-#ifdef HAVE_TLS
-VAR http_encryption_t	DefaultEncryption VALUE(HTTP_ENCRYPT_REQUIRED);
+VAR http_encryption_t	DefaultEncryption VALUE(HTTP_ENCRYPTION_REQUIRED);
 					/* Default encryption for authentication */
-#endif /* HAVE_TLS */
 
 
 /*
@@ -133,6 +129,6 @@ extern cupsd_location_t	*cupsdCopyLocation(cupsd_location_t *loc);
 extern void		cupsdDeleteAllLocations(void);
 extern cupsd_location_t	*cupsdFindBest(const char *path, http_state_t state);
 extern cupsd_location_t	*cupsdFindLocation(const char *location);
-extern void		cupsdFreeLocation(cupsd_location_t *loc);
+extern void		cupsdFreeLocation(cupsd_location_t *loc, void *data);
 extern http_status_t	cupsdIsAuthorized(cupsd_client_t *con, const char *owner);
 extern cupsd_location_t	*cupsdNewLocation(const char *location);

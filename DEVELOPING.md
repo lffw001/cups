@@ -8,10 +8,10 @@ contributing to the CUPS project.
 How To Contact The Developers
 -----------------------------
 
-The Linux Foundation's "printing-architecture" mailing list is the primary means
-of asking questions and informally discussing issues and feature requests with
-the OpenPrinting developers.  To subscribe or see the mailing list archives, go
-to <https://lists.linuxfoundation.org/mailman/listinfo/printing-architecture>.
+The Linux "printing-architecture" mailing list is the primary means of asking
+questions and informally discussing issues and feature requests with the
+OpenPrinting developers.  To subscribe or see the mailing list archives, go
+to <https://subspace.kernel.org/lists.linux.dev.html>.
 
 
 Interfaces
@@ -118,6 +118,16 @@ to the same guidelines as allowed by the language.
 Source code comments provide the reference portion of the CUPS Programming
 Manual, which is generated using the [codedoc](https://www.msweet.org/codedoc)
 software.
+
+
+### Copyright notice
+
+If there are changes for a file, which contains copyright notice already
+and the notice is not updated for the current year, update the year of copyright
+notice to include the current year.
+
+Only the following files must have copyright notice updated every year: README.md,
+NOTICE, index.html.in, and header.html.in.
 
 
 ### Source Files

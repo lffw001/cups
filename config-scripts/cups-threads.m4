@@ -1,7 +1,7 @@
 dnl
 dnl Threading stuff for CUPS.
 dnl
-dnl Copyright © 2021 by OpenPrinting.
+dnl Copyright © 2020-2024 by OpenPrinting.
 dnl Copyright © 2007-2017 by Apple Inc.
 dnl Copyright © 1997-2005 by Easy Software Products, all rights reserved.
 dnl
@@ -38,7 +38,7 @@ AS_IF([test x$ac_cv_header_pthread_h = xyes], [
 
 	    # Solaris requires -D_POSIX_PTHREAD_SEMANTICS to be POSIX-
 	    # compliant... :(
-	    AS_IF([test $host_os_name = sunos], [
+	    AS_IF([test $host_os_name = sunos -o $host_os_name = solaris], [
 		PTHREAD_FLAGS="$PTHREAD_FLAGS -D_POSIX_PTHREAD_SEMANTICS"
 	    ])
 	    break

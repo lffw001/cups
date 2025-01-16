@@ -1,7 +1,7 @@
 dnl
 dnl Common configuration stuff for CUPS.
 dnl
-dnl Copyright © 2021-2023 by OpenPrinting.
+dnl Copyright © 2020-2024 by OpenPrinting.
 dnl Copyright © 2007-2019 by Apple Inc.
 dnl Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 dnl
@@ -126,10 +126,8 @@ AS_IF([test x$enable_libpaper = xyes], [
 AC_SUBST([LIBPAPER])
 
 dnl Checks for header files.
-AC_CHECK_HEADER([crypt.h], AC_DEFINE([HAVE_CRYPT_H], [1], [Have <crypt.h> header?]))
 AC_CHECK_HEADER([langinfo.h], AC_DEFINE([HAVE_LANGINFO_H], [1], [Have <langinfo.h> header?]))
 AC_CHECK_HEADER([malloc.h], AC_DEFINE([HAVE_MALLOC_H], [1], [Have <malloc.h> header?]))
-AC_CHECK_HEADER([shadow.h], AC_DEFINE([HAVE_SHADOW_H], [1], [Have <shadow.h> header?]))
 AC_CHECK_HEADER([stdint.h], AC_DEFINE([HAVE_STDINT_H], [1], [Have <stdint.h> header?]))
 AC_CHECK_HEADER([sys/ioctl.h], AC_DEFINE([HAVE_SYS_IOCTL_H], [1], [Have <sys/ioctl.h> header?]))
 AC_CHECK_HEADER([sys/param.h], AC_DEFINE([HAVE_SYS_PARAM_H], [1], [Have <sys/param.h> header?]))
@@ -147,6 +145,7 @@ AC_CHECK_HEADER([iconv.h], [
 	AC_DEFINE([HAVE_ICONV_H], [1], [Have <iconv.h> header?])
 	SAVELIBS="$SAVELIBS $LIBS"
     ])
+    PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $LIBS"
     LIBS="$SAVELIBS"
 ])
 
@@ -156,11 +155,6 @@ AC_CHECK_HEADER([sys/statfs.h], AC_DEFINE([HAVE_SYS_STATFS_H], [1], [Have <sys/s
 AC_CHECK_HEADER([sys/statvfs.h], AC_DEFINE([HAVE_SYS_STATVFS_H], [1], [Have <sys/statvfs.h> header?]))
 AC_CHECK_HEADER([sys/vfs.h], AC_DEFINE([HAVE_SYS_VFS_H], [1], [Have <sys/vfs.h> header?]))
 AC_CHECK_FUNCS([statfs statvfs])
-
-dnl Checks for string functions.
-dnl TODO: Remove strdup, snprintf, and vsnprintf checks since they are C99?
-AC_CHECK_FUNCS([strdup snprintf vsnprintf])
-AC_CHECK_FUNCS([strlcat strlcpy])
 
 dnl Check for random number functions...
 AC_CHECK_FUNCS([random lrand48 arc4random])
@@ -173,16 +167,6 @@ AC_CHECK_FUNCS([setpgid])
 
 dnl Check for vsyslog function.
 AC_CHECK_FUNCS([vsyslog])
-
-dnl Checks for signal functions.
-AS_CASE(["$host_os_name"], [linux* | gnu*], [
-    # Do not use sigset on Linux or GNU HURD
-], [*], [
-    # Use sigset on other platforms, if available
-    AC_CHECK_FUNCS([sigset])
-])
-
-AC_CHECK_FUNCS([sigaction])
 
 dnl Checks for wait functions.
 AC_CHECK_FUNCS([waitpid wait3])
@@ -271,16 +255,14 @@ dnl ZLIB
 INSTALL_GZIP=""
 LIBZ=""
 AC_CHECK_HEADER([zlib.h], [
-    AC_CHECK_LIB([z], [gzgets], [
-	AC_DEFINE([HAVE_LIBZ], [1], [Have zlib library?])
+    AC_CHECK_LIB([z], [inflateCopy], [
 	LIBZ="-lz"
 	LIBS="$LIBS -lz"
-	AC_CHECK_LIB([z], [inflateCopy], [
-	    AC_DEFINE([HAVE_INFLATECOPY], [1], [Have inflateCopy function?])
-	])
 	AS_IF([test "x$GZIPPROG" != x], [
 	    INSTALL_GZIP="-z"
 	])
+    ], [
+        AC_MSG_ERROR([Required zlib library not found.])
     ])
 ])
 AC_SUBST([INSTALL_GZIP])
@@ -363,8 +345,8 @@ INSTALLXPC=""
 AS_CASE([$host_os_name], [darwin*], [
     BACKLIBS="$BACKLIBS -framework IOKit"
     SERVERLIBS="$SERVERLIBS -framework IOKit -weak_framework ApplicationServices"
-    LIBS="-framework CoreFoundation -framework Security $LIBS"
-    PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC -framework CoreFoundation -framework Security"
+    LIBS="-framework CoreFoundation -framework CoreServices -framework Security $LIBS"
+    PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC -framework CoreFoundation -framework CoreServices -framework Security"
 
     dnl Check for framework headers...
     AC_CHECK_HEADER([ApplicationServices/ApplicationServices.h], [
@@ -379,6 +361,7 @@ AS_CASE([$host_os_name], [darwin*], [
     LIBS="-framework SystemConfiguration $LIBS"
     AC_CHECK_FUNCS([SCDynamicStoreCopyComputerName], [
 	AC_DEFINE([HAVE_SCDYNAMICSTORECOPYCOMPUTERNAME], [1], [Have SCDynamicStoreCopyComputerName function?])
+	PKGCONFIG_LIBS_STATIC="-framework SystemConfiguration $PKGCONFIG_LIBS_STATIC"
     ],[
 	LIBS="$SAVELIBS"
     ])
@@ -483,7 +466,7 @@ AS_CASE(["$COMPONENTS"], [all], [
     LIBHEADERS="\$(COREHEADERS)"
     LIBHEADERSPRIV="\$(COREHEADERSPRIV)"
 ], [*], [
-    AC_MSG_ERROR([Bad build component "$COMPONENT" specified.])
+    AC_MSG_ERROR([Bad build component "$COMPONENTS" specified.])
 ])
 
 AC_SUBST([BUILDDIRS])

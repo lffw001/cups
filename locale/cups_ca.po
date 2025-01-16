@@ -1,6 +1,7 @@
 #
 # Catalan message catalog for CUPS.
 #
+# Copyright © 2020-2024 by OpenPrinting.
 # Copyright © 2007-2018 by Apple Inc.
 # Copyright © 2005-2007 by Easy Software Products.
 #
@@ -13,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2021-03-07 10:33-0500\n"
+"POT-Creation-Date: 2024-11-21 13:32-0500\n"
 "PO-Revision-Date: 2012-09-29 11:21+0200\n"
 "Last-Translator: Àngel Mompó <mecatxis@gmail.com>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -809,6 +810,9 @@ msgstr "  --crlf                  Final de línia amb CR + LF (Windows)."
 msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
 msgstr ""
 
+msgid "  --list-all              List all filters with the MIME media types."
+msgstr ""
+
 msgid "  --list-filters          List filters that will be used."
 msgstr ""
 
@@ -821,11 +825,11 @@ msgstr "  -D nom=valor            Estableix la variable indicada al valor."
 msgid "  -I include-dir          Add include directory to search path."
 msgstr "  -I dir-inclòs          Afegeix el directori inclòs al camí de cerca."
 
-msgid "  -P filename.ppd         Set PPD file."
-msgstr "  -P nomfitxer.ppd         Estableix el fitxer PPD."
+msgid "  -P FILENAME.ppd         Set PPD file."
+msgstr ""
 
-msgid "  -U username             Specify username."
-msgstr "  -U nomusuari             Especifica un nom d'usuari."
+msgid "  -U USERNAME             Specify username."
+msgstr ""
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr "  -c catàleg.po           Carrega el catàleg de missatges indicat."
@@ -833,26 +837,22 @@ msgstr "  -c catàleg.po           Carrega el catàleg de missatges indicat."
 msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr ""
 
+msgid "  -d PRINTER              Use the named printer."
+msgstr ""
+
 msgid "  -d output-dir           Specify the output directory."
 msgstr "  -d dir-sortida           Especifica el directori de sortida."
-
-msgid "  -d printer              Use the named printer."
-msgstr "  -d impressora              Fa servir la impressora indicada."
 
 msgid "  -e                      Use every filter from the PPD file."
 msgstr "  -e                      Fa servir tots els filtres del fitxer PPD."
 
-msgid "  -i mime/type            Set input MIME type (otherwise auto-typed)."
+msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
 msgstr ""
-"  -i tipus/mime            Estableix el tipus MIME d'entrada (auto-typed si "
-"no s'especifica)."
 
 msgid ""
-"  -j job-id[,N]           Filter file N from the specified job (default is "
+"  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
-"  -j id-feina[,N]           Filtra el fitxer N a la feina especificada (el "
-"fitxer per defecte és 1)."
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr ""
@@ -864,13 +864,14 @@ msgstr ""
 "fitxer."
 
 msgid ""
-"  -m mime/type            Set output MIME type (otherwise application/pdf)."
+"  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
-"  -m tipus/mime            Estableix el tipus MIME de sortida (application/"
-"pdf si no s'especifica)."
 
-msgid "  -n copies               Set number of copies."
-msgstr "  -n còpies               Estableix el nombre de còpies."
+msgid "  -n COPIES               Set number of copies."
+msgstr ""
+
+msgid "  -o NAME=VALUE           Set option(s)."
+msgstr ""
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
@@ -883,17 +884,14 @@ msgstr ""
 "  -o nomfitxer.ppd[.gz]    Estableix el fitxer de sortida (stdout si no "
 "s'especifica)."
 
-msgid "  -o name=value           Set option(s)."
-msgstr "  -o nom=valor           Estableix les opcions."
-
-msgid "  -p filename.ppd         Set PPD file."
-msgstr "  -p nomfitxer.ppd         Estableix el fitxer PPD."
+msgid "  -p FILENAME.ppd         Set PPD file."
+msgstr ""
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      Prova els  PPDs en comptes de generar-los."
 
-msgid "  -t title                Set title."
-msgstr "  -t títol                Estableix el títol."
+msgid "  -t TITLE                Set title."
+msgstr ""
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      Elimina el fitxer PPD quan ha acabat."
@@ -1186,10 +1184,6 @@ msgid "%s: %s failed: %s"
 msgstr "%s: %s ha fallat: %s"
 
 #, c-format
-msgid "%s: Bad printer URI \"%s\"."
-msgstr ""
-
-#, c-format
 msgid "%s: Bad version %s for \"-V\"."
 msgstr ""
 
@@ -1366,11 +1360,9 @@ msgstr "%s: error - s'esperava un valor després de l'opció «-%c»."
 
 #, c-format
 msgid ""
-"%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W\" "
-"option."
+"%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
+"\" after \"-W\" option."
 msgstr ""
-"%s: error - es requereix «completed», «not-completed», o «all» després de "
-"l'opció «-W»."
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -1429,11 +1421,19 @@ msgid "%s: Invalid filter string \"%s\"."
 msgstr "%s: la cadena del filtre «%s» no és vàlida."
 
 #, c-format
+msgid "%s: Missing client name after '--client-name'."
+msgstr ""
+
+#, c-format
 msgid "%s: Missing filename for \"-P\"."
 msgstr ""
 
 #, c-format
 msgid "%s: Missing timeout for \"-T\"."
+msgstr ""
+
+#, c-format
+msgid "%s: Missing token after '--bearer-token'."
 msgstr ""
 
 #, c-format
@@ -1453,11 +1453,7 @@ msgid "%s: Operation failed: %s"
 msgstr "%s: ha fallat l'operació: %s"
 
 #, c-format
-msgid "%s: Sorry, no encryption support."
-msgstr "%s: ho sento, no està compilada la compatibilitat pel xifrat."
-
-#, c-format
-msgid "%s: Unable to connect to \"%s:%d\": %s"
+msgid "%s: Scheduler is not running."
 msgstr ""
 
 #, c-format
@@ -1467,10 +1463,6 @@ msgstr "%s: no es pot connectar al servidor."
 #, c-format
 msgid "%s: Unable to contact server."
 msgstr "%s: no es pot contactar amb el servidor."
-
-#, c-format
-msgid "%s: Unable to create PPD file: %s"
-msgstr ""
 
 #, c-format
 msgid "%s: Unable to determine MIME type of \"%s\"."
@@ -1489,16 +1481,8 @@ msgid "%s: Unable to open PPD file: %s on line %d."
 msgstr "%s: no es pot obrir el fitxer PPD: %s a la línia %d."
 
 #, c-format
-msgid "%s: Unable to query printer: %s"
-msgstr ""
-
-#, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
 msgstr "%s: no es pot llegir la base de dades MIME de «%s» o «%s»."
-
-#, c-format
-msgid "%s: Unable to resolve \"%s\"."
-msgstr ""
 
 #, c-format
 msgid "%s: Unknown argument \"%s\"."
@@ -1577,6 +1561,16 @@ msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
 msgstr ""
 
 msgid ""
+"--bearer-token BEARER-TOKEN\n"
+"                        Set the OAuth Bearer token for authentication"
+msgstr ""
+
+msgid ""
+"--client-name CLIENT-NAME\n"
+"                        Set the TLS client certificate name"
+msgstr ""
+
+msgid ""
 "--device-id device-id   Show models matching the given IEEE 1284 device ID"
 msgstr ""
 
@@ -1597,6 +1591,9 @@ msgid "--false                 Always false"
 msgstr ""
 
 msgid "--help                  Show program help"
+msgstr ""
+
+msgid "--help                  Show this help"
 msgstr ""
 
 msgid "--hold                  Hold new jobs"
@@ -1694,122 +1691,14 @@ msgstr ""
 msgid "--version               Show version"
 msgstr ""
 
-msgid "-1"
-msgstr "-1"
-
-msgid "-10"
-msgstr "-10"
-
-msgid "-100"
-msgstr "-100"
-
-msgid "-105"
-msgstr "-105"
-
-msgid "-11"
-msgstr "-11"
-
-msgid "-110"
-msgstr "-110"
-
-msgid "-115"
-msgstr "-115"
-
-msgid "-12"
-msgstr "-12"
-
-msgid "-120"
-msgstr "-120"
-
-msgid "-13"
-msgstr "-13"
-
-msgid "-14"
-msgstr "-14"
-
-msgid "-15"
-msgstr "-15"
-
-msgid "-2"
-msgstr "-2"
-
 msgid "-2                      Set 2-sided printing support (default=1-sided)"
 msgstr ""
-
-msgid "-20"
-msgstr "-20"
-
-msgid "-25"
-msgstr "-25"
-
-msgid "-3"
-msgstr "-3"
-
-msgid "-30"
-msgstr "-30"
-
-msgid "-35"
-msgstr "-35"
-
-msgid "-4"
-msgstr "-4"
 
 msgid "-4                      Connect using IPv4"
 msgstr ""
 
-msgid "-40"
-msgstr "-40"
-
-msgid "-45"
-msgstr "-45"
-
-msgid "-5"
-msgstr "-5"
-
-msgid "-50"
-msgstr "-50"
-
-msgid "-55"
-msgstr "-55"
-
-msgid "-6"
-msgstr "-6"
-
 msgid "-6                      Connect using IPv6"
 msgstr ""
-
-msgid "-60"
-msgstr "-60"
-
-msgid "-65"
-msgstr "-65"
-
-msgid "-7"
-msgstr "-7"
-
-msgid "-70"
-msgstr "-70"
-
-msgid "-75"
-msgstr "-75"
-
-msgid "-8"
-msgstr "-8"
-
-msgid "-80"
-msgstr "-80"
-
-msgid "-85"
-msgstr "-85"
-
-msgid "-9"
-msgstr "-9"
-
-msgid "-90"
-msgstr "-90"
-
-msgid "-95"
-msgstr "-95"
 
 msgid "-A                      Enable authentication"
 msgstr ""
@@ -1895,13 +1784,13 @@ msgid ""
 "standard output"
 msgstr ""
 
-msgid "-P filename.ppd         Load printer attributes from PPD file"
-msgstr ""
-
 msgid "-P number[-number]      Match port to number or range"
 msgstr ""
 
 msgid "-P page-list            Specify a list of pages to print"
+msgstr ""
+
+msgid "-R                      Repeat tests on server-error-busy"
 msgstr ""
 
 msgid "-R                      Show the ranking of jobs"
@@ -2306,513 +2195,6 @@ msgstr ""
 msgid "/etc/cups/lpoptions file names default destination that does not exist."
 msgstr ""
 
-msgid "0"
-msgstr "0"
-
-msgid "1"
-msgstr "1"
-
-msgid "1 inch/sec."
-msgstr "1 polzada/seg."
-
-msgid "1.25x0.25\""
-msgstr "1.25x0.25\""
-
-msgid "1.25x2.25\""
-msgstr "1.25x2.25\""
-
-msgid "1.5 inch/sec."
-msgstr "1.5 polzades/seg."
-
-msgid "1.50x0.25\""
-msgstr "1.50x0.25\""
-
-msgid "1.50x0.50\""
-msgstr "1.50x0.50\""
-
-msgid "1.50x1.00\""
-msgstr "1.50x1.00\""
-
-msgid "1.50x2.00\""
-msgstr "1.50x2.00\""
-
-msgid "10"
-msgstr "10"
-
-msgid "10 inches/sec."
-msgstr "10 polzades/seg."
-
-msgid "10 x 11"
-msgstr "10 x 11"
-
-msgid "10 x 13"
-msgstr "10 x 13"
-
-msgid "10 x 14"
-msgstr "10 x 14"
-
-msgid "100"
-msgstr "100"
-
-msgid "100 mm/sec."
-msgstr "100 mm/seg."
-
-msgid "105"
-msgstr "105"
-
-msgid "11"
-msgstr "11"
-
-msgid "11 inches/sec."
-msgstr "11 polzades/seg."
-
-msgid "110"
-msgstr "110"
-
-msgid "115"
-msgstr "115"
-
-msgid "12"
-msgstr "12"
-
-msgid "12 inches/sec."
-msgstr "12 polzades/seg."
-
-msgid "12 x 11"
-msgstr "12 x 11"
-
-msgid "120"
-msgstr "120"
-
-msgid "120 mm/sec."
-msgstr "120 mm/seg."
-
-msgid "120x60dpi"
-msgstr "120x60ppp"
-
-msgid "120x72dpi"
-msgstr "120x72ppp"
-
-msgid "13"
-msgstr "13"
-
-msgid "136dpi"
-msgstr "136ppp"
-
-msgid "14"
-msgstr "14"
-
-msgid "15"
-msgstr "15"
-
-msgid "15 mm/sec."
-msgstr "15 mm/seg."
-
-msgid "15 x 11"
-msgstr "15 x 11"
-
-msgid "150 mm/sec."
-msgstr "150 mm/seg."
-
-msgid "150dpi"
-msgstr "150ppp"
-
-msgid "16"
-msgstr "16"
-
-msgid "17"
-msgstr "17"
-
-msgid "18"
-msgstr "18"
-
-msgid "180dpi"
-msgstr "180ppp"
-
-msgid "19"
-msgstr "19"
-
-msgid "2"
-msgstr "2"
-
-msgid "2 inches/sec."
-msgstr "2 polzades/seg."
-
-msgid "2-Sided Printing"
-msgstr "Impressió a doble cara"
-
-msgid "2.00x0.37\""
-msgstr "2.00x0.37\""
-
-msgid "2.00x0.50\""
-msgstr "2.00x0.50\""
-
-msgid "2.00x1.00\""
-msgstr "2.00x1.00\""
-
-msgid "2.00x1.25\""
-msgstr "2.00x1.25\""
-
-msgid "2.00x2.00\""
-msgstr "2.00x2.00\""
-
-msgid "2.00x3.00\""
-msgstr "2.00x3.00\""
-
-msgid "2.00x4.00\""
-msgstr "2.00x4.00\""
-
-msgid "2.00x5.50\""
-msgstr "2.00x5.50\""
-
-msgid "2.25x0.50\""
-msgstr "2.25x0.50\""
-
-msgid "2.25x1.25\""
-msgstr "2.25x1.25\""
-
-msgid "2.25x4.00\""
-msgstr "2.25x4.00\""
-
-msgid "2.25x5.50\""
-msgstr "2.25x5.50\""
-
-msgid "2.38x5.50\""
-msgstr "2.38x5.50\""
-
-msgid "2.5 inches/sec."
-msgstr "2.5 polzades/seg."
-
-msgid "2.50x1.00\""
-msgstr "2.50x1.00\""
-
-msgid "2.50x2.00\""
-msgstr "2.50x2.00\""
-
-msgid "2.75x1.25\""
-msgstr "2.75x1.25\""
-
-msgid "2.9 x 1\""
-msgstr "2.9 x 1\""
-
-msgid "20"
-msgstr "20"
-
-msgid "20 mm/sec."
-msgstr "20 mm/seg."
-
-msgid "200 mm/sec."
-msgstr "200 mm/seg."
-
-msgid "203dpi"
-msgstr "203ppp"
-
-msgid "21"
-msgstr "21"
-
-msgid "22"
-msgstr "22"
-
-msgid "23"
-msgstr "23"
-
-msgid "24"
-msgstr "24"
-
-msgid "24-Pin Series"
-msgstr "Sèrie de 24 pins"
-
-msgid "240x72dpi"
-msgstr "240x72ppp"
-
-msgid "25"
-msgstr "25"
-
-msgid "250 mm/sec."
-msgstr "250 mm/seg."
-
-msgid "26"
-msgstr "26"
-
-msgid "27"
-msgstr "27"
-
-msgid "28"
-msgstr "28"
-
-msgid "29"
-msgstr "29"
-
-msgid "3"
-msgstr "3"
-
-msgid "3 inches/sec."
-msgstr "3 polzades/seg."
-
-msgid "3 x 5"
-msgstr "3 x 5"
-
-msgid "3.00x1.00\""
-msgstr "3.00x1.00\""
-
-msgid "3.00x1.25\""
-msgstr "3.00x1.25\""
-
-msgid "3.00x2.00\""
-msgstr "3.00x2.00\""
-
-msgid "3.00x3.00\""
-msgstr "3.00x3.00\""
-
-msgid "3.00x4.00\""
-msgstr ""
-
-msgid "3.00x5.00\""
-msgstr "3.00x5.00\""
-
-msgid "3.00x6.00\""
-msgstr ""
-
-msgid "3.00x8.00\""
-msgstr ""
-
-msgid "3.25x2.00\""
-msgstr "3.25x2.00\""
-
-msgid "3.25x5.00\""
-msgstr "3.25x5.00\""
-
-msgid "3.25x5.50\""
-msgstr "3.25x5.50\""
-
-msgid "3.25x5.83\""
-msgstr "3.25x5.83\""
-
-msgid "3.25x7.83\""
-msgstr "3.25x7.83\""
-
-msgid "3.5 x 5"
-msgstr "3.5 x 5"
-
-msgid "3.5\" Disk"
-msgstr "Disc de 3.5\""
-
-msgid "3.50x1.00\""
-msgstr "3.5x1.00\""
-
-msgid "30"
-msgstr "30"
-
-msgid "30 mm/sec."
-msgstr "30 mm/seg."
-
-msgid "300 mm/sec."
-msgstr "300 mm/seg."
-
-msgid "300dpi"
-msgstr "300ppp"
-
-msgid "30859 Paint Can Label"
-msgstr ""
-
-msgid "35"
-msgstr "35"
-
-msgid "360dpi"
-msgstr "360ppp"
-
-msgid "360x180dpi"
-msgstr "360x180ppp"
-
-msgid "4"
-msgstr "4"
-
-msgid "4 inches/sec."
-msgstr "4 polzades/seg."
-
-msgid "4.00x1.00\""
-msgstr "4.00x1.00\""
-
-msgid "4.00x13.00\""
-msgstr "4.00x13.00\""
-
-msgid "4.00x2.00\""
-msgstr "4.00x2.00\""
-
-msgid "4.00x2.50\""
-msgstr "4.00x2.50\""
-
-msgid "4.00x3.00\""
-msgstr "4.00x3.00\""
-
-msgid "4.00x4.00\""
-msgstr "4.00x4.00\""
-
-msgid "4.00x5.00\""
-msgstr "4.00x5.00\""
-
-msgid "4.00x6.00\""
-msgstr "4.00x6.00\""
-
-msgid "4.00x6.50\""
-msgstr "4.00x6.50\""
-
-msgid "4.00x8.00\""
-msgstr ""
-
-msgid "40"
-msgstr "40"
-
-msgid "40 mm/sec."
-msgstr "40 mm/seg."
-
-msgid "45"
-msgstr "45"
-
-msgid "5"
-msgstr "5"
-
-msgid "5 inches/sec."
-msgstr "5 polzades/seg."
-
-msgid "5 x 7"
-msgstr "15 x 11"
-
-msgid "50"
-msgstr "50"
-
-msgid "55"
-msgstr "55"
-
-msgid "6"
-msgstr "6"
-
-msgid "6 inches/sec."
-msgstr "6 polzades/seg."
-
-msgid "6.00x1.00\""
-msgstr "6.00x1.00\""
-
-msgid "6.00x2.00\""
-msgstr "6.00x2.00\""
-
-msgid "6.00x3.00\""
-msgstr "6.00x3.00\""
-
-msgid "6.00x4.00\""
-msgstr "6.00x4.00\""
-
-msgid "6.00x5.00\""
-msgstr "6.00x5.00\""
-
-msgid "6.00x6.00\""
-msgstr "6.00x6.00\""
-
-msgid "6.00x6.50\""
-msgstr "6.00x6.50\""
-
-msgid "6.00x8.00\""
-msgstr ""
-
-msgid "60"
-msgstr "60"
-
-msgid "60 mm/sec."
-msgstr "60 mm/seg."
-
-msgid "600dpi"
-msgstr "600ppp"
-
-msgid "60dpi"
-msgstr "60ppp"
-
-msgid "60x72dpi"
-msgstr "60x72ppp"
-
-msgid "65"
-msgstr "65"
-
-msgid "7"
-msgstr "7"
-
-msgid "7 inches/sec."
-msgstr "7 polzades/seg."
-
-msgid "7 x 9"
-msgstr "7 x 9"
-
-msgid "70"
-msgstr "70"
-
-msgid "75"
-msgstr "75"
-
-msgid "8"
-msgstr "8"
-
-msgid "8 inches/sec."
-msgstr "8 polzades/seg."
-
-msgid "8 x 10"
-msgstr "8 x 10"
-
-msgid "8.00x1.00\""
-msgstr "8.00x1.00\""
-
-msgid "8.00x2.00\""
-msgstr "8.00x2.00\""
-
-msgid "8.00x3.00\""
-msgstr "8.00x3.00\""
-
-msgid "8.00x4.00\""
-msgstr "8.00x4.00\""
-
-msgid "8.00x5.00\""
-msgstr "8.00x5.00\""
-
-msgid "8.00x6.00\""
-msgstr "8.00x6.00\""
-
-msgid "8.00x6.50\""
-msgstr "8.00x6.50\""
-
-msgid "8.26x1.00\""
-msgstr ""
-
-msgid "80"
-msgstr "80"
-
-msgid "80 mm/sec."
-msgstr "80 mm/seg."
-
-msgid "80x50mm"
-msgstr ""
-
-msgid "85"
-msgstr "85"
-
-msgid "9"
-msgstr "9"
-
-msgid "9 inches/sec."
-msgstr "9 polzades/seg."
-
-msgid "9 x 11"
-msgstr "9 x 11"
-
-msgid "9 x 12"
-msgstr "9 x 12"
-
-msgid "9-Pin Series"
-msgstr "Sèrie de 9 pins"
-
-msgid "90"
-msgstr "90"
-
-msgid "95"
-msgstr "95"
-
 msgid "?Invalid help command unknown."
 msgstr "?Comanda d'ajuda no vàlida desconeguda."
 
@@ -2823,108 +2205,6 @@ msgstr "Ja existeix una classe anomenada «%s»."
 #, c-format
 msgid "A printer named \"%s\" already exists."
 msgstr "Ja existeix una impressora anomenada «%s»."
-
-msgid "A0"
-msgstr "A0"
-
-msgid "A0 Long Edge"
-msgstr "A0 costat llarg"
-
-msgid "A1"
-msgstr "A1"
-
-msgid "A1 Long Edge"
-msgstr "A1 costat llarg"
-
-msgid "A10"
-msgstr "A10"
-
-msgid "A2"
-msgstr "A2"
-
-msgid "A2 Long Edge"
-msgstr "A2 costat llarg"
-
-msgid "A3"
-msgstr "A3"
-
-msgid "A3 Long Edge"
-msgstr "A3 costat llarg"
-
-msgid "A3 Oversize"
-msgstr "A3 estès"
-
-msgid "A3 Oversize Long Edge"
-msgstr "A3 estès pel costat llarg"
-
-msgid "A4"
-msgstr "A4"
-
-msgid "A4 Long Edge"
-msgstr "A4 costat llarg"
-
-msgid "A4 Oversize"
-msgstr "A4 estès"
-
-msgid "A4 Small"
-msgstr "A4 reduït"
-
-msgid "A5"
-msgstr "A5"
-
-msgid "A5 Long Edge"
-msgstr "A5 costat llarg"
-
-msgid "A5 Oversize"
-msgstr "A5 estès"
-
-msgid "A6"
-msgstr "A6"
-
-msgid "A6 Long Edge"
-msgstr "A6 costat llarg"
-
-msgid "A7"
-msgstr "A7"
-
-msgid "A8"
-msgstr "A8"
-
-msgid "A9"
-msgstr "A9"
-
-msgid "ANSI A"
-msgstr "ANSI A"
-
-msgid "ANSI B"
-msgstr "ANSI B"
-
-msgid "ANSI C"
-msgstr "ANSI C"
-
-msgid "ANSI D"
-msgstr "ANSI D"
-
-msgid "ANSI E"
-msgstr "ANSI E"
-
-msgid "ARCH C"
-msgstr "ARCH C"
-
-msgid "ARCH C Long Edge"
-msgstr "ARCH C costat llarg"
-
-msgid "ARCH D"
-msgstr "ARCH D"
-
-msgid "ARCH D Long Edge"
-msgstr "ARCH D costat llarg"
-
-msgid "ARCH E"
-msgstr "ARCH E"
-
-msgid "ARCH E Long Edge"
-msgstr "ARCH E costat llarg"
 
 msgid "Accept Jobs"
 msgstr "Accepta feines"
@@ -2938,25 +2218,20 @@ msgstr "Afegeix una classe"
 msgid "Add Printer"
 msgstr "Afegeix una impressora"
 
-msgid "Address"
-msgstr "Adreça"
-
 msgid "Administration"
 msgstr "Administració"
 
-msgid "Always"
-msgstr "Sempre"
-
 msgid "AppSocket/HP JetDirect"
 msgstr "AppSocket/HP JetDirect"
-
-msgid "Applicator"
-msgstr "Aplicador"
 
 #, c-format
 msgid "Attempt to set %s printer-state to bad value %d."
 msgstr ""
 "S'ha intentat posar l'estat de la impressora %s a un valor incorrecte %d."
+
+#, c-format
+msgid "Attribute \"%s\" has empty value."
+msgstr ""
 
 #, c-format
 msgid "Attribute \"%s\" is in the wrong group."
@@ -2969,42 +2244,6 @@ msgstr ""
 #, c-format
 msgid "Attribute groups are out of order (%x < %x)."
 msgstr "Grups d'atribut desordenats (%x < %x)."
-
-msgid "B0"
-msgstr "B0"
-
-msgid "B1"
-msgstr "B1"
-
-msgid "B10"
-msgstr "B10"
-
-msgid "B2"
-msgstr "B2"
-
-msgid "B3"
-msgstr "B3"
-
-msgid "B4"
-msgstr "B4"
-
-msgid "B5"
-msgstr "B5"
-
-msgid "B5 Oversize"
-msgstr "A5 estès"
-
-msgid "B6"
-msgstr "B6"
-
-msgid "B7"
-msgstr "B7"
-
-msgid "B8"
-msgstr "B8"
-
-msgid "B9"
-msgstr "B9"
 
 #, c-format
 msgid "Bad \"printer-id\" value %d."
@@ -3077,6 +2316,9 @@ msgstr "La document-format «%s» és incorrecta."
 msgid "Bad document-format-default \"%s\"."
 msgstr "La document-format-default «%s» és incorrecta."
 
+msgid "Bad extKeyUsage extension in X.509 certificate request."
+msgstr ""
+
 msgid "Bad filename buffer"
 msgstr "El nom del fitxer de la memòria cau és incorrecte"
 
@@ -3106,6 +2348,9 @@ msgstr "El valor de la job-state és incorrecte."
 #, c-format
 msgid "Bad job-uri \"%s\"."
 msgstr "La job-uri «%s» és incorrecta."
+
+msgid "Bad keyUsage extension in X.509 certificate request."
+msgstr ""
 
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
@@ -3155,6 +2400,9 @@ msgstr ""
 msgid "Bad scheme in URI"
 msgstr ""
 
+msgid "Bad subjectAltName extension in X.509 certificate request."
+msgstr ""
+
 msgid "Bad username in URI"
 msgstr ""
 
@@ -3167,24 +2415,12 @@ msgstr ""
 msgid "Banners"
 msgstr "Bàners"
 
-msgid "Bond Paper"
-msgstr "Paper de valors"
-
-msgid "Booklet"
-msgstr ""
-
 #, c-format
 msgid "Boolean expected for waiteof option \"%s\"."
 msgstr "S'esperava un booleà per l'opció waiteof «%s»."
 
 msgid "Buffer overflow detected, aborting."
 msgstr "S'ha detectat un desbordament la memòria cau. S'interromp."
-
-msgid "CMYK"
-msgstr "CMYK"
-
-msgid "CPCL Label Printer"
-msgstr "Impressora d'etiquetes CPCL"
 
 msgid "Cancel Jobs"
 msgstr ""
@@ -3197,9 +2433,6 @@ msgstr ""
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr "No es pot compartir una impressora remota sobre Kerberos."
-
-msgid "Cassette"
-msgstr "Classet"
 
 msgid "Change Settings"
 msgstr "Canvia la configuració"
@@ -3219,9 +2452,6 @@ msgstr "Close-Job no permet l'ús de l'atribut job-uri."
 
 msgid "Color"
 msgstr "Color"
-
-msgid "Color Mode"
-msgstr "Mode de color"
 
 msgid ""
 "Commands may be abbreviated.  Commands are:\n"
@@ -3244,17 +2474,21 @@ msgstr "Es connecta a la impressora."
 msgid "Continue"
 msgstr "Continua"
 
-msgid "Continuous"
-msgstr "Contínua"
-
 msgid "Control file sent successfully."
 msgstr "El fitxer de control s'ha enviat correctament."
 
 msgid "Copying print data."
 msgstr "Es copien les dades d'impressió."
 
+#, c-format
+msgid "Couldn't resolve mDNS URI \"%s\"."
+msgstr ""
+
 msgid "Created"
 msgstr "Creat"
+
+msgid "Credentials are not CA-signed."
+msgstr ""
 
 msgid "Credentials do not validate against site CA certificate."
 msgstr ""
@@ -3264,27 +2498,6 @@ msgstr ""
 
 msgid "Custom"
 msgstr "Personalitzat"
-
-msgid "CustominCutInterval"
-msgstr "CustominCutInterval"
-
-msgid "CustominTearInterval"
-msgstr "CustominTearInterval"
-
-msgid "Cut"
-msgstr "Tall"
-
-msgid "Cutter"
-msgstr "Ganiveta"
-
-msgid "DYMO"
-msgstr ""
-
-msgid "Dark"
-msgstr "Fosc"
-
-msgid "Darkness"
-msgstr "Foscor"
 
 msgid "Data file sent successfully."
 msgstr "El fitxer de dades s'ha enviat correctament."
@@ -3300,9 +2513,6 @@ msgstr "Elimina la classe"
 
 msgid "Delete Printer"
 msgstr "Elimina la impressora"
-
-msgid "DeskJet Series"
-msgstr "Sèrie Deskjet"
 
 #, c-format
 msgid "Destination \"%s\" is not accepting jobs."
@@ -3333,9 +2543,6 @@ msgstr ""
 "            identificador = %s\n"
 "            ubicació = %s"
 
-msgid "Direct Thermal Media"
-msgstr "Paper per impressió tèrmica directa"
-
 #, c-format
 msgid "Directory \"%s\" contains a relative path."
 msgstr "El directori «%s» conté un camí relatiu."
@@ -3356,24 +2563,9 @@ msgstr "El directori «%s» no està disponible: %s"
 msgid "Directory \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
 msgstr "El directori «%s» té els permisos correctes (0%o/uid=%d/gid=%d)."
 
-msgid "Disabled"
-msgstr "Desabilitat"
-
 #, c-format
 msgid "Document #%d does not exist in job #%d."
 msgstr "No s'ha trobat el document #%d a la feina #%d."
-
-msgid "Draft"
-msgstr ""
-
-msgid "Duplexer"
-msgstr "Unitat d'impressió a dues cares"
-
-msgid "EPL1 Label Printer"
-msgstr "Impressora d'etiquetes EPL1"
-
-msgid "EPL2 Label Printer"
-msgstr "Impressora d'etiquetes EPL2"
 
 msgid "Edit Configuration File"
 msgstr "Edita el fitxer de configuració"
@@ -3385,9 +2577,6 @@ msgstr ""
 msgid "Ending Banner"
 msgstr "S'està acabant el bàner"
 
-msgid "English"
-msgstr "Anglès"
-
 msgid ""
 "Enter your username and password or the root username and password to access "
 "this page. If you are using Kerberos authentication, make sure you have a "
@@ -3398,170 +2587,8 @@ msgstr ""
 "l'autenticació Kerberos, assegureu-vos de tenir un tiquet Kerberos que sigui "
 "vàlid."
 
-msgid "Envelope #10"
-msgstr ""
-
-msgid "Envelope #11"
-msgstr "Sobre #11"
-
-msgid "Envelope #12"
-msgstr "Sobre #12"
-
-msgid "Envelope #14"
-msgstr "Sobre #14"
-
-msgid "Envelope #9"
-msgstr "Sobre #9"
-
-msgid "Envelope B4"
-msgstr "Sobre B4"
-
-msgid "Envelope B5"
-msgstr "Sobre B5"
-
-msgid "Envelope B6"
-msgstr "Sobre B6"
-
-msgid "Envelope C0"
-msgstr "Sobre C0"
-
-msgid "Envelope C1"
-msgstr "Sobre C1"
-
-msgid "Envelope C2"
-msgstr "Sobre C2"
-
-msgid "Envelope C3"
-msgstr "Sobre C3"
-
-msgid "Envelope C4"
-msgstr "Sobre C4"
-
-msgid "Envelope C5"
-msgstr "Sobre C5"
-
-msgid "Envelope C6"
-msgstr "Sobre C6"
-
-msgid "Envelope C65"
-msgstr "Sobre C65"
-
-msgid "Envelope C7"
-msgstr "Sobre C7"
-
-msgid "Envelope Choukei 3"
-msgstr "Sobre Choukei 3"
-
-msgid "Envelope Choukei 3 Long Edge"
-msgstr "Sobre Choukei 3 costat llarg"
-
-msgid "Envelope Choukei 4"
-msgstr "Sobre Choukei 4"
-
-msgid "Envelope Choukei 4 Long Edge"
-msgstr "Sobre Choukei 4 costat llarg"
-
-msgid "Envelope DL"
-msgstr "Sobre DL"
-
-msgid "Envelope Feed"
-msgstr "Alimentació de sobres"
-
-msgid "Envelope Invite"
-msgstr "Sobre d'invitació"
-
-msgid "Envelope Italian"
-msgstr "Sobre italià"
-
-msgid "Envelope Kaku2"
-msgstr "Sobre Kaku2"
-
-msgid "Envelope Kaku2 Long Edge"
-msgstr "Sobre Kaku2 costat llarg"
-
-msgid "Envelope Kaku3"
-msgstr "Sobre Kaku3"
-
-msgid "Envelope Kaku3 Long Edge"
-msgstr "Sobre Kaku3 costat llarg"
-
-msgid "Envelope Monarch"
-msgstr "Sobre monarch"
-
-msgid "Envelope PRC1"
-msgstr ""
-
-msgid "Envelope PRC1 Long Edge"
-msgstr "Sobre PRC1 costat llarg"
-
-msgid "Envelope PRC10"
-msgstr "Sobre PRC10"
-
-msgid "Envelope PRC10 Long Edge"
-msgstr "Sobre PRC10 costat llarg"
-
-msgid "Envelope PRC2"
-msgstr "Sobre PRC2"
-
-msgid "Envelope PRC2 Long Edge"
-msgstr "Sobre PRC2 costat llarg"
-
-msgid "Envelope PRC3"
-msgstr "Sobre PRC3"
-
-msgid "Envelope PRC3 Long Edge"
-msgstr "Sobre PRC3 costat llarg"
-
-msgid "Envelope PRC4"
-msgstr "Sobre PRC4"
-
-msgid "Envelope PRC4 Long Edge"
-msgstr "Sobre PRC4 costat llarg"
-
-msgid "Envelope PRC5 Long Edge"
-msgstr "Sobre PRC5 costat llarg"
-
-msgid "Envelope PRC5PRC5"
-msgstr "Sobre PRC5"
-
-msgid "Envelope PRC6"
-msgstr "Sobre PRC6"
-
-msgid "Envelope PRC6 Long Edge"
-msgstr "Sobre PRC6 costat llarg"
-
-msgid "Envelope PRC7"
-msgstr "Sobre PRC7"
-
-msgid "Envelope PRC7 Long Edge"
-msgstr "Sobre PRC7 costat llarg"
-
-msgid "Envelope PRC8"
-msgstr "Sobre PRC8"
-
-msgid "Envelope PRC8 Long Edge"
-msgstr "Sobre PRC8 costat llarg"
-
-msgid "Envelope PRC9"
-msgstr "Sobre PRC9"
-
-msgid "Envelope PRC9 Long Edge"
-msgstr "Sobre PRC9 costat llarg"
-
-msgid "Envelope Personal"
-msgstr "Sobre personalitzat"
-
-msgid "Envelope You4"
-msgstr "Sobre You4"
-
-msgid "Envelope You4 Long Edge"
-msgstr "Sobre You4 costat llarg"
-
 msgid "Environment Variables:"
 msgstr ""
-
-msgid "Epson"
-msgstr "Epson"
 
 msgid "Error Policy"
 msgstr "Normes d'error"
@@ -3574,45 +2601,6 @@ msgstr "S'ha produït un error quan s'enviaven les dades de la trama."
 
 msgid "Error: need hostname after \"-h\" option."
 msgstr "ERROR: es necessita un nom d'amfitrió després de l'opció «-h»."
-
-msgid "European Fanfold"
-msgstr ""
-
-msgid "European Fanfold Legal"
-msgstr ""
-
-msgid "Every 10 Labels"
-msgstr "Cada 10 etiquetes"
-
-msgid "Every 2 Labels"
-msgstr "Cada 2 etiquetes"
-
-msgid "Every 3 Labels"
-msgstr "Cada 3 etiquetes"
-
-msgid "Every 4 Labels"
-msgstr "Cada 4 etiquetes"
-
-msgid "Every 5 Labels"
-msgstr "Cada 5 etiquetes"
-
-msgid "Every 6 Labels"
-msgstr "Cada 6 etiquetes"
-
-msgid "Every 7 Labels"
-msgstr "Cada 7 etiquetes"
-
-msgid "Every 8 Labels"
-msgstr "Cada 8 etiquetes"
-
-msgid "Every 9 Labels"
-msgstr "Cada 9 etiquetes"
-
-msgid "Every Label"
-msgstr "Cada etiqueta"
-
-msgid "Executive"
-msgstr "Executiu"
 
 msgid "Expectation Failed"
 msgstr "Ha fallat la condició del valor que s'esperava"
@@ -3643,9 +2631,6 @@ msgstr "El fitxer «%s» no està disponible: %s"
 msgid "File \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
 msgstr "El fitxer «%s» té els permisos correctes (0%o/uid=%d/gid=%d)."
 
-msgid "File Folder"
-msgstr ""
-
 #, c-format
 msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
@@ -3656,17 +2641,11 @@ msgstr ""
 msgid "Finished page %d."
 msgstr "S'ha acabat la pàgina %d."
 
-msgid "Finishing Preset"
-msgstr ""
-
-msgid "Fold"
-msgstr ""
-
-msgid "Folio"
-msgstr "Foli"
-
 msgid "Forbidden"
 msgstr "Prohibit"
+
+msgid "Form data too large."
+msgstr ""
 
 msgid "Found"
 msgstr ""
@@ -3674,14 +2653,8 @@ msgstr ""
 msgid "General"
 msgstr "General"
 
-msgid "Generic"
-msgstr "Genèric"
-
 msgid "Get-Response-PDU uses indefinite length"
 msgstr "La Get-Response-PDU fa servir una longitud indefinida"
-
-msgid "Glossy Paper"
-msgstr "Paper fotogràfic"
 
 msgid "Got a printer-uri attribute but no job-id."
 msgstr "S'ha obtingut l'atribut printer-uri però no el job-id."
@@ -3692,24 +2665,21 @@ msgstr ""
 msgid "Grayscale"
 msgstr "Escala de grisos"
 
-msgid "HP"
-msgstr "HP"
-
-msgid "Hanging Folder"
-msgstr "Carpeta per penjar"
-
 msgid "Hash buffer too small."
 msgstr ""
 
 msgid "Help file not in index."
 msgstr "El fitxer d'ajuda no és a l'índex."
 
-msgid "High"
+msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
 
 msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr ""
 "L'atribut 1setOf del IPP té etiquetes amb valors que no són compatibles."
+
+msgid "IPP Everywhere driver requires an IPP connection."
+msgstr ""
 
 msgid "IPP attribute has no name."
 msgstr "L'atribut del IPP no té nom."
@@ -3732,9 +2702,6 @@ msgstr "El valor de endColletion del IPP no té 0 bytes."
 msgid "IPP enum value not 4 bytes."
 msgstr "El valor de enum del IPP no té 4 bytes."
 
-msgid "IPP extension tag larger than 0x7FFFFFFF."
-msgstr "La etiqueta d'extension del IPP és més llarga de 0x7FFFFFFF."
-
 msgid "IPP integer value not 4 bytes."
 msgstr "El valor enter de IPP no té 4 bytes."
 
@@ -3744,13 +2711,16 @@ msgstr "El valor de la longitud del llenguatge del IPP desborda."
 msgid "IPP language length too large."
 msgstr ""
 
+msgid "IPP member attribute outside of collection."
+msgstr ""
+
 msgid "IPP member name is not empty."
 msgstr "El nom del membre del IPP no està buit."
 
 msgid "IPP memberName value is empty."
 msgstr "El valor de memberName de l'IPP està buit."
 
-msgid "IPP memberName with no attribute."
+msgid "IPP message nested too deeply."
 msgstr ""
 
 msgid "IPP name larger than 32767 bytes."
@@ -3805,9 +2775,6 @@ msgstr ""
 msgid "IPPFIND_TXT_*           Value of TXT record key"
 msgstr ""
 
-msgid "ISOLatin1"
-msgstr "ISOLatin1"
-
 msgid "Illegal control character"
 msgstr "Caràcter de control no permès"
 
@@ -3823,32 +2790,23 @@ msgstr "Cadena de traducció no permesa"
 msgid "Illegal whitespace character"
 msgstr "Caràcter d'espai en blanc no permés"
 
-msgid "Installable Options"
-msgstr "Opcions instal·lables"
-
-msgid "Installed"
-msgstr "Instal·lat"
-
-msgid "IntelliBar Label Printer"
-msgstr "Impressora d'etiquetes IntelliBar"
-
-msgid "Intellitech"
-msgstr "Intellitech"
-
 msgid "Internal Server Error"
 msgstr "Error intern del servidor"
 
 msgid "Internal error"
 msgstr "Error intern"
 
-msgid "Internet Postage 2-Part"
-msgstr "Franqueig per Internet en 2 parts"
-
-msgid "Internet Postage 3-Part"
-msgstr "Franqueig per Internet en 3 parts"
-
 msgid "Internet Printing Protocol"
 msgstr "Protocol d'impressió per Internet"
+
+msgid "Invalid JSON data."
+msgstr ""
+
+msgid "Invalid JSON web token."
+msgstr ""
+
+msgid "Invalid form data."
+msgstr ""
 
 msgid "Invalid group tag."
 msgstr ""
@@ -3872,47 +2830,8 @@ msgstr "La comanda de la impressora «%s» no és vàlida."
 msgid "JCL"
 msgstr "Llenguatge de control de tasques (JCL)"
 
-msgid "JIS B0"
-msgstr "JIS B0"
-
-msgid "JIS B1"
-msgstr "JIS B1"
-
-msgid "JIS B10"
-msgstr "JIS B10"
-
-msgid "JIS B2"
-msgstr "JIS B2"
-
-msgid "JIS B3"
-msgstr "JIS B3"
-
-msgid "JIS B4"
-msgstr "JIS B4"
-
-msgid "JIS B4 Long Edge"
-msgstr "JIS B4 costat llarg"
-
-msgid "JIS B5"
-msgstr "JIS B5"
-
-msgid "JIS B5 Long Edge"
-msgstr "JIS B5 costat llarg"
-
-msgid "JIS B6"
-msgstr "JIS B6"
-
-msgid "JIS B6 Long Edge"
-msgstr "JIS B6 costat llarg"
-
-msgid "JIS B7"
-msgstr "JIS B7"
-
-msgid "JIS B8"
-msgstr "JIS B8"
-
-msgid "JIS B9"
-msgstr "JIS B9"
+msgid "JSON file too large."
+msgstr ""
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
@@ -3984,30 +2903,9 @@ msgid ""
 "LPDEST environment variable names default destination that does not exist."
 msgstr ""
 
-msgid "Label Printer"
-msgstr "Impressora d'etiquetes"
-
-msgid "Label Top"
-msgstr "Capçalera de l'etiqueta"
-
 #, c-format
 msgid "Language \"%s\" not supported."
 msgstr "L'idioma «%s» no està disponible."
-
-msgid "Large Address"
-msgstr "Adreça gran"
-
-msgid "LaserJet Series PCL 4/5"
-msgstr "Sèrie Laser Jet PCL 4/5"
-
-msgid "Letter Oversize"
-msgstr "Carta gran"
-
-msgid "Letter Oversize Long Edge"
-msgstr "Carta americà gran costat llarg"
-
-msgid "Light"
-msgstr "Lluminós"
 
 msgid "Line longer than the maximum allowed (255 characters)"
 msgstr "La línia la longitud màxima permesa (255 caràcters)"
@@ -4022,32 +2920,14 @@ msgstr ""
 msgid "Local printer created."
 msgstr ""
 
-msgid "Long-Edge (Portrait)"
-msgstr "Costat-llarg (vertical)"
-
-msgid "Looking for printer."
-msgstr "S'està buscant la impressora."
-
-msgid "Main Roll"
-msgstr ""
-
-msgid "Manual Feed"
-msgstr "Alimentació manual"
-
 msgid "Media Size"
 msgstr "Mida del paper"
 
 msgid "Media Source"
 msgstr "Font del paper"
 
-msgid "Media Tracking"
-msgstr "Seguiment del paper"
-
 msgid "Media Type"
 msgstr "Tipus de paper"
-
-msgid "Medium"
-msgstr "Mitjà"
 
 msgid "Memory allocation error"
 msgstr "S'ha produït un error d'ubicació de memòria"
@@ -4149,9 +3029,6 @@ msgstr "El nom de l'OID fa servir una longitud indefinida"
 msgid "Nested classes are not allowed."
 msgstr "No es permeten les classes imbricades."
 
-msgid "Never"
-msgstr "Mai"
-
 msgid "New credentials are not valid for name."
 msgstr ""
 
@@ -4188,9 +3065,6 @@ msgstr "No hi ha atributs en demanda."
 
 msgid "No authentication information provided."
 msgstr "No s'ha donat cap informació d'autenticació."
-
-msgid "No common name specified."
-msgstr ""
 
 msgid "No community name"
 msgstr "Ho hi na cap nom de comunitat"
@@ -4239,6 +3113,9 @@ msgstr "No s'ha trobat cap printer-uri per la classe"
 msgid "No printer-uri in request."
 msgstr "No hi ha cap printer-uri a la sol·licitud."
 
+msgid "No printer-uri-supported attribute."
+msgstr ""
+
 msgid "No request URI."
 msgstr ""
 
@@ -4266,26 +3143,11 @@ msgstr "No hi ha cap SEQUENCE variable-bindings"
 msgid "No version number"
 msgstr "No hi ha cap número de versió"
 
-msgid "Non-continuous (Mark sensing)"
-msgstr "Discontinu (sensible a les marques)"
-
-msgid "Non-continuous (Web sensing)"
-msgstr "Discontinu (Sensible al web)"
-
-msgid "None"
-msgstr ""
-
-msgid "Normal"
-msgstr "Normal"
-
 msgid "Not Found"
 msgstr "No s'ha trobat"
 
 msgid "Not Implemented"
 msgstr "No implementat"
-
-msgid "Not Installed"
-msgstr "No està instal·lat"
 
 msgid "Not Modified"
 msgstr "No està modificat"
@@ -4296,20 +3158,14 @@ msgstr "No és compatible"
 msgid "Not allowed to print."
 msgstr "No teniu permís per imprimir."
 
-msgid "Note"
-msgstr "Nota"
-
 msgid "OK"
 msgstr "D'acord"
 
-msgid "Off (1-Sided)"
-msgstr "Inactiu (Una cara)"
-
-msgid "Oki"
-msgstr "Oki"
-
 msgid "Online Help"
 msgstr "Ajuda en línia"
+
+msgid "Only WGS-84 coordinates are supported."
+msgstr ""
 
 msgid "Only local users can create a local printer."
 msgstr ""
@@ -4352,27 +3208,6 @@ msgstr "Sense memòria."
 msgid "Output Mode"
 msgstr "Mode de sortida"
 
-msgid "PCL Laser Printer"
-msgstr "Impressora làser PCL"
-
-msgid "PRC16K"
-msgstr "PRC16K"
-
-msgid "PRC16K Long Edge"
-msgstr "PRC16K costat llarg"
-
-msgid "PRC32K"
-msgstr "PRC32K"
-
-msgid "PRC32K Long Edge"
-msgstr "PRC32K costat llarg"
-
-msgid "PRC32K Oversize"
-msgstr "PRC32K gran"
-
-msgid "PRC32K Oversize Long Edge"
-msgstr "PRC32K gran costat llarg"
-
 msgid ""
 "PRINTER environment variable names default destination that does not exist."
 msgstr ""
@@ -4382,12 +3217,6 @@ msgstr "El paquet no conté cap Get-Response-PDU"
 
 msgid "Packet does not start with SEQUENCE"
 msgstr "El paquet no comença amb SEQUENCE"
-
-msgid "ParamCustominCutInterval"
-msgstr "ParamCustominCutInterval"
-
-msgid "ParamCustominTearInterval"
-msgstr "ParamCustominTearInterval"
 
 #, c-format
 msgid "Password for %s on %s? "
@@ -4399,71 +3228,23 @@ msgstr "Posa la classe en pausa"
 msgid "Pause Printer"
 msgstr "Posa la impressora en pausa"
 
-msgid "Peel-Off"
-msgstr "Desenganxar"
-
-msgid "Photo"
-msgstr "Fotografia"
-
-msgid "Photo Labels"
-msgstr "Etiquetes de fotografia"
-
-msgid "Plain Paper"
-msgstr "Paper normal"
-
 msgid "Policies"
 msgstr "Polítiques"
 
 msgid "Port Monitor"
 msgstr "Seguiment del port"
 
-msgid "PostScript Printer"
-msgstr "Impressora PostScript"
-
-msgid "Postcard"
-msgstr "Postal"
-
-msgid "Postcard Double"
-msgstr ""
-
-msgid "Postcard Double Long Edge"
-msgstr "Postal doble costat llarg"
-
-msgid "Postcard Long Edge"
-msgstr "Postal costat llarg"
-
 msgid "Preparing to print."
 msgstr ""
-
-msgid "Print Density"
-msgstr "Densitat de la impressió"
 
 msgid "Print Job:"
 msgstr "Feina d'impressió:"
 
-msgid "Print Mode"
-msgstr "Mode d'impressió"
-
-msgid "Print Quality"
-msgstr ""
-
-msgid "Print Rate"
-msgstr "Ritme d'impressió"
-
 msgid "Print Self-Test Page"
 msgstr "Imprimeix la pàgina de prova pròpia"
 
-msgid "Print Speed"
-msgstr "Velocitat d'impressió"
-
 msgid "Print Test Page"
 msgstr "Imprimeix una pàgina de prova"
-
-msgid "Print and Cut"
-msgstr "Imprimeix i talla"
-
-msgid "Print and Tear"
-msgstr "Imprimeix i estripa"
 
 msgid "Print file sent."
 msgstr "S'ha enviat el fitxer d'impressió."
@@ -4484,9 +3265,6 @@ msgstr ""
 msgid "Printer Added"
 msgstr "S'ha afegit una impressora"
 
-msgid "Printer Default"
-msgstr "Impressora per defecte"
-
 msgid "Printer Deleted"
 msgstr "S'ha eliminat la impressora"
 
@@ -4496,9 +3274,6 @@ msgstr "S'ha modificat la impressora"
 msgid "Printer Paused"
 msgstr "S'ha posat la impressora en pausa"
 
-msgid "Printer Settings"
-msgstr "Configuració de la impressora"
-
 msgid "Printer cannot print supplied content."
 msgstr "La impressora no pot imprimir el contingut subministrat."
 
@@ -4506,6 +3281,10 @@ msgid "Printer cannot print with supplied options."
 msgstr ""
 
 msgid "Printer does not support required IPP attributes or document formats."
+msgstr ""
+
+#, c-format
+msgid "Printer returned invalid data: %s"
 msgstr ""
 
 msgid "Printer:"
@@ -4517,12 +3296,6 @@ msgstr "Impressores"
 #, c-format
 msgid "Printing page %d, %u%% complete."
 msgstr ""
-
-msgid "Punch"
-msgstr ""
-
-msgid "Quarto"
-msgstr "Quart"
 
 msgid "Quota limit reached."
 msgstr "S'ha assolit el límit de la quota."
@@ -4542,9 +3315,6 @@ msgstr "L'amfitrió remot no accepta el fitxer de control (%d)."
 msgid "Remote host did not accept data file (%d)."
 msgstr "L'amfitrió remot no accepta el fitxer de dades (%d)."
 
-msgid "Reprint After Error"
-msgstr "Torna a imprimir després d'un error"
-
 msgid "Request Entity Too Large"
 msgstr "Entitat de petició massa gran"
 
@@ -4557,20 +3327,11 @@ msgstr "Reprèn la classe"
 msgid "Resume Printer"
 msgstr "Reprèn la impressora"
 
-msgid "Return Address"
-msgstr "Remitent"
-
-msgid "Rewind"
-msgstr "Rebobina"
-
 msgid "SEQUENCE uses indefinite length"
 msgstr "SEQUENCE té una longitud indefinida"
 
 msgid "SSL/TLS Negotiation Error"
 msgstr "S'ha produït un error mentre es negociava el SSL/TLS"
-
-msgid "Second Roll (DUO/Twin Only)"
-msgstr ""
 
 msgid "See Other"
 msgstr "Vegeu altres"
@@ -4614,27 +3375,9 @@ msgstr "Definir les opcions de la classe"
 msgid "Set Printer Options"
 msgstr "Definir les opcions de la impressora"
 
-msgid "Set Publishing"
-msgstr "Establir com a pública"
-
-msgid "Shipping Address"
-msgstr "Adreça de lliurament"
-
-msgid "Short-Edge (Landscape)"
-msgstr "Costat curt (horitzontal)"
-
-msgid "Special Paper"
-msgstr "Paper especial"
-
 #, c-format
 msgid "Spooling job, %.0f%% complete."
 msgstr "S'està posant a la cua la feina. S'ha completat el %.0f%%."
-
-msgid "Standard"
-msgstr "Estàndard"
-
-msgid "Staple"
-msgstr ""
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
 msgid "Starting Banner"
@@ -4644,9 +3387,6 @@ msgstr "Bàner inicial"
 msgid "Starting page %d."
 msgstr "S'està començant la pàgina %d."
 
-msgid "Statement"
-msgstr "Declaració"
-
 #, c-format
 msgid "Subscription #%d does not exist."
 msgstr "La subscripció #%d no existeix."
@@ -4654,35 +3394,8 @@ msgstr "La subscripció #%d no existeix."
 msgid "Substitutions:"
 msgstr ""
 
-msgid "Super A"
-msgstr "Super A"
-
-msgid "Super B"
-msgstr "Super B"
-
-msgid "Super B/A3"
-msgstr "Super B/A3"
-
 msgid "Switching Protocols"
 msgstr "Intercanviar els protocols"
-
-msgid "Tabloid"
-msgstr "Tabloide"
-
-msgid "Tabloid Oversize"
-msgstr "Tabloide gran"
-
-msgid "Tabloid Oversize Long Edge"
-msgstr "Tabloide gran costat llarg"
-
-msgid "Tear"
-msgstr "Estripar"
-
-msgid "Tear-Off"
-msgstr "Estripar"
-
-msgid "Tear-Off Adjust Position"
-msgstr "Posició d'ajust d'estripat"
 
 #, c-format
 msgid "The \"%s\" attribute is required for print jobs."
@@ -4737,6 +3450,9 @@ msgstr ""
 
 msgid "The printer did not respond."
 msgstr "La impressora no ha respost."
+
+msgid "The printer does not provide attributes required for IPP Everywhere."
+msgstr ""
 
 msgid "The printer is in use."
 msgstr "La impressora està ocupada."
@@ -4811,9 +3527,6 @@ msgstr "Hi ha massa subscripcions."
 msgid "There was an unrecoverable USB error."
 msgstr "Hi ha un error de l'USB irrecuperable."
 
-msgid "Thermal Transfer Media"
-msgstr "Mitjà de transferència tèrmica"
-
 msgid "Too many active jobs."
 msgstr "Hi ha massa tasques actives."
 
@@ -4825,24 +3538,6 @@ msgstr "Hi ha massa valors de job-sheets (%d > 2)."
 msgid "Too many printer-state-reasons values (%d > %d)."
 msgstr "Hi ha massa valors de printer-state-reasons (%d > %d)."
 
-msgid "Transparency"
-msgstr "Transparència"
-
-msgid "Tray"
-msgstr "Safata"
-
-msgid "Tray 1"
-msgstr "Safata 1"
-
-msgid "Tray 2"
-msgstr "Safata 2"
-
-msgid "Tray 3"
-msgstr "Safata 3"
-
-msgid "Tray 4"
-msgstr "Safata 4"
-
 msgid "Trust on first use is disabled."
 msgstr ""
 
@@ -4851,33 +3546,6 @@ msgstr "L'URI és massa llarg"
 
 msgid "URI too large"
 msgstr ""
-
-msgid "US Fanfold"
-msgstr ""
-
-msgid "US Ledger"
-msgstr "Llibre major americà"
-
-msgid "US Legal"
-msgstr "Legal americà"
-
-msgid "US Legal Oversize"
-msgstr "Legal americà gran"
-
-msgid "US Letter"
-msgstr "Carta americà"
-
-msgid "US Letter Long Edge"
-msgstr "Carta americà costat llarg"
-
-msgid "US Letter Oversize"
-msgstr "Carta americà gran"
-
-msgid "US Letter Oversize Long Edge"
-msgstr "Carta americà gran costat llarg"
-
-msgid "US Letter Small"
-msgstr "Carta americà petit"
 
 msgid "Unable to access cupsd.conf file"
 msgstr "No es pot accedir al fitxer cups.conf"
@@ -4890,6 +3558,9 @@ msgstr "No es pot afegir la classe"
 
 msgid "Unable to add document to print job."
 msgstr "No es pot obrir el documenta la feina."
+
+msgid "Unable to add extension to X.509 certificate."
+msgstr ""
 
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
@@ -4907,7 +3578,8 @@ msgstr "No s'ha pogut assignar memòria per la pàgina d'informació"
 msgid "Unable to allocate memory for pages array"
 msgstr "No s'ha pogut assignar memòria per la matriu de pàgines"
 
-msgid "Unable to allocate memory for printer"
+#, c-format
+msgid "Unable to allocate memory for printer: %s"
 msgstr ""
 
 msgid "Unable to cancel print job."
@@ -4916,11 +3588,12 @@ msgstr "No es pot cancel·lar la feina d'impressió."
 msgid "Unable to change printer"
 msgstr "No es pot canviar la impressora"
 
-msgid "Unable to change printer-is-shared attribute"
-msgstr "No es pot canviar l'atribut printer-is-shared"
-
 msgid "Unable to change server settings"
 msgstr "No es pot canviar la configuració del servidor"
+
+#, c-format
+msgid "Unable to commit PPD file: %s"
+msgstr ""
 
 #, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
@@ -4932,6 +3605,13 @@ msgstr ""
 
 msgid "Unable to configure printer options."
 msgstr "No es poden configurar les opcions de la impressora."
+
+msgid "Unable to configure private key context."
+msgstr ""
+
+#, c-format
+msgid "Unable to connect to %s:%d: %s"
+msgstr ""
 
 msgid "Unable to connect to host."
 msgstr "No es pot connectar a l'amfitrió."
@@ -4945,16 +3625,30 @@ msgstr ""
 msgid "Unable to copy PPD file - %s"
 msgstr "No es pot copiar el fitxer PPD - %s"
 
-msgid "Unable to copy PPD file."
-msgstr "No es pot copiar el fitxer PPD."
+#, c-format
+msgid "Unable to create PPD for printer: %s"
+msgstr ""
 
-msgid "Unable to create credentials from array."
+#, c-format
+msgid "Unable to create PPD: %s"
+msgstr ""
+
+msgid "Unable to create X.509 certificate signing request."
+msgstr ""
+
+msgid "Unable to create X.509 certificate."
 msgstr ""
 
 msgid "Unable to create printer-uri"
 msgstr "No es pot crear el printer-uri"
 
 msgid "Unable to create printer."
+msgstr ""
+
+msgid "Unable to create private key context."
+msgstr ""
+
+msgid "Unable to create private key."
 msgstr ""
 
 msgid "Unable to create server credentials."
@@ -4980,64 +3674,13 @@ msgid "Unable to edit cupsd.conf files larger than 1MB"
 msgstr "No es poden editar fitxers cupsd.conf més grans d'1MB"
 
 #, c-format
-msgid "Unable to establish a secure connection to host (%d)."
-msgstr ""
-
-msgid ""
-"Unable to establish a secure connection to host (certificate chain invalid)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (la cadena del "
-"certificat no és vàlida)."
-
-msgid ""
-"Unable to establish a secure connection to host (certificate not yet valid)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (el certificat "
-"encara no és vàlid)."
-
-msgid "Unable to establish a secure connection to host (expired certificate)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (ha expirat el "
-"certificat)."
-
-msgid "Unable to establish a secure connection to host (host name mismatch)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (hi ha un error en "
-"el nom de l'amfitrió)."
-
-msgid ""
-"Unable to establish a secure connection to host (peer dropped connection "
-"before responding)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (s'ha tallat la "
-"connexió abans de respondre)."
-
-msgid ""
-"Unable to establish a secure connection to host (self-signed certificate)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (el certificat és "
-"autosignat)."
-
-msgid ""
-"Unable to establish a secure connection to host (untrusted certificate)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (el certificat no "
-"és de confiança)."
-
-msgid "Unable to establish a secure connection to host."
-msgstr "No es pot establir una connexió segura amb l'amfitrió."
-
-#, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "No es pot trobar el destí de la feina"
 
-msgid "Unable to find printer."
-msgstr "No es pot trobar la impressora."
-
-msgid "Unable to find server credentials."
+msgid "Unable to finish request."
 msgstr ""
 
 msgid "Unable to get backend exit status."
@@ -5063,6 +3706,18 @@ msgstr "No es pot obtenir l'estat de la impressora"
 
 msgid "Unable to get printer status."
 msgstr "No es pot obtenir l'estat de la impressora."
+
+msgid "Unable to import X.509 certificate request."
+msgstr ""
+
+msgid "Unable to import credentials."
+msgstr ""
+
+msgid "Unable to initialize private key context."
+msgstr ""
+
+msgid "Unable to load X.509 CA certificate and private key."
+msgstr ""
 
 msgid "Unable to load help index."
 msgstr "No es pot carregar l'índex de l'ajuda."
@@ -5111,17 +3766,35 @@ msgstr "No es pot obrir el fitxer de trama"
 msgid "Unable to print test page"
 msgstr "No es pot imprimir la pàgina de prova"
 
+#, c-format
+msgid "Unable to read generated PPD: %s"
+msgstr ""
+
 msgid "Unable to read print data."
 msgstr "No es poden llegir les dades d'impressió."
 
-#, c-format
-msgid "Unable to register \"%s.%s\": %d"
+msgid "Unable to read response."
+msgstr ""
+
+msgid "Unable to reallocate IPP attribute value."
 msgstr ""
 
 msgid "Unable to rename job document file."
 msgstr ""
 
 msgid "Unable to resolve printer-uri."
+msgstr ""
+
+#, c-format
+msgid "Unable to run cups-driverd: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save PPD file: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save value for \"%s\" with a temporary printer."
 msgstr ""
 
 msgid "Unable to see in file"
@@ -5148,8 +3821,23 @@ msgstr "No es pot penjar el fitxer cups.conf"
 msgid "Unable to use legacy USB class driver."
 msgstr "No es pot fer servir el controlador de la classe USB antic."
 
+msgid "Unable to verify X.509 certificate request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate signing request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate."
+msgstr ""
+
 msgid "Unable to write print data"
 msgstr "No es poden escriure les dades d'impressió"
+
+msgid "Unable to write private key."
+msgstr ""
+
+msgid "Unable to write public key."
+msgstr ""
 
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
@@ -5167,10 +3855,6 @@ msgstr "Desconegut"
 #, c-format
 msgid "Unknown choice \"%s\" for option \"%s\"."
 msgstr "La tria de «%s» per l'opció «%s» és desconeguda."
-
-#, c-format
-msgid "Unknown directive \"%s\" on line %d of \"%s\" ignored."
-msgstr ""
 
 #, c-format
 msgid "Unknown encryption option value: \"%s\"."
@@ -5309,7 +3993,7 @@ msgstr "Sintaxi: cupsctl [opcions] [param=valor ... paramN=valorN]"
 msgid "Usage: cupsd [options]"
 msgstr "Sintaxi: cupsd [opcions]"
 
-msgid "Usage: cupsfilter [ options ] [ -- ] filename"
+msgid "Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"
 msgstr ""
 
 msgid ""
@@ -5398,6 +4082,9 @@ msgstr "Sintaxi: snmp [adreça-amfitrió-o-ip]"
 msgid "Using spool directory \"%s\"."
 msgstr ""
 
+msgid "Validation of subjectAltName in X.509 certificate request failed."
+msgstr ""
+
 msgid "Value uses indefinite length"
 msgstr "El valor té una longitud indefinida"
 
@@ -5434,12 +4121,6 @@ msgstr "Heu d'accedir a aquesta pagina a través de la URL https://%s:%d%s."
 
 msgid "Your account does not have the necessary privileges."
 msgstr ""
-
-msgid "ZPL Label Printer"
-msgstr "Impressora d'etiquetes ZPL"
-
-msgid "Zebra"
-msgstr "Zebra"
 
 msgid "aborted"
 msgstr "interromput"
@@ -5731,6 +4412,9 @@ msgstr "no s'ha pogut executar correctament la cups-deviced."
 
 msgid "cups-driverd failed to execute."
 msgstr "no s'ha pogut executar correctament la cups-driverd"
+
+msgid "cups-driverd failed to get PPD file - see error_log for details."
+msgstr ""
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
@@ -7089,10 +5773,6 @@ msgid "insert-sheet"
 msgstr ""
 
 #, c-format
-msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
-msgstr ""
-
-#, c-format
 msgid "ippfind: Bad regular expression: %s"
 msgstr ""
 
@@ -7157,15 +5837,7 @@ msgid "ippfind: Too many parenthesis."
 msgstr ""
 
 #, c-format
-msgid "ippfind: Unable to browse or resolve: %s"
-msgstr ""
-
-#, c-format
 msgid "ippfind: Unable to execute \"%s\": %s"
-msgstr ""
-
-#, c-format
-msgid "ippfind: Unable to use Bonjour: %s"
 msgstr ""
 
 #, c-format
@@ -7207,6 +5879,10 @@ msgstr "ipptool: falten els segons a «-i»."
 
 msgid "ipptool: URI required before test file."
 msgstr "ipptool: falta l'URI abans del fitxer de prova."
+
+#, c-format
+msgid "ipptool: Unable to allocate memory: %s"
+msgstr ""
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
@@ -10635,6 +9311,42 @@ msgstr ""
 msgid "number-up"
 msgstr ""
 
+#. TRANSLATORS: Number-Up Layout
+msgid "number-up-layout"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Top, Left-Right
+msgid "number-up-layout.btlr"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Top, Right-Left
+msgid "number-up-layout.btrl"
+msgstr ""
+
+#. TRANSLATORS: Left-Right, Bottom-Top
+msgid "number-up-layout.lrbt"
+msgstr ""
+
+#. TRANSLATORS: Left-Right, Top-Bottom
+msgid "number-up-layout.lrtb"
+msgstr ""
+
+#. TRANSLATORS: Right-Left, Bottom-Top
+msgid "number-up-layout.rlbt"
+msgstr ""
+
+#. TRANSLATORS: Right-Left, Top-Bottom
+msgid "number-up-layout.rltb"
+msgstr ""
+
+#. TRANSLATORS: Top-Bottom, Left-Right
+msgid "number-up-layout.tblr"
+msgstr ""
+
+#. TRANSLATORS: Top-Bottom, Right-Left
+msgid "number-up-layout.tbrl"
+msgstr ""
+
 #. TRANSLATORS: Object Offset
 msgid "object-offset"
 msgstr ""
@@ -10855,6 +9567,30 @@ msgstr ""
 msgid "output-compression-quality-factor"
 msgstr ""
 
+#. TRANSLATORS: Page Border
+msgid "page-border"
+msgstr ""
+
+#. TRANSLATORS: Thin Double Border
+msgid "page-border.double"
+msgstr ""
+
+#. TRANSLATORS: Thick Double Border
+msgid "page-border.double-thick"
+msgstr ""
+
+#. TRANSLATORS: No Border
+msgid "page-border.none"
+msgstr ""
+
+#. TRANSLATORS: Thin Single Border
+msgid "page-border.single"
+msgstr ""
+
+#. TRANSLATORS: Thick Single Border
+msgid "page-border.single-thick"
+msgstr ""
+
 #. TRANSLATORS: Page Delivery
 msgid "page-delivery"
 msgstr ""
@@ -10893,6 +9629,22 @@ msgstr ""
 
 #. TRANSLATORS: Page Ranges
 msgid "page-ranges"
+msgstr ""
+
+#. TRANSLATORS: Page Set
+msgid "page-set"
+msgstr ""
+
+#. TRANSLATORS: All Pages
+msgid "page-set.all"
+msgstr ""
+
+#. TRANSLATORS: Even Pages
+msgid "page-set.even"
+msgstr ""
+
+#. TRANSLATORS: Odd Pages
+msgid "page-set.odd"
 msgstr ""
 
 #. TRANSLATORS: Pages
@@ -10940,6 +9692,46 @@ msgstr ""
 
 #. TRANSLATORS: Platform Temperature
 msgid "platform-temperature"
+msgstr ""
+
+#. TRANSLATORS: Image Position
+msgid "position"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Center
+msgid "position.bottom"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Left
+msgid "position.bottom-left"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Right
+msgid "position.bottom-right"
+msgstr ""
+
+#. TRANSLATORS: Center
+msgid "position.center"
+msgstr ""
+
+#. TRANSLATORS: Left-Center
+msgid "position.left"
+msgstr ""
+
+#. TRANSLATORS: Right-Center
+msgid "position.right"
+msgstr ""
+
+#. TRANSLATORS: Top-Center
+msgid "position.top"
+msgstr ""
+
+#. TRANSLATORS: Top-Left
+msgid "position.top-left"
+msgstr ""
+
+#. TRANSLATORS: Top-Right
+msgid "position.top-right"
 msgstr ""
 
 #. TRANSLATORS: Post-dial String
@@ -15334,6 +14126,650 @@ msgstr ""
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 
+#~ msgid "  -P filename.ppd         Set PPD file."
+#~ msgstr "  -P nomfitxer.ppd         Estableix el fitxer PPD."
+
+#~ msgid "  -U username             Specify username."
+#~ msgstr "  -U nomusuari             Especifica un nom d'usuari."
+
+#~ msgid "  -d printer              Use the named printer."
+#~ msgstr "  -d impressora              Fa servir la impressora indicada."
+
+#~ msgid ""
+#~ "  -i mime/type            Set input MIME type (otherwise auto-typed)."
+#~ msgstr ""
+#~ "  -i tipus/mime            Estableix el tipus MIME d'entrada (auto-typed "
+#~ "si no s'especifica)."
+
+#~ msgid ""
+#~ "  -j job-id[,N]           Filter file N from the specified job (default "
+#~ "is file 1)."
+#~ msgstr ""
+#~ "  -j id-feina[,N]           Filtra el fitxer N a la feina especificada "
+#~ "(el fitxer per defecte és 1)."
+
+#~ msgid ""
+#~ "  -m mime/type            Set output MIME type (otherwise application/"
+#~ "pdf)."
+#~ msgstr ""
+#~ "  -m tipus/mime            Estableix el tipus MIME de sortida "
+#~ "(application/pdf si no s'especifica)."
+
+#~ msgid "  -n copies               Set number of copies."
+#~ msgstr "  -n còpies               Estableix el nombre de còpies."
+
+#~ msgid "  -o name=value           Set option(s)."
+#~ msgstr "  -o nom=valor           Estableix les opcions."
+
+#~ msgid "  -p filename.ppd         Set PPD file."
+#~ msgstr "  -p nomfitxer.ppd         Estableix el fitxer PPD."
+
+#~ msgid "  -t title                Set title."
+#~ msgstr "  -t títol                Estableix el títol."
+
+#, c-format
+#~ msgid ""
+#~ "%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W"
+#~ "\" option."
+#~ msgstr ""
+#~ "%s: error - es requereix «completed», «not-completed», o «all» després de "
+#~ "l'opció «-W»."
+
+#, c-format
+#~ msgid "%s: Sorry, no encryption support."
+#~ msgstr "%s: ho sento, no està compilada la compatibilitat pel xifrat."
+
+#~ msgid "-1"
+#~ msgstr "-1"
+
+#~ msgid "-10"
+#~ msgstr "-10"
+
+#~ msgid "-100"
+#~ msgstr "-100"
+
+#~ msgid "-105"
+#~ msgstr "-105"
+
+#~ msgid "-11"
+#~ msgstr "-11"
+
+#~ msgid "-110"
+#~ msgstr "-110"
+
+#~ msgid "-115"
+#~ msgstr "-115"
+
+#~ msgid "-12"
+#~ msgstr "-12"
+
+#~ msgid "-120"
+#~ msgstr "-120"
+
+#~ msgid "-13"
+#~ msgstr "-13"
+
+#~ msgid "-14"
+#~ msgstr "-14"
+
+#~ msgid "-15"
+#~ msgstr "-15"
+
+#~ msgid "-2"
+#~ msgstr "-2"
+
+#~ msgid "-20"
+#~ msgstr "-20"
+
+#~ msgid "-25"
+#~ msgstr "-25"
+
+#~ msgid "-3"
+#~ msgstr "-3"
+
+#~ msgid "-30"
+#~ msgstr "-30"
+
+#~ msgid "-35"
+#~ msgstr "-35"
+
+#~ msgid "-4"
+#~ msgstr "-4"
+
+#~ msgid "-40"
+#~ msgstr "-40"
+
+#~ msgid "-45"
+#~ msgstr "-45"
+
+#~ msgid "-5"
+#~ msgstr "-5"
+
+#~ msgid "-50"
+#~ msgstr "-50"
+
+#~ msgid "-55"
+#~ msgstr "-55"
+
+#~ msgid "-6"
+#~ msgstr "-6"
+
+#~ msgid "-60"
+#~ msgstr "-60"
+
+#~ msgid "-65"
+#~ msgstr "-65"
+
+#~ msgid "-7"
+#~ msgstr "-7"
+
+#~ msgid "-70"
+#~ msgstr "-70"
+
+#~ msgid "-75"
+#~ msgstr "-75"
+
+#~ msgid "-8"
+#~ msgstr "-8"
+
+#~ msgid "-80"
+#~ msgstr "-80"
+
+#~ msgid "-85"
+#~ msgstr "-85"
+
+#~ msgid "-9"
+#~ msgstr "-9"
+
+#~ msgid "-90"
+#~ msgstr "-90"
+
+#~ msgid "-95"
+#~ msgstr "-95"
+
+#~ msgid "0"
+#~ msgstr "0"
+
+#~ msgid "1"
+#~ msgstr "1"
+
+#~ msgid "1 inch/sec."
+#~ msgstr "1 polzada/seg."
+
+#~ msgid "1.25x0.25\""
+#~ msgstr "1.25x0.25\""
+
+#~ msgid "1.25x2.25\""
+#~ msgstr "1.25x2.25\""
+
+#~ msgid "1.5 inch/sec."
+#~ msgstr "1.5 polzades/seg."
+
+#~ msgid "1.50x0.25\""
+#~ msgstr "1.50x0.25\""
+
+#~ msgid "1.50x0.50\""
+#~ msgstr "1.50x0.50\""
+
+#~ msgid "1.50x1.00\""
+#~ msgstr "1.50x1.00\""
+
+#~ msgid "1.50x2.00\""
+#~ msgstr "1.50x2.00\""
+
+#~ msgid "10"
+#~ msgstr "10"
+
+#~ msgid "10 inches/sec."
+#~ msgstr "10 polzades/seg."
+
+#~ msgid "10 x 11"
+#~ msgstr "10 x 11"
+
+#~ msgid "10 x 13"
+#~ msgstr "10 x 13"
+
+#~ msgid "10 x 14"
+#~ msgstr "10 x 14"
+
+#~ msgid "100"
+#~ msgstr "100"
+
+#~ msgid "100 mm/sec."
+#~ msgstr "100 mm/seg."
+
+#~ msgid "105"
+#~ msgstr "105"
+
+#~ msgid "11"
+#~ msgstr "11"
+
+#~ msgid "11 inches/sec."
+#~ msgstr "11 polzades/seg."
+
+#~ msgid "110"
+#~ msgstr "110"
+
+#~ msgid "115"
+#~ msgstr "115"
+
+#~ msgid "12"
+#~ msgstr "12"
+
+#~ msgid "12 inches/sec."
+#~ msgstr "12 polzades/seg."
+
+#~ msgid "12 x 11"
+#~ msgstr "12 x 11"
+
+#~ msgid "120"
+#~ msgstr "120"
+
+#~ msgid "120 mm/sec."
+#~ msgstr "120 mm/seg."
+
+#~ msgid "120x60dpi"
+#~ msgstr "120x60ppp"
+
+#~ msgid "120x72dpi"
+#~ msgstr "120x72ppp"
+
+#~ msgid "13"
+#~ msgstr "13"
+
+#~ msgid "136dpi"
+#~ msgstr "136ppp"
+
+#~ msgid "14"
+#~ msgstr "14"
+
+#~ msgid "15"
+#~ msgstr "15"
+
+#~ msgid "15 mm/sec."
+#~ msgstr "15 mm/seg."
+
+#~ msgid "15 x 11"
+#~ msgstr "15 x 11"
+
+#~ msgid "150 mm/sec."
+#~ msgstr "150 mm/seg."
+
+#~ msgid "150dpi"
+#~ msgstr "150ppp"
+
+#~ msgid "16"
+#~ msgstr "16"
+
+#~ msgid "17"
+#~ msgstr "17"
+
+#~ msgid "18"
+#~ msgstr "18"
+
+#~ msgid "180dpi"
+#~ msgstr "180ppp"
+
+#~ msgid "19"
+#~ msgstr "19"
+
+#~ msgid "2"
+#~ msgstr "2"
+
+#~ msgid "2 inches/sec."
+#~ msgstr "2 polzades/seg."
+
+#~ msgid "2-Sided Printing"
+#~ msgstr "Impressió a doble cara"
+
+#~ msgid "2.00x0.37\""
+#~ msgstr "2.00x0.37\""
+
+#~ msgid "2.00x0.50\""
+#~ msgstr "2.00x0.50\""
+
+#~ msgid "2.00x1.00\""
+#~ msgstr "2.00x1.00\""
+
+#~ msgid "2.00x1.25\""
+#~ msgstr "2.00x1.25\""
+
+#~ msgid "2.00x2.00\""
+#~ msgstr "2.00x2.00\""
+
+#~ msgid "2.00x3.00\""
+#~ msgstr "2.00x3.00\""
+
+#~ msgid "2.00x4.00\""
+#~ msgstr "2.00x4.00\""
+
+#~ msgid "2.00x5.50\""
+#~ msgstr "2.00x5.50\""
+
+#~ msgid "2.25x0.50\""
+#~ msgstr "2.25x0.50\""
+
+#~ msgid "2.25x1.25\""
+#~ msgstr "2.25x1.25\""
+
+#~ msgid "2.25x4.00\""
+#~ msgstr "2.25x4.00\""
+
+#~ msgid "2.25x5.50\""
+#~ msgstr "2.25x5.50\""
+
+#~ msgid "2.38x5.50\""
+#~ msgstr "2.38x5.50\""
+
+#~ msgid "2.5 inches/sec."
+#~ msgstr "2.5 polzades/seg."
+
+#~ msgid "2.50x1.00\""
+#~ msgstr "2.50x1.00\""
+
+#~ msgid "2.50x2.00\""
+#~ msgstr "2.50x2.00\""
+
+#~ msgid "2.75x1.25\""
+#~ msgstr "2.75x1.25\""
+
+#~ msgid "2.9 x 1\""
+#~ msgstr "2.9 x 1\""
+
+#~ msgid "20"
+#~ msgstr "20"
+
+#~ msgid "20 mm/sec."
+#~ msgstr "20 mm/seg."
+
+#~ msgid "200 mm/sec."
+#~ msgstr "200 mm/seg."
+
+#~ msgid "203dpi"
+#~ msgstr "203ppp"
+
+#~ msgid "21"
+#~ msgstr "21"
+
+#~ msgid "22"
+#~ msgstr "22"
+
+#~ msgid "23"
+#~ msgstr "23"
+
+#~ msgid "24"
+#~ msgstr "24"
+
+#~ msgid "24-Pin Series"
+#~ msgstr "Sèrie de 24 pins"
+
+#~ msgid "240x72dpi"
+#~ msgstr "240x72ppp"
+
+#~ msgid "25"
+#~ msgstr "25"
+
+#~ msgid "250 mm/sec."
+#~ msgstr "250 mm/seg."
+
+#~ msgid "26"
+#~ msgstr "26"
+
+#~ msgid "27"
+#~ msgstr "27"
+
+#~ msgid "28"
+#~ msgstr "28"
+
+#~ msgid "29"
+#~ msgstr "29"
+
+#~ msgid "3"
+#~ msgstr "3"
+
+#~ msgid "3 inches/sec."
+#~ msgstr "3 polzades/seg."
+
+#~ msgid "3 x 5"
+#~ msgstr "3 x 5"
+
+#~ msgid "3.00x1.00\""
+#~ msgstr "3.00x1.00\""
+
+#~ msgid "3.00x1.25\""
+#~ msgstr "3.00x1.25\""
+
+#~ msgid "3.00x2.00\""
+#~ msgstr "3.00x2.00\""
+
+#~ msgid "3.00x3.00\""
+#~ msgstr "3.00x3.00\""
+
+#~ msgid "3.00x5.00\""
+#~ msgstr "3.00x5.00\""
+
+#~ msgid "3.25x2.00\""
+#~ msgstr "3.25x2.00\""
+
+#~ msgid "3.25x5.00\""
+#~ msgstr "3.25x5.00\""
+
+#~ msgid "3.25x5.50\""
+#~ msgstr "3.25x5.50\""
+
+#~ msgid "3.25x5.83\""
+#~ msgstr "3.25x5.83\""
+
+#~ msgid "3.25x7.83\""
+#~ msgstr "3.25x7.83\""
+
+#~ msgid "3.5 x 5"
+#~ msgstr "3.5 x 5"
+
+#~ msgid "3.5\" Disk"
+#~ msgstr "Disc de 3.5\""
+
+#~ msgid "3.50x1.00\""
+#~ msgstr "3.5x1.00\""
+
+#~ msgid "30"
+#~ msgstr "30"
+
+#~ msgid "30 mm/sec."
+#~ msgstr "30 mm/seg."
+
+#~ msgid "300 mm/sec."
+#~ msgstr "300 mm/seg."
+
+#~ msgid "300dpi"
+#~ msgstr "300ppp"
+
+#~ msgid "35"
+#~ msgstr "35"
+
+#~ msgid "360dpi"
+#~ msgstr "360ppp"
+
+#~ msgid "360x180dpi"
+#~ msgstr "360x180ppp"
+
+#~ msgid "4"
+#~ msgstr "4"
+
+#~ msgid "4 inches/sec."
+#~ msgstr "4 polzades/seg."
+
+#~ msgid "4.00x1.00\""
+#~ msgstr "4.00x1.00\""
+
+#~ msgid "4.00x13.00\""
+#~ msgstr "4.00x13.00\""
+
+#~ msgid "4.00x2.00\""
+#~ msgstr "4.00x2.00\""
+
+#~ msgid "4.00x2.50\""
+#~ msgstr "4.00x2.50\""
+
+#~ msgid "4.00x3.00\""
+#~ msgstr "4.00x3.00\""
+
+#~ msgid "4.00x4.00\""
+#~ msgstr "4.00x4.00\""
+
+#~ msgid "4.00x5.00\""
+#~ msgstr "4.00x5.00\""
+
+#~ msgid "4.00x6.00\""
+#~ msgstr "4.00x6.00\""
+
+#~ msgid "4.00x6.50\""
+#~ msgstr "4.00x6.50\""
+
+#~ msgid "40"
+#~ msgstr "40"
+
+#~ msgid "40 mm/sec."
+#~ msgstr "40 mm/seg."
+
+#~ msgid "45"
+#~ msgstr "45"
+
+#~ msgid "5"
+#~ msgstr "5"
+
+#~ msgid "5 inches/sec."
+#~ msgstr "5 polzades/seg."
+
+#~ msgid "5 x 7"
+#~ msgstr "15 x 11"
+
+#~ msgid "50"
+#~ msgstr "50"
+
+#~ msgid "55"
+#~ msgstr "55"
+
+#~ msgid "6"
+#~ msgstr "6"
+
+#~ msgid "6 inches/sec."
+#~ msgstr "6 polzades/seg."
+
+#~ msgid "6.00x1.00\""
+#~ msgstr "6.00x1.00\""
+
+#~ msgid "6.00x2.00\""
+#~ msgstr "6.00x2.00\""
+
+#~ msgid "6.00x3.00\""
+#~ msgstr "6.00x3.00\""
+
+#~ msgid "6.00x4.00\""
+#~ msgstr "6.00x4.00\""
+
+#~ msgid "6.00x5.00\""
+#~ msgstr "6.00x5.00\""
+
+#~ msgid "6.00x6.00\""
+#~ msgstr "6.00x6.00\""
+
+#~ msgid "6.00x6.50\""
+#~ msgstr "6.00x6.50\""
+
+#~ msgid "60"
+#~ msgstr "60"
+
+#~ msgid "60 mm/sec."
+#~ msgstr "60 mm/seg."
+
+#~ msgid "600dpi"
+#~ msgstr "600ppp"
+
+#~ msgid "60dpi"
+#~ msgstr "60ppp"
+
+#~ msgid "60x72dpi"
+#~ msgstr "60x72ppp"
+
+#~ msgid "65"
+#~ msgstr "65"
+
+#~ msgid "7"
+#~ msgstr "7"
+
+#~ msgid "7 inches/sec."
+#~ msgstr "7 polzades/seg."
+
+#~ msgid "7 x 9"
+#~ msgstr "7 x 9"
+
+#~ msgid "70"
+#~ msgstr "70"
+
+#~ msgid "75"
+#~ msgstr "75"
+
+#~ msgid "8"
+#~ msgstr "8"
+
+#~ msgid "8 inches/sec."
+#~ msgstr "8 polzades/seg."
+
+#~ msgid "8 x 10"
+#~ msgstr "8 x 10"
+
+#~ msgid "8.00x1.00\""
+#~ msgstr "8.00x1.00\""
+
+#~ msgid "8.00x2.00\""
+#~ msgstr "8.00x2.00\""
+
+#~ msgid "8.00x3.00\""
+#~ msgstr "8.00x3.00\""
+
+#~ msgid "8.00x4.00\""
+#~ msgstr "8.00x4.00\""
+
+#~ msgid "8.00x5.00\""
+#~ msgstr "8.00x5.00\""
+
+#~ msgid "8.00x6.00\""
+#~ msgstr "8.00x6.00\""
+
+#~ msgid "8.00x6.50\""
+#~ msgstr "8.00x6.50\""
+
+#~ msgid "80"
+#~ msgstr "80"
+
+#~ msgid "80 mm/sec."
+#~ msgstr "80 mm/seg."
+
+#~ msgid "85"
+#~ msgstr "85"
+
+#~ msgid "9"
+#~ msgstr "9"
+
+#~ msgid "9 inches/sec."
+#~ msgstr "9 polzades/seg."
+
+#~ msgid "9 x 11"
+#~ msgstr "9 x 11"
+
+#~ msgid "9 x 12"
+#~ msgstr "9 x 12"
+
+#~ msgid "9-Pin Series"
+#~ msgstr "Sèrie de 9 pins"
+
+#~ msgid "90"
+#~ msgstr "90"
+
+#~ msgid "95"
+#~ msgstr "95"
+
 #~ msgid "A Samba password is required to export printer drivers"
 #~ msgstr ""
 #~ "Necessiteu una contrasenya de Samba per exportar els controladors "
@@ -15344,11 +14780,785 @@ msgstr ""
 #~ "Necessiteu una nom d'usuari de Samba per exportar els controladors "
 #~ "d'impressora"
 
+#~ msgid "A0"
+#~ msgstr "A0"
+
+#~ msgid "A0 Long Edge"
+#~ msgstr "A0 costat llarg"
+
+#~ msgid "A1"
+#~ msgstr "A1"
+
+#~ msgid "A1 Long Edge"
+#~ msgstr "A1 costat llarg"
+
+#~ msgid "A10"
+#~ msgstr "A10"
+
+#~ msgid "A2"
+#~ msgstr "A2"
+
+#~ msgid "A2 Long Edge"
+#~ msgstr "A2 costat llarg"
+
+#~ msgid "A3"
+#~ msgstr "A3"
+
+#~ msgid "A3 Long Edge"
+#~ msgstr "A3 costat llarg"
+
+#~ msgid "A3 Oversize"
+#~ msgstr "A3 estès"
+
+#~ msgid "A3 Oversize Long Edge"
+#~ msgstr "A3 estès pel costat llarg"
+
+#~ msgid "A4"
+#~ msgstr "A4"
+
+#~ msgid "A4 Long Edge"
+#~ msgstr "A4 costat llarg"
+
+#~ msgid "A4 Oversize"
+#~ msgstr "A4 estès"
+
+#~ msgid "A4 Small"
+#~ msgstr "A4 reduït"
+
+#~ msgid "A5"
+#~ msgstr "A5"
+
+#~ msgid "A5 Long Edge"
+#~ msgstr "A5 costat llarg"
+
+#~ msgid "A5 Oversize"
+#~ msgstr "A5 estès"
+
+#~ msgid "A6"
+#~ msgstr "A6"
+
+#~ msgid "A6 Long Edge"
+#~ msgstr "A6 costat llarg"
+
+#~ msgid "A7"
+#~ msgstr "A7"
+
+#~ msgid "A8"
+#~ msgstr "A8"
+
+#~ msgid "A9"
+#~ msgstr "A9"
+
+#~ msgid "ANSI A"
+#~ msgstr "ANSI A"
+
+#~ msgid "ANSI B"
+#~ msgstr "ANSI B"
+
+#~ msgid "ANSI C"
+#~ msgstr "ANSI C"
+
+#~ msgid "ANSI D"
+#~ msgstr "ANSI D"
+
+#~ msgid "ANSI E"
+#~ msgstr "ANSI E"
+
+#~ msgid "ARCH C"
+#~ msgstr "ARCH C"
+
+#~ msgid "ARCH C Long Edge"
+#~ msgstr "ARCH C costat llarg"
+
+#~ msgid "ARCH D"
+#~ msgstr "ARCH D"
+
+#~ msgid "ARCH D Long Edge"
+#~ msgstr "ARCH D costat llarg"
+
+#~ msgid "ARCH E"
+#~ msgstr "ARCH E"
+
+#~ msgid "ARCH E Long Edge"
+#~ msgstr "ARCH E costat llarg"
+
+#~ msgid "Address"
+#~ msgstr "Adreça"
+
+#~ msgid "Always"
+#~ msgstr "Sempre"
+
+#~ msgid "Applicator"
+#~ msgstr "Aplicador"
+
+#~ msgid "B0"
+#~ msgstr "B0"
+
+#~ msgid "B1"
+#~ msgstr "B1"
+
+#~ msgid "B10"
+#~ msgstr "B10"
+
+#~ msgid "B2"
+#~ msgstr "B2"
+
+#~ msgid "B3"
+#~ msgstr "B3"
+
+#~ msgid "B4"
+#~ msgstr "B4"
+
+#~ msgid "B5"
+#~ msgstr "B5"
+
+#~ msgid "B5 Oversize"
+#~ msgstr "A5 estès"
+
+#~ msgid "B6"
+#~ msgstr "B6"
+
+#~ msgid "B7"
+#~ msgstr "B7"
+
+#~ msgid "B8"
+#~ msgstr "B8"
+
+#~ msgid "B9"
+#~ msgstr "B9"
+
+#~ msgid "Bond Paper"
+#~ msgstr "Paper de valors"
+
+#~ msgid "CMYK"
+#~ msgstr "CMYK"
+
+#~ msgid "CPCL Label Printer"
+#~ msgstr "Impressora d'etiquetes CPCL"
+
+#~ msgid "Cassette"
+#~ msgstr "Classet"
+
+#~ msgid "Color Mode"
+#~ msgstr "Mode de color"
+
+#~ msgid "Continuous"
+#~ msgstr "Contínua"
+
+#~ msgid "CustominCutInterval"
+#~ msgstr "CustominCutInterval"
+
+#~ msgid "CustominTearInterval"
+#~ msgstr "CustominTearInterval"
+
+#~ msgid "Cut"
+#~ msgstr "Tall"
+
+#~ msgid "Cutter"
+#~ msgstr "Ganiveta"
+
+#~ msgid "Dark"
+#~ msgstr "Fosc"
+
+#~ msgid "Darkness"
+#~ msgstr "Foscor"
+
+#~ msgid "DeskJet Series"
+#~ msgstr "Sèrie Deskjet"
+
+#~ msgid "Direct Thermal Media"
+#~ msgstr "Paper per impressió tèrmica directa"
+
+#~ msgid "Disabled"
+#~ msgstr "Desabilitat"
+
+#~ msgid "Duplexer"
+#~ msgstr "Unitat d'impressió a dues cares"
+
 #~ msgid "Dymo"
 #~ msgstr "Dymo"
 
+#~ msgid "EPL1 Label Printer"
+#~ msgstr "Impressora d'etiquetes EPL1"
+
+#~ msgid "EPL2 Label Printer"
+#~ msgstr "Impressora d'etiquetes EPL2"
+
+#~ msgid "English"
+#~ msgstr "Anglès"
+
+#~ msgid "Envelope #11"
+#~ msgstr "Sobre #11"
+
+#~ msgid "Envelope #12"
+#~ msgstr "Sobre #12"
+
+#~ msgid "Envelope #14"
+#~ msgstr "Sobre #14"
+
+#~ msgid "Envelope #9"
+#~ msgstr "Sobre #9"
+
+#~ msgid "Envelope B4"
+#~ msgstr "Sobre B4"
+
+#~ msgid "Envelope B5"
+#~ msgstr "Sobre B5"
+
+#~ msgid "Envelope B6"
+#~ msgstr "Sobre B6"
+
+#~ msgid "Envelope C0"
+#~ msgstr "Sobre C0"
+
+#~ msgid "Envelope C1"
+#~ msgstr "Sobre C1"
+
+#~ msgid "Envelope C2"
+#~ msgstr "Sobre C2"
+
+#~ msgid "Envelope C3"
+#~ msgstr "Sobre C3"
+
+#~ msgid "Envelope C4"
+#~ msgstr "Sobre C4"
+
+#~ msgid "Envelope C5"
+#~ msgstr "Sobre C5"
+
+#~ msgid "Envelope C6"
+#~ msgstr "Sobre C6"
+
+#~ msgid "Envelope C65"
+#~ msgstr "Sobre C65"
+
+#~ msgid "Envelope C7"
+#~ msgstr "Sobre C7"
+
+#~ msgid "Envelope Choukei 3"
+#~ msgstr "Sobre Choukei 3"
+
+#~ msgid "Envelope Choukei 3 Long Edge"
+#~ msgstr "Sobre Choukei 3 costat llarg"
+
+#~ msgid "Envelope Choukei 4"
+#~ msgstr "Sobre Choukei 4"
+
+#~ msgid "Envelope Choukei 4 Long Edge"
+#~ msgstr "Sobre Choukei 4 costat llarg"
+
+#~ msgid "Envelope DL"
+#~ msgstr "Sobre DL"
+
+#~ msgid "Envelope Feed"
+#~ msgstr "Alimentació de sobres"
+
+#~ msgid "Envelope Invite"
+#~ msgstr "Sobre d'invitació"
+
+#~ msgid "Envelope Italian"
+#~ msgstr "Sobre italià"
+
+#~ msgid "Envelope Kaku2"
+#~ msgstr "Sobre Kaku2"
+
+#~ msgid "Envelope Kaku2 Long Edge"
+#~ msgstr "Sobre Kaku2 costat llarg"
+
+#~ msgid "Envelope Kaku3"
+#~ msgstr "Sobre Kaku3"
+
+#~ msgid "Envelope Kaku3 Long Edge"
+#~ msgstr "Sobre Kaku3 costat llarg"
+
+#~ msgid "Envelope Monarch"
+#~ msgstr "Sobre monarch"
+
+#~ msgid "Envelope PRC1 Long Edge"
+#~ msgstr "Sobre PRC1 costat llarg"
+
+#~ msgid "Envelope PRC10"
+#~ msgstr "Sobre PRC10"
+
+#~ msgid "Envelope PRC10 Long Edge"
+#~ msgstr "Sobre PRC10 costat llarg"
+
+#~ msgid "Envelope PRC2"
+#~ msgstr "Sobre PRC2"
+
+#~ msgid "Envelope PRC2 Long Edge"
+#~ msgstr "Sobre PRC2 costat llarg"
+
+#~ msgid "Envelope PRC3"
+#~ msgstr "Sobre PRC3"
+
+#~ msgid "Envelope PRC3 Long Edge"
+#~ msgstr "Sobre PRC3 costat llarg"
+
+#~ msgid "Envelope PRC4"
+#~ msgstr "Sobre PRC4"
+
+#~ msgid "Envelope PRC4 Long Edge"
+#~ msgstr "Sobre PRC4 costat llarg"
+
+#~ msgid "Envelope PRC5 Long Edge"
+#~ msgstr "Sobre PRC5 costat llarg"
+
+#~ msgid "Envelope PRC5PRC5"
+#~ msgstr "Sobre PRC5"
+
+#~ msgid "Envelope PRC6"
+#~ msgstr "Sobre PRC6"
+
+#~ msgid "Envelope PRC6 Long Edge"
+#~ msgstr "Sobre PRC6 costat llarg"
+
+#~ msgid "Envelope PRC7"
+#~ msgstr "Sobre PRC7"
+
+#~ msgid "Envelope PRC7 Long Edge"
+#~ msgstr "Sobre PRC7 costat llarg"
+
+#~ msgid "Envelope PRC8"
+#~ msgstr "Sobre PRC8"
+
+#~ msgid "Envelope PRC8 Long Edge"
+#~ msgstr "Sobre PRC8 costat llarg"
+
+#~ msgid "Envelope PRC9"
+#~ msgstr "Sobre PRC9"
+
+#~ msgid "Envelope PRC9 Long Edge"
+#~ msgstr "Sobre PRC9 costat llarg"
+
+#~ msgid "Envelope Personal"
+#~ msgstr "Sobre personalitzat"
+
+#~ msgid "Envelope You4"
+#~ msgstr "Sobre You4"
+
+#~ msgid "Envelope You4 Long Edge"
+#~ msgstr "Sobre You4 costat llarg"
+
+#~ msgid "Epson"
+#~ msgstr "Epson"
+
+#~ msgid "Every 10 Labels"
+#~ msgstr "Cada 10 etiquetes"
+
+#~ msgid "Every 2 Labels"
+#~ msgstr "Cada 2 etiquetes"
+
+#~ msgid "Every 3 Labels"
+#~ msgstr "Cada 3 etiquetes"
+
+#~ msgid "Every 4 Labels"
+#~ msgstr "Cada 4 etiquetes"
+
+#~ msgid "Every 5 Labels"
+#~ msgstr "Cada 5 etiquetes"
+
+#~ msgid "Every 6 Labels"
+#~ msgstr "Cada 6 etiquetes"
+
+#~ msgid "Every 7 Labels"
+#~ msgstr "Cada 7 etiquetes"
+
+#~ msgid "Every 8 Labels"
+#~ msgstr "Cada 8 etiquetes"
+
+#~ msgid "Every 9 Labels"
+#~ msgstr "Cada 9 etiquetes"
+
+#~ msgid "Every Label"
+#~ msgstr "Cada etiqueta"
+
+#~ msgid "Executive"
+#~ msgstr "Executiu"
+
 #~ msgid "Export Printers to Samba"
 #~ msgstr "Exportar les impressores al Samba"
+
+#~ msgid "Folio"
+#~ msgstr "Foli"
+
+#~ msgid "Generic"
+#~ msgstr "Genèric"
+
+#~ msgid "Glossy Paper"
+#~ msgstr "Paper fotogràfic"
+
+#~ msgid "HP"
+#~ msgstr "HP"
+
+#~ msgid "Hanging Folder"
+#~ msgstr "Carpeta per penjar"
+
+#~ msgid "IPP extension tag larger than 0x7FFFFFFF."
+#~ msgstr "La etiqueta d'extension del IPP és més llarga de 0x7FFFFFFF."
+
+#~ msgid "ISOLatin1"
+#~ msgstr "ISOLatin1"
+
+#~ msgid "Installable Options"
+#~ msgstr "Opcions instal·lables"
+
+#~ msgid "Installed"
+#~ msgstr "Instal·lat"
+
+#~ msgid "IntelliBar Label Printer"
+#~ msgstr "Impressora d'etiquetes IntelliBar"
+
+#~ msgid "Intellitech"
+#~ msgstr "Intellitech"
+
+#~ msgid "Internet Postage 2-Part"
+#~ msgstr "Franqueig per Internet en 2 parts"
+
+#~ msgid "Internet Postage 3-Part"
+#~ msgstr "Franqueig per Internet en 3 parts"
+
+#~ msgid "JIS B0"
+#~ msgstr "JIS B0"
+
+#~ msgid "JIS B1"
+#~ msgstr "JIS B1"
+
+#~ msgid "JIS B10"
+#~ msgstr "JIS B10"
+
+#~ msgid "JIS B2"
+#~ msgstr "JIS B2"
+
+#~ msgid "JIS B3"
+#~ msgstr "JIS B3"
+
+#~ msgid "JIS B4"
+#~ msgstr "JIS B4"
+
+#~ msgid "JIS B4 Long Edge"
+#~ msgstr "JIS B4 costat llarg"
+
+#~ msgid "JIS B5"
+#~ msgstr "JIS B5"
+
+#~ msgid "JIS B5 Long Edge"
+#~ msgstr "JIS B5 costat llarg"
+
+#~ msgid "JIS B6"
+#~ msgstr "JIS B6"
+
+#~ msgid "JIS B6 Long Edge"
+#~ msgstr "JIS B6 costat llarg"
+
+#~ msgid "JIS B7"
+#~ msgstr "JIS B7"
+
+#~ msgid "JIS B8"
+#~ msgstr "JIS B8"
+
+#~ msgid "JIS B9"
+#~ msgstr "JIS B9"
+
+#~ msgid "Label Printer"
+#~ msgstr "Impressora d'etiquetes"
+
+#~ msgid "Label Top"
+#~ msgstr "Capçalera de l'etiqueta"
+
+#~ msgid "Large Address"
+#~ msgstr "Adreça gran"
+
+#~ msgid "LaserJet Series PCL 4/5"
+#~ msgstr "Sèrie Laser Jet PCL 4/5"
+
+#~ msgid "Letter Oversize"
+#~ msgstr "Carta gran"
+
+#~ msgid "Letter Oversize Long Edge"
+#~ msgstr "Carta americà gran costat llarg"
+
+#~ msgid "Light"
+#~ msgstr "Lluminós"
+
+#~ msgid "Long-Edge (Portrait)"
+#~ msgstr "Costat-llarg (vertical)"
+
+#~ msgid "Looking for printer."
+#~ msgstr "S'està buscant la impressora."
+
+#~ msgid "Manual Feed"
+#~ msgstr "Alimentació manual"
+
+#~ msgid "Media Tracking"
+#~ msgstr "Seguiment del paper"
+
+#~ msgid "Medium"
+#~ msgstr "Mitjà"
+
+#~ msgid "Never"
+#~ msgstr "Mai"
+
+#~ msgid "Non-continuous (Mark sensing)"
+#~ msgstr "Discontinu (sensible a les marques)"
+
+#~ msgid "Non-continuous (Web sensing)"
+#~ msgstr "Discontinu (Sensible al web)"
+
+#~ msgid "Normal"
+#~ msgstr "Normal"
+
+#~ msgid "Not Installed"
+#~ msgstr "No està instal·lat"
+
+#~ msgid "Note"
+#~ msgstr "Nota"
+
+#~ msgid "Off (1-Sided)"
+#~ msgstr "Inactiu (Una cara)"
+
+#~ msgid "Oki"
+#~ msgstr "Oki"
+
+#~ msgid "PCL Laser Printer"
+#~ msgstr "Impressora làser PCL"
+
+#~ msgid "PRC16K"
+#~ msgstr "PRC16K"
+
+#~ msgid "PRC16K Long Edge"
+#~ msgstr "PRC16K costat llarg"
+
+#~ msgid "PRC32K"
+#~ msgstr "PRC32K"
+
+#~ msgid "PRC32K Long Edge"
+#~ msgstr "PRC32K costat llarg"
+
+#~ msgid "PRC32K Oversize"
+#~ msgstr "PRC32K gran"
+
+#~ msgid "PRC32K Oversize Long Edge"
+#~ msgstr "PRC32K gran costat llarg"
+
+#~ msgid "ParamCustominCutInterval"
+#~ msgstr "ParamCustominCutInterval"
+
+#~ msgid "ParamCustominTearInterval"
+#~ msgstr "ParamCustominTearInterval"
+
+#~ msgid "Peel-Off"
+#~ msgstr "Desenganxar"
+
+#~ msgid "Photo"
+#~ msgstr "Fotografia"
+
+#~ msgid "Photo Labels"
+#~ msgstr "Etiquetes de fotografia"
+
+#~ msgid "Plain Paper"
+#~ msgstr "Paper normal"
+
+#~ msgid "PostScript Printer"
+#~ msgstr "Impressora PostScript"
+
+#~ msgid "Postcard"
+#~ msgstr "Postal"
+
+#~ msgid "Postcard Double Long Edge"
+#~ msgstr "Postal doble costat llarg"
+
+#~ msgid "Postcard Long Edge"
+#~ msgstr "Postal costat llarg"
+
+#~ msgid "Print Density"
+#~ msgstr "Densitat de la impressió"
+
+#~ msgid "Print Mode"
+#~ msgstr "Mode d'impressió"
+
+#~ msgid "Print Rate"
+#~ msgstr "Ritme d'impressió"
+
+#~ msgid "Print Speed"
+#~ msgstr "Velocitat d'impressió"
+
+#~ msgid "Print and Cut"
+#~ msgstr "Imprimeix i talla"
+
+#~ msgid "Print and Tear"
+#~ msgstr "Imprimeix i estripa"
+
+#~ msgid "Printer Default"
+#~ msgstr "Impressora per defecte"
+
+#~ msgid "Printer Settings"
+#~ msgstr "Configuració de la impressora"
+
+#~ msgid "Quarto"
+#~ msgstr "Quart"
+
+#~ msgid "Reprint After Error"
+#~ msgstr "Torna a imprimir després d'un error"
+
+#~ msgid "Return Address"
+#~ msgstr "Remitent"
+
+#~ msgid "Rewind"
+#~ msgstr "Rebobina"
+
+#~ msgid "Set Publishing"
+#~ msgstr "Establir com a pública"
+
+#~ msgid "Shipping Address"
+#~ msgstr "Adreça de lliurament"
+
+#~ msgid "Short-Edge (Landscape)"
+#~ msgstr "Costat curt (horitzontal)"
+
+#~ msgid "Special Paper"
+#~ msgstr "Paper especial"
+
+#~ msgid "Standard"
+#~ msgstr "Estàndard"
+
+#~ msgid "Statement"
+#~ msgstr "Declaració"
+
+#~ msgid "Super A"
+#~ msgstr "Super A"
+
+#~ msgid "Super B"
+#~ msgstr "Super B"
+
+#~ msgid "Super B/A3"
+#~ msgstr "Super B/A3"
+
+#~ msgid "Tabloid"
+#~ msgstr "Tabloide"
+
+#~ msgid "Tabloid Oversize"
+#~ msgstr "Tabloide gran"
+
+#~ msgid "Tabloid Oversize Long Edge"
+#~ msgstr "Tabloide gran costat llarg"
+
+#~ msgid "Tear"
+#~ msgstr "Estripar"
+
+#~ msgid "Tear-Off"
+#~ msgstr "Estripar"
+
+#~ msgid "Tear-Off Adjust Position"
+#~ msgstr "Posició d'ajust d'estripat"
+
+#~ msgid "Thermal Transfer Media"
+#~ msgstr "Mitjà de transferència tèrmica"
+
+#~ msgid "Transparency"
+#~ msgstr "Transparència"
+
+#~ msgid "Tray"
+#~ msgstr "Safata"
+
+#~ msgid "Tray 1"
+#~ msgstr "Safata 1"
+
+#~ msgid "Tray 2"
+#~ msgstr "Safata 2"
+
+#~ msgid "Tray 3"
+#~ msgstr "Safata 3"
+
+#~ msgid "Tray 4"
+#~ msgstr "Safata 4"
+
+#~ msgid "US Ledger"
+#~ msgstr "Llibre major americà"
+
+#~ msgid "US Legal"
+#~ msgstr "Legal americà"
+
+#~ msgid "US Legal Oversize"
+#~ msgstr "Legal americà gran"
+
+#~ msgid "US Letter"
+#~ msgstr "Carta americà"
+
+#~ msgid "US Letter Long Edge"
+#~ msgstr "Carta americà costat llarg"
+
+#~ msgid "US Letter Oversize"
+#~ msgstr "Carta americà gran"
+
+#~ msgid "US Letter Oversize Long Edge"
+#~ msgstr "Carta americà gran costat llarg"
+
+#~ msgid "US Letter Small"
+#~ msgstr "Carta americà petit"
+
+#~ msgid "Unable to change printer-is-shared attribute"
+#~ msgstr "No es pot canviar l'atribut printer-is-shared"
+
+#~ msgid "Unable to copy PPD file."
+#~ msgstr "No es pot copiar el fitxer PPD."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate chain "
+#~ "invalid)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (la cadena del "
+#~ "certificat no és vàlida)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate not yet "
+#~ "valid)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (el certificat "
+#~ "encara no és vàlid)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (expired certificate)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (ha expirat el "
+#~ "certificat)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (host name mismatch)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (hi ha un error "
+#~ "en el nom de l'amfitrió)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (peer dropped connection "
+#~ "before responding)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (s'ha tallat la "
+#~ "connexió abans de respondre)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (self-signed certificate)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (el certificat "
+#~ "és autosignat)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (untrusted certificate)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (el certificat "
+#~ "no és de confiança)."
+
+#~ msgid "Unable to establish a secure connection to host."
+#~ msgstr "No es pot establir una connexió segura amb l'amfitrió."
+
+#~ msgid "Unable to find printer."
+#~ msgstr "No es pot trobar la impressora."
+
+#~ msgid "ZPL Label Printer"
+#~ msgstr "Impressora d'etiquetes ZPL"
+
+#~ msgid "Zebra"
+#~ msgstr "Zebra"
 
 #~ msgid "cupsctl: Cannot set Listen or Port directly."
 #~ msgstr "cupsctl: no es pot establir Listen o Port directament."

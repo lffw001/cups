@@ -3,7 +3,7 @@
  *
  * This set of APIs abstracts enumeration of directory entries.
  *
- * Copyright © 2022-2023 by OpenPrinting.
+ * Copyright © 2022-2024 by OpenPrinting.
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2005 by Easy Software Products, all rights reserved.
  *
@@ -15,9 +15,49 @@
  * Include necessary headers...
  */
 
+#include "cups-private.h"
 #include "string-private.h"
 #include "debug-internal.h"
 #include "dir.h"
+
+
+//
+// Common code...
+//
+
+bool					// O - `true` on success, `false` on failure
+_cupsDirCreate(const char *path,	// I - Directory path
+               mode_t     mode)		// I - Permissions of final directory
+{
+  bool	ret = true;			// Return value
+  char	*copypath,			// Copy of path
+	*ptr;				// Pointer into path
+
+
+  // Copy the path
+  if ((copypath = strdup(path)) == NULL)
+    return (false);
+
+  // Create any intermediate paths as needed...
+  for (ptr = strchr(copypath + 1, '/'); ptr; ptr = strchr(ptr + 1, '/'))
+  {
+    // Truncate path for the subdir and create it modulo the umask...
+    *ptr = '\0';
+    if (mkdir(copypath, 0777) && errno != EEXIST)
+    {
+      ret = false;
+      break;
+    }
+    *ptr = '/';
+  }
+
+  // Free the copy of the path and then make the last component...
+  free(copypath);
+  if (ret && mkdir(path, mode) && errno != EEXIST)
+    ret = false;
+
+  return (ret);
+}
 
 
 /*
@@ -184,7 +224,7 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
   * Copy the name over and convert the file information...
   */
 
-  strlcpy(dp->entry.filename, entry.cFileName, sizeof(dp->entry.filename));
+  cupsCopyString(dp->entry.filename, entry.cFileName, sizeof(dp->entry.filename));
 
   if (entry.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
     dp->entry.fileinfo.st_mode = 0755 | S_IFDIR;
@@ -263,7 +303,7 @@ struct _cups_dir_s			/**** Directory data structure ****/
 void
 cupsDirClose(cups_dir_t *dp)		/* I - Directory pointer */
 {
-  DEBUG_printf(("cupsDirClose(dp=%p)", (void *)dp));
+  DEBUG_printf("cupsDirClose(dp=%p)", (void *)dp);
 
  /*
   * Range check input...
@@ -293,7 +333,7 @@ cupsDirOpen(const char *directory)	/* I - Directory name */
   cups_dir_t	*dp;			/* Directory */
 
 
-  DEBUG_printf(("cupsDirOpen(directory=\"%s\")", directory));
+  DEBUG_printf("cupsDirOpen(directory=\"%s\")", directory);
 
  /*
   * Range check input...
@@ -325,7 +365,7 @@ cupsDirOpen(const char *directory)	/* I - Directory name */
   * Copy the directory name for later use...
   */
 
-  strlcpy(dp->directory, directory, sizeof(dp->directory));
+  cupsCopyString(dp->directory, directory, sizeof(dp->directory));
 
  /*
   * Return the new directory structure...
@@ -348,7 +388,7 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
   char		filename[1024];		/* Full filename */
 
 
-  DEBUG_printf(("2cupsDirRead(dp=%p)", (void *)dp));
+  DEBUG_printf("2cupsDirRead(dp=%p)", (void *)dp);
 
  /*
   * Range check input...
@@ -373,7 +413,7 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
       return (NULL);
     }
 
-    DEBUG_printf(("4cupsDirRead: readdir() returned \"%s\"...", entry->d_name));
+    DEBUG_printf("4cupsDirRead: readdir() returned \"%s\"...", entry->d_name);
 
    /*
     * Skip "." and ".."...
@@ -386,14 +426,13 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
     * Copy the name over and get the file information...
     */
 
-    strlcpy(dp->entry.filename, entry->d_name, sizeof(dp->entry.filename));
+    cupsCopyString(dp->entry.filename, entry->d_name, sizeof(dp->entry.filename));
 
     snprintf(filename, sizeof(filename), "%s/%s", dp->directory, entry->d_name);
 
     if (stat(filename, &(dp->entry.fileinfo)))
     {
-      DEBUG_printf(("3cupsDirRead: stat() failed for \"%s\" - %s...", filename,
-                    strerror(errno)));
+      DEBUG_printf("3cupsDirRead: stat() failed for \"%s\" - %s...", filename, strerror(errno));
       continue;
     }
 
@@ -415,7 +454,7 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
 void
 cupsDirRewind(cups_dir_t *dp)		/* I - Directory pointer */
 {
-  DEBUG_printf(("cupsDirRewind(dp=%p)", (void *)dp));
+  DEBUG_printf("cupsDirRewind(dp=%p)", (void *)dp);
 
  /*
   * Range check input...

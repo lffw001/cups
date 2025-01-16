@@ -1,7 +1,7 @@
 /*
  * Color management routines for the CUPS scheduler.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2014 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -388,7 +388,7 @@ apple_register_profiles(
 	snprintf(iccfile, sizeof(iccfile), "%s/profiles/%s", DataDir,
 		 attr->value);
       else
-	strlcpy(iccfile, attr->value, sizeof(iccfile));
+	cupsCopyString(iccfile, attr->value, sizeof(iccfile));
 
       if (access(iccfile, 0))
       {
@@ -488,7 +488,7 @@ apple_register_profiles(
 	  snprintf(iccfile, sizeof(iccfile), "%s/profiles/%s", DataDir,
 	           attr->value);
         else
-	  strlcpy(iccfile, attr->value, sizeof(iccfile));
+	  cupsCopyString(iccfile, attr->value, sizeof(iccfile));
 
         if (_cupsFileCheck(iccfile, _CUPS_FILE_CHECK_FILE, !RunUser,
 	                   cupsdLogFCMessage, p))
@@ -512,9 +512,7 @@ apple_register_profiles(
 	{
 	  cupsdLogMessage(CUPSD_LOG_ERROR,
 	                  "Unable to allocate memory for color profile.");
-	  CFRelease(profiles);
-	  ppdClose(ppd);
-	  return;
+	  goto end;
 	}
 
 	apple_init_profile(ppd, languages, profile, profile_id, attr->spec,
@@ -624,9 +622,7 @@ apple_register_profiles(
       {
 	cupsdLogMessage(CUPSD_LOG_ERROR,
 			"Unable to allocate memory for color profile.");
-	CFRelease(profiles);
-	ppdClose(ppd);
-	return;
+	goto end;
       }
 
       apple_init_profile(ppd, NULL, profile, profile_id, cm_choice->choice,
@@ -668,9 +664,7 @@ apple_register_profiles(
     {
       cupsdLogMessage(CUPSD_LOG_ERROR,
                       "Unable to allocate memory for color profile.");
-      CFRelease(profiles);
-      ppdClose(ppd);
-      return;
+      goto end;
     }
 
     profile_id = _ppdHashName("Gray..");
@@ -698,9 +692,7 @@ apple_register_profiles(
     {
       cupsdLogMessage(CUPSD_LOG_ERROR,
                       "Unable to allocate memory for color profile.");
-      CFRelease(profiles);
-      ppdClose(ppd);
-      return;
+      goto end;
     }
 
     switch (ppd->colorspace)
@@ -844,7 +836,7 @@ apple_register_profiles(
  /*
   * Free any memory we used...
   */
-
+end:
   CFRelease(profiles);
 
   ppdClose(ppd);
@@ -1014,7 +1006,7 @@ colord_create_profile(
   DBusError	error;			/* D-Bus error */
   char		*idstr;			/* Profile ID string */
   size_t	idstrlen;		/* Profile ID allocated length */
-  const char	*profile_path;		/* Device object path */
+  char		*profile_path;		/* Device object path */
   char		format_str[1024];	/* Qualifier format as a string */
 
 
@@ -1080,7 +1072,7 @@ colord_create_profile(
 
   dbus_message_iter_get_basic(&args, &profile_path);
   cupsdLogMessage(CUPSD_LOG_DEBUG, "Created profile \"%s\".", profile_path);
-  cupsArrayAdd(profiles, strdup(profile_path));
+  cupsArrayAdd(profiles, profile_path);
 
 out:
 
@@ -1398,8 +1390,8 @@ colord_register_printer(
   * See if we have any embedded profiles...
   */
 
-  profiles = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)strdup,
-			   (cups_afree_func_t)free);
+  profiles = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)_cupsArrayStrdup,
+			   _cupsArrayFree);
   for (attr = ppdFindAttr(ppd, "cupsICCProfile", NULL);
        attr;
        attr = ppdFindNextAttr(ppd, "cupsICCProfile", NULL))
@@ -1409,7 +1401,7 @@ colord_register_printer(
         snprintf(iccfile, sizeof(iccfile), "%s/profiles/%s", DataDir,
                  attr->value);
       else
-        strlcpy(iccfile, attr->value, sizeof(iccfile));
+        cupsCopyString(iccfile, attr->value, sizeof(iccfile));
 
       if (_cupsFileCheck(iccfile, _CUPS_FILE_CHECK_FILE, !RunUser,
 			 cupsdLogFCMessage, p))

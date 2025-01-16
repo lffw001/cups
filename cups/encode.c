@@ -1,6 +1,7 @@
 /*
  * Option encoding routines for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -179,6 +180,8 @@ static const _ipp_option_t ipp_options[] =
   { 0, "job-priority-default",	IPP_TAG_INTEGER,	IPP_TAG_PRINTER },
   { 0, "job-quota-period",	IPP_TAG_INTEGER,	IPP_TAG_PRINTER },
   { 1, "job-sheets",		IPP_TAG_NAME,		IPP_TAG_JOB },
+  { 0, "job-sheets-col",	IPP_TAG_BEGIN_COLLECTION, IPP_TAG_JOB },
+  { 0, "job-sheets-col-default",IPP_TAG_BEGIN_COLLECTION, IPP_TAG_PRINTER },
   { 1, "job-sheets-default",	IPP_TAG_NAME,		IPP_TAG_PRINTER },
   { 0, "job-state",		IPP_TAG_ENUM,		IPP_TAG_ZERO }, /* never send as option */
   { 0, "job-state-message",	IPP_TAG_TEXT,		IPP_TAG_ZERO }, /* never send as option */
@@ -403,7 +406,7 @@ _cupsEncodeOption(
   cups_option_t		*cols;		/* Collection values */
 
 
-  DEBUG_printf(("_cupsEncodeOption(ipp=%p(%s), group=%s, map=%p, name=\"%s\", value=\"%s\")", (void *)ipp, ipp ? ippOpString(ippGetOperation(ipp)) : "", ippTagString(group_tag), (void *)map, name, value));
+  DEBUG_printf("_cupsEncodeOption(ipp=%p(%s), group=%s, map=%p, name=\"%s\", value=\"%s\")", (void *)ipp, ipp ? ippOpString(ippGetOperation(ipp)) : "", ippTagString(group_tag), (void *)map, name, value);
 
  /*
   * Figure out the attribute syntax for encoding...
@@ -448,7 +451,7 @@ _cupsEncodeOption(
   else
     count = 1;
 
-  DEBUG_printf(("2_cupsEncodeOption: value_tag=%s, count=%d", ippTagString(value_tag), count));
+  DEBUG_printf("2_cupsEncodeOption: value_tag=%s, count=%d", ippTagString(value_tag), count);
 
  /*
   * Allocate memory for the attribute values...
@@ -545,8 +548,26 @@ _cupsEncodeOption(
 
     switch (attr->value_tag)
     {
-      case IPP_TAG_INTEGER :
       case IPP_TAG_ENUM :
+          if (isalpha(*val & 255))
+          {
+            // Map enum keyword to integer value...
+            int enumvalue;		// Enumeration value
+
+            if ((enumvalue = ippEnumValue(name, val)) > 0)
+            {
+              ippSetInteger(ipp, &attr, i, enumvalue);
+	    }
+	    else
+	    {
+	      ippDeleteAttribute(ipp, attr);
+	      free(copy);
+	      return (NULL);
+	    }
+            break;
+	  }
+
+      case IPP_TAG_INTEGER :
 	 /*
 	  * Integer/enumeration value...
 	  */
@@ -664,8 +685,7 @@ _cupsEncodeOption(
     }
   }
 
-  if (copy)
-    free(copy);
+  free(copy);
 
   return (attr);
 }
@@ -700,7 +720,7 @@ cupsEncodeOptions(ipp_t         *ipp,		/* I - IPP request/response */
         	  int           num_options,	/* I - Number of options */
 		  cups_option_t *options)	/* I - Options */
 {
-  DEBUG_printf(("cupsEncodeOptions(%p, %d, %p)", (void *)ipp, num_options, (void *)options));
+  DEBUG_printf("cupsEncodeOptions(%p, %d, %p)", (void *)ipp, num_options, (void *)options);
 
  /*
   * Add the options in the proper groups & order...
@@ -736,7 +756,7 @@ cupsEncodeOptions2(
   const ipp_op_t	*ops;		/* List of allowed operations */
 
 
-  DEBUG_printf(("cupsEncodeOptions2(ipp=%p(%s), num_options=%d, options=%p, group_tag=%x)", (void *)ipp, ipp ? ippOpString(ippGetOperation(ipp)) : "", num_options, (void *)options, group_tag));
+  DEBUG_printf("cupsEncodeOptions2(ipp=%p(%s), num_options=%d, options=%p, group_tag=%x)", (void *)ipp, ipp ? ippOpString(ippGetOperation(ipp)) : "", num_options, (void *)options, group_tag);
 
  /*
   * Range check input...
@@ -801,7 +821,7 @@ cupsEncodeOptions2(
         ops = ipp_set_printer;
       else
       {
-	DEBUG_printf(("2cupsEncodeOptions2: Skipping \"%s\".", option->name));
+	DEBUG_printf("2cupsEncodeOptions2: Skipping \"%s\".", option->name);
         continue;
       }
     }
@@ -815,13 +835,13 @@ cupsEncodeOptions2(
       {
 	if (group_tag != IPP_TAG_JOB && group_tag != IPP_TAG_DOCUMENT)
 	{
-	  DEBUG_printf(("2cupsEncodeOptions2: Skipping \"%s\".", option->name));
+	  DEBUG_printf("2cupsEncodeOptions2: Skipping \"%s\".", option->name);
           continue;
         }
       }
       else if (group_tag != IPP_TAG_PRINTER)
       {
-	DEBUG_printf(("2cupsEncodeOptions2: Skipping \"%s\".", option->name));
+	DEBUG_printf("2cupsEncodeOptions2: Skipping \"%s\".", option->name);
         continue;
       }
 
@@ -845,7 +865,7 @@ cupsEncodeOptions2(
 
     if (*ops == IPP_OP_CUPS_NONE && op != IPP_OP_CUPS_NONE)
     {
-      DEBUG_printf(("2cupsEncodeOptions2: Skipping \"%s\".", option->name));
+      DEBUG_printf("2cupsEncodeOptions2: Skipping \"%s\".", option->name);
       continue;
     }
 

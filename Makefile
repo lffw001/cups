@@ -1,7 +1,7 @@
 #
 # Top-level Makefile for CUPS.
 #
-# Copyright © 2020-2023 by OpenPrinting
+# Copyright © 2020-2024 by OpenPrinting
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #
@@ -215,6 +215,9 @@ install-libs:	libs
 		echo Installing libraries in $$dir... ;\
 		(cd $$dir; $(MAKE) $(MFLAGS) install-libs) || exit 1;\
 	done
+	-if test -x /usr/sbin/ldconfig; then \
+		/usr/sbin/ldconfig; \
+	fi
 
 
 #
@@ -244,6 +247,8 @@ testserver:	all unittests
 
 
 check test:	all unittests
+	cd cups; make test
+	cd scheduler; make test
 	echo Running CUPS test suite...
 	cd test; ./run-stp-tests.sh 1 0 n n
 

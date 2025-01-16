@@ -1,7 +1,8 @@
 /*
  * PWG media name API implementation for CUPS.
  *
- * Copyright 2009-2019 by Apple Inc.
+ * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2009-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
@@ -22,16 +23,15 @@
 
 #define _PWG_MEDIA_IN(p,l,a,x,y) {p, l, a, (int)(x * 2540), (int)(y * 2540)}
 #define _PWG_MEDIA_MM(p,l,a,x,y) {p, l, a, (int)(x * 100), (int)(y * 100)}
-#define _PWG_EPSILON	50		/* Matching tolerance */
 
 
 /*
  * Local functions...
  */
 
-static int	pwg_compare_legacy(pwg_media_t *a, pwg_media_t *b);
-static int	pwg_compare_pwg(pwg_media_t *a, pwg_media_t *b);
-static int	pwg_compare_ppd(pwg_media_t *a, pwg_media_t *b);
+static int	pwg_compare_legacy(pwg_media_t *a, pwg_media_t *b, void *data);
+static int	pwg_compare_pwg(pwg_media_t *a, pwg_media_t *b, void *data);
+static int	pwg_compare_ppd(pwg_media_t *a, pwg_media_t *b, void *data);
 static char	*pwg_format_inches(char *buf, size_t bufsize, int val);
 static char	*pwg_format_millimeters(char *buf, size_t bufsize, int val);
 static int	pwg_scan_measurement(const char *buf, char **bufptr, int numer, int denom);
@@ -318,7 +318,7 @@ pwgFormatSizeName(char       *keyword,	/* I - Keyword buffer */
   * Range check input...
   */
 
-  DEBUG_printf(("pwgFormatSize(keyword=%p, keysize=" CUPS_LLFMT ", prefix=\"%s\", name=\"%s\", width=%d, length=%d, units=\"%s\")", (void *)keyword, CUPS_LLCAST keysize, prefix, name, width, length, units));
+  DEBUG_printf("pwgFormatSize(keyword=%p, keysize=" CUPS_LLFMT ", prefix=\"%s\", name=\"%s\", width=%d, length=%d, units=\"%s\")", (void *)keyword, CUPS_LLCAST keysize, prefix, name, width, length, units);
 
   if (keyword)
     *keyword = '\0';
@@ -919,7 +919,7 @@ pwgMediaForPWG(const char *pwg)		/* I - PWG size name */
         size->width  = w;
         size->length = l;
 
-        strlcpy(cg->pwg_name, pwg, sizeof(cg->pwg_name));
+        cupsCopyString(cg->pwg_name, pwg, sizeof(cg->pwg_name));
 	size->pwg = cg->pwg_name;
 
         if (numer == 100)
@@ -952,13 +952,16 @@ pwg_media_t *				/* O - PWG media name */
 pwgMediaForSize(int width,		/* I - Width in hundredths of millimeters */
 		int length)		/* I - Length in hundredths of millimeters */
 {
+  _cups_globals_t *cg = _cupsGlobals();	/* Global data */
+
+
  /*
   * Adobe uses a size matching algorithm with an epsilon of 5 points, which
   * is just about 176/2540ths...  But a lot of international media sizes are
   * very close so use 0.5mm (50/2540ths) as the maximum delta.
   */
 
-  return (_pwgMediaNearSize(width, length, _PWG_EPSILON));
+  return (_pwgMediaNearSize(&cg->pwg_media, cg->pwg_name, sizeof(cg->pwg_name), cg->ppd_name, sizeof(cg->ppd_name), width, length, _PWG_EPSILON));
 }
 
 
@@ -966,10 +969,15 @@ pwgMediaForSize(int width,		/* I - Width in hundredths of millimeters */
  * '_pwgMediaNearSize()' - Get the PWG media size within the given tolerance.
  */
 
-pwg_media_t *				/* O - PWG media name */
-_pwgMediaNearSize(int width,	        /* I - Width in hundredths of millimeters */
-		  int length,		/* I - Length in hundredths of millimeters */
-		  int epsilon)		/* I - Match within this tolernace. PWG units */
+pwg_media_t *				/* O - PWG media */
+_pwgMediaNearSize(pwg_media_t *pwg,	/* I - Media buffer */
+                  char        *keyword,	/* I - Media keyword buffer */
+                  size_t      keysize,	/* I - Size of media keyword buffer */
+                  char        *ppdname,	/* I - PPD name buffer */
+                  size_t      ppdsize,	/* I - Size of PPD name buffer */
+                  int         width,	/* I - Width in hundredths of millimeters */
+		  int         length,	/* I - Length in hundredths of millimeters */
+		  int         epsilon)	/* I - Match within this tolernace. PWG units */
 {
   int		i;			/* Looping var */
   pwg_media_t	*media,			/* Current media */
@@ -978,7 +986,6 @@ _pwgMediaNearSize(int width,	        /* I - Width in hundredths of millimeters *
 		best_dw = 999,		/* Best difference in width and length */
 		best_dl = 999;
   char		wstr[32], lstr[32];	/* Width and length as strings */
-  _cups_globals_t *cg = _cupsGlobals();	/* Global data */
 
 
  /*
@@ -992,17 +999,15 @@ _pwgMediaNearSize(int width,	        /* I - Width in hundredths of millimeters *
   * Look for a standard size...
   */
 
-  for (i = (int)(sizeof(cups_pwg_media) / sizeof(cups_pwg_media[0])),
-	   media = (pwg_media_t *)cups_pwg_media;
-       i > 0;
-       i --, media ++)
+  for (i = (int)(sizeof(cups_pwg_media) / sizeof(cups_pwg_media[0])), media = (pwg_media_t *)cups_pwg_media; i > 0; i --, media ++)
   {
-
     dw = abs(media->width - width);
     dl = abs(media->length - length);
 
     if (!dw && !dl)
+    {
       return (media);
+    }
     else if (dw <= epsilon && dl <= epsilon)
     {
       if (dw <= best_dw && dl <= best_dl)
@@ -1023,20 +1028,23 @@ _pwgMediaNearSize(int width,	        /* I - Width in hundredths of millimeters *
   *     custom_WIDTHxHEIGHTuu_WIDTHxHEIGHTuu
   */
 
-  pwgFormatSizeName(cg->pwg_name, sizeof(cg->pwg_name), "custom", NULL, width,
-                    length, NULL);
+  if (keyword)
+    pwgFormatSizeName(keyword, keysize, "custom", NULL, width, length, NULL);
 
-  cg->pwg_media.pwg    = cg->pwg_name;
-  cg->pwg_media.width  = width;
-  cg->pwg_media.length = length;
+  if (ppdname)
+  {
+    if ((width % 635) == 0 && (length % 635) == 0)
+      snprintf(ppdname, ppdsize, "%sx%s", pwg_format_inches(wstr, sizeof(wstr), width), pwg_format_inches(lstr, sizeof(lstr), length));
+    else
+      snprintf(ppdname, ppdsize, "%sx%smm", pwg_format_millimeters(wstr, sizeof(wstr), width), pwg_format_millimeters(lstr, sizeof(lstr), length));
+  }
 
-  if ((width % 635) == 0 && (length % 635) == 0)
-    snprintf(cg->ppd_name, sizeof(cg->ppd_name), "%sx%s", pwg_format_inches(wstr, sizeof(wstr), width), pwg_format_inches(lstr, sizeof(lstr), length));
-  else
-    snprintf(cg->ppd_name, sizeof(cg->ppd_name), "%sx%smm", pwg_format_millimeters(wstr, sizeof(wstr), width), pwg_format_millimeters(lstr, sizeof(lstr), length));
-  cg->pwg_media.ppd = cg->ppd_name;
+  pwg->pwg    = keyword;
+  pwg->ppd    = ppdname;
+  pwg->width  = width;
+  pwg->length = length;
 
-  return (&(cg->pwg_media));
+  return (pwg);
 }
 
 
@@ -1057,10 +1065,12 @@ _pwgMediaTable(size_t *num_media)	/* O - Number of entries */
  * 'pwg_compare_legacy()' - Compare two sizes using the legacy names.
  */
 
-static int				/* O - Result of comparison */
-pwg_compare_legacy(pwg_media_t *a,	/* I - First size */
-                   pwg_media_t *b)	/* I - Second size */
+static int                         /* O - Result of comparison */
+pwg_compare_legacy(pwg_media_t *a, /* I - First size */
+                   pwg_media_t *b, /* I - Second size */
+                   void *data)     /* Unused */
 {
+  (void)data;
   return (strcmp(a->legacy, b->legacy));
 }
 
@@ -1069,10 +1079,12 @@ pwg_compare_legacy(pwg_media_t *a,	/* I - First size */
  * 'pwg_compare_ppd()' - Compare two sizes using the PPD names.
  */
 
-static int				/* O - Result of comparison */
-pwg_compare_ppd(pwg_media_t *a,	/* I - First size */
-                pwg_media_t *b)	/* I - Second size */
+static int                      /* O - Result of comparison */
+pwg_compare_ppd(pwg_media_t *a, /* I - First size */
+                pwg_media_t *b, /* I - Second size */
+                void *data)     /* Unused */
 {
+  (void)data;
   return (strcmp(a->ppd, b->ppd));
 }
 
@@ -1081,10 +1093,12 @@ pwg_compare_ppd(pwg_media_t *a,	/* I - First size */
  * 'pwg_compare_pwg()' - Compare two sizes using the PWG names.
  */
 
-static int				/* O - Result of comparison */
-pwg_compare_pwg(pwg_media_t *a,	/* I - First size */
-                pwg_media_t *b)	/* I - Second size */
+static int                      /* O - Result of comparison */
+pwg_compare_pwg(pwg_media_t *a, /* I - First size */
+                pwg_media_t *b, /* I - Second size */
+                void *data)     /* Unused */
 {
+  (void)data;
   return (strcmp(a->pwg, b->pwg));
 }
 
@@ -1098,8 +1112,7 @@ pwg_format_inches(char   *buf,		/* I - Buffer */
                   size_t bufsize,	/* I - Size of buffer */
                   int    val)		/* I - Value in hundredths of millimeters */
 {
-  int	thousandths,			/* Thousandths of inches */
-	integer,			/* Integer portion */
+  int	integer,			/* Integer portion */
 	fraction;			/* Fractional portion */
 
 
@@ -1108,9 +1121,13 @@ pwg_format_inches(char   *buf,		/* I - Buffer */
   * the nearest thousandth.
   */
 
-  thousandths = (val * 1000 + 1270) / 2540;
-  integer     = thousandths / 1000;
-  fraction    = thousandths % 1000;
+  integer  = val / 2540;
+  fraction = ((val % 2540) * 1000 + 1270) / 2540;
+  if (fraction >= 1000)
+  {
+    integer ++;
+    fraction -= 1000;
+  }
 
  /*
   * Format as a pair of integers (avoids locale stuff), avoiding trailing

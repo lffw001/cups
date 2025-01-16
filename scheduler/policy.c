@@ -1,10 +1,12 @@
 /*
  * Policy routines for the CUPS scheduler.
  *
- * Copyright 2007-2011, 2014 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products, all rights reserved.
+ * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2007-2011, 2014 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -19,10 +21,10 @@
  * Local functions...
  */
 
-static int	compare_ops(cupsd_location_t *a, cupsd_location_t *b);
-static int	compare_policies(cupsd_policy_t *a, cupsd_policy_t *b);
-static void	free_policy(cupsd_policy_t *p);
-static int	hash_op(cupsd_location_t *op);
+static int	compare_ops(cupsd_location_t *a, cupsd_location_t *b, void *data);
+static int	compare_policies(cupsd_policy_t *a, cupsd_policy_t *b, void *data);
+static void	free_policy(cupsd_policy_t *p, void *data);
+static int	hash_op(cupsd_location_t *op, void *data);
 
 
 /*
@@ -70,7 +72,7 @@ cupsdAddPolicyOp(cupsd_policy_t   *p,	/* I - Policy */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddPolicyOp(p=%p, po=%p, op=%x(%s))",
-                  p, po, op, ippOpString(op));
+                  (void *)p, (void *)po, op, ippOpString(op));
 
   if (!p)
     return (NULL);
@@ -114,7 +116,7 @@ cupsdCheckPolicy(cupsd_policy_t *p,	/* I - Policy */
 
   if (!p || !con)
   {
-    cupsdLogMessage(CUPSD_LOG_CRIT, "cupsdCheckPolicy: p=%p, con=%p.", p, con);
+    cupsdLogMessage(CUPSD_LOG_CRIT, "cupsdCheckPolicy: p=%p, con=%p.", (void *)p, (void *)con);
 
     return (HTTP_STATUS_SERVER_ERROR);
   }
@@ -212,7 +214,7 @@ cupsdFindPolicyOp(cupsd_policy_t *p,	/* I - Policy */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdFindPolicyOp(p=%p, op=%x(%s))",
-                  p, op, ippOpString(op));
+                  (void *)p, op, ippOpString(op));
 
  /*
   * Range check...
@@ -270,13 +272,13 @@ cupsdGetPrivateAttrs(
 #ifdef DEBUG
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "cupsdGetPrivateAttrs(policy=%p(%s), con=%p(%d), "
-		  "printer=%p(%s), owner=\"%s\")", policy, policy ? policy->name : "", con,
-		  con->number, printer, printer ? printer->name : "", owner);
+		  "printer=%p(%s), owner=\"%s\")", (void *)policy, policy ? policy->name : "", (void *)con,
+		  con->number, (void *)printer, printer ? printer->name : "", owner);
 #endif /* DEBUG */
 
   if (!policy)
   {
-    cupsdLogMessage(CUPSD_LOG_CRIT, "cupsdGetPrivateAttrs: policy=%p, con=%p, printer=%p, owner=\"%s\", DefaultPolicyPtr=%p: This should never happen, please report a bug.", policy, con, printer, owner, DefaultPolicyPtr);
+    cupsdLogMessage(CUPSD_LOG_CRIT, "cupsdGetPrivateAttrs: policy=%p, con=%p, printer=%p, owner=\"%s\", DefaultPolicyPtr=%p: This should never happen, please report a bug.", (void *)policy, (void *)con, (void *)printer, owner, (void *)DefaultPolicyPtr);
     policy = DefaultPolicyPtr;
   }
 
@@ -291,9 +293,9 @@ cupsdGetPrivateAttrs(
 
   switch (con->request->request.op.operation_id)
   {
-    case IPP_GET_SUBSCRIPTIONS :
-    case IPP_GET_SUBSCRIPTION_ATTRIBUTES :
-    case IPP_GET_NOTIFICATIONS :
+    case IPP_OP_GET_SUBSCRIPTIONS :
+    case IPP_OP_GET_SUBSCRIPTION_ATTRIBUTES :
+    case IPP_OP_GET_NOTIFICATIONS :
         access_ptr = policy->sub_access;
 	attrs_ptr  = policy->sub_attrs;
 	break;
@@ -316,6 +318,10 @@ cupsdGetPrivateAttrs(
 #endif /* DEBUG */
 
     return (NULL);
+  }
+  else if (name && !_cups_strcasecmp(name, "all"))
+  {
+    return (attrs_ptr);
   }
 
  /*
@@ -448,10 +454,12 @@ cupsdGetPrivateAttrs(
  * 'compare_ops()' - Compare two operations.
  */
 
-static int				/* O - Result of comparison */
-compare_ops(cupsd_location_t *a,	/* I - First operation */
-            cupsd_location_t *b)	/* I - Second operation */
+static int                       /* O - Result of comparison */
+compare_ops(cupsd_location_t *a, /* I - First operation */
+            cupsd_location_t *b, /* I - Second operation */
+            void *data)          /* Unused */
 {
+  (void)data;
   return (a->op - b->op);
 }
 
@@ -460,10 +468,12 @@ compare_ops(cupsd_location_t *a,	/* I - First operation */
  * 'compare_policies()' - Compare two policies.
  */
 
-static int				/* O - Result of comparison */
-compare_policies(cupsd_policy_t *a,	/* I - First policy */
-                 cupsd_policy_t *b)	/* I - Second policy */
+static int                          /* O - Result of comparison */
+compare_policies(cupsd_policy_t *a, /* I - First policy */
+                 cupsd_policy_t *b, /* I - Second policy */
+                 void *data)        /* Unused */
 {
+  (void)data;
   return (_cups_strcasecmp(a->name, b->name));
 }
 
@@ -472,9 +482,10 @@ compare_policies(cupsd_policy_t *a,	/* I - First policy */
  * 'free_policy()' - Free the memory used by a policy.
  */
 
-static void
-free_policy(cupsd_policy_t *p)		/* I - Policy to free */
+static void free_policy(cupsd_policy_t *p, /* I - Policy to free */
+                        void *data)        /* Unused */
 {
+  (void)data;
   cupsArrayDelete(p->job_access);
   cupsArrayDelete(p->job_attrs);
   cupsArrayDelete(p->sub_access);
@@ -489,8 +500,10 @@ free_policy(cupsd_policy_t *p)		/* I - Policy to free */
  * 'hash_op()' - Generate a lookup hash for the operation.
  */
 
-static int				/* O - Hash value */
-hash_op(cupsd_location_t *op)		/* I - Operation */
+static int                    /* O - Hash value */
+hash_op(cupsd_location_t *op, /* I - Operation */
+        void *data)           /* Unused */
 {
+  (void)data;
   return (((op->op >> 6) & 0x40) | (op->op & 0x3f));
 }

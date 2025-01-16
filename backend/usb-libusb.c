@@ -1,7 +1,7 @@
 /*
  * LIBUSB interface code for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -128,7 +128,7 @@ libusb_device		**all_list;	/* List of connected USB devices */
  */
 
 static int		close_device(usb_printer_t *printer);
-static int		compare_quirks(usb_quirk_t *a, usb_quirk_t *b);
+static int		compare_quirks(usb_quirk_t *a, usb_quirk_t *b, void *data);
 static usb_printer_t	*find_device(usb_cb_t cb, const void *data);
 static unsigned		find_quirks(int vendor_id, int product_id);
 static int		get_device_id(usb_printer_t *printer, char *buffer,
@@ -473,7 +473,7 @@ print_device(const char *uri,		/* I - Device URI */
       {
 	iostatus = libusb_bulk_transfer(g.printer->handle,
 					g.printer->write_endp,
-					print_buffer, g.print_bytes,
+					print_ptr, g.print_bytes,
 					&bytes, 0);
        /*
 	* Ignore timeout errors, but retain the number of bytes written to
@@ -496,7 +496,7 @@ print_device(const char *uri,		/* I - Device URI */
 
 	  iostatus = libusb_bulk_transfer(g.printer->handle,
 					  g.printer->write_endp,
-					  print_buffer, g.print_bytes,
+					  print_ptr, g.print_bytes,
 					  &bytes, 0);
 	}
 
@@ -511,7 +511,7 @@ print_device(const char *uri,		/* I - Device URI */
 
 	  iostatus = libusb_bulk_transfer(g.printer->handle,
 					  g.printer->write_endp,
-					  print_buffer, g.print_bytes,
+					  print_ptr, g.print_bytes,
 					  &bytes, 0);
         }
 
@@ -771,11 +771,14 @@ close_device(usb_printer_t *printer)	/* I - Printer */
  * 'compare_quirks()' - Compare two quirks entries.
  */
 
-static int				/* O - Result of comparison */
-compare_quirks(usb_quirk_t *a,		/* I - First quirk entry */
-               usb_quirk_t *b)		/* I - Second quirk entry */
+static int                     /* O - Result of comparison */
+compare_quirks(usb_quirk_t *a, /* I - First quirk entry */
+               usb_quirk_t *b, /* I - Second quirk entry */
+               void *data)     /* I - Unused */
 {
   int result;				/* Result of comparison */
+
+  (void)data;
 
   if ((result = b->vendor_id - a->vendor_id) == 0)
     result = b->product_id - a->product_id;
@@ -1123,7 +1126,7 @@ list_cb(usb_printer_t *printer,		/* I - Printer */
   */
 
   if (backendGetMakeModel(device_id, make_model, sizeof(make_model)))
-    strlcpy(make_model, "Unknown", sizeof(make_model));
+    cupsCopyString(make_model, "Unknown", sizeof(make_model));
 
  /*
   * Report the printer...
@@ -1354,7 +1357,7 @@ make_device_uri(
              (des = cupsGetOption("DES", num_values, values)) != NULL)
       _ppdNormalizeMakeAndModel(des, tempmfg, sizeof(tempmfg));
     else
-      strlcpy(tempmfg, "Unknown", sizeof(tempmfg));
+      cupsCopyString(tempmfg, "Unknown", sizeof(tempmfg));
 
     if ((tempptr = strchr(tempmfg, ' ')) != NULL)
       *tempptr = '\0';
@@ -1427,7 +1430,7 @@ open_device(usb_printer_t *printer,	/* I - Printer */
   int	number1 = -1,			/* Configuration/interface/altset */
         number2 = -1,			/* numbers */
         errcode = 0;
-  char	current;			/* Current configuration */
+  unsigned char	current;			/* Current configuration */
 
 
  /*
@@ -1504,7 +1507,7 @@ open_device(usb_printer_t *printer,	/* I - Printer */
                 LIBUSB_REQUEST_TYPE_STANDARD | LIBUSB_ENDPOINT_IN |
 		LIBUSB_RECIPIENT_DEVICE,
 		8, /* GET_CONFIGURATION */
-		0, 0, (unsigned char *)&current, 1, 5000) < 0)
+		0, 0, &current, 1, 5000) < 0)
     current = 0;			/* Assume not configured */
 
   printer->origconf = current;
@@ -1644,8 +1647,8 @@ print_cb(usb_printer_t *printer,	/* I - Printer */
   * Work on copies of the URIs...
   */
 
-  strlcpy(requested_uri, (char *)data, sizeof(requested_uri));
-  strlcpy(detected_uri, device_uri, sizeof(detected_uri));
+  cupsCopyString(requested_uri, (char *)data, sizeof(requested_uri));
+  cupsCopyString(detected_uri, device_uri, sizeof(detected_uri));
 
  /*
   * libusb-discovered URIs can have an "interface" specification and this

@@ -1,6 +1,7 @@
 /*
  * Policy definitions for the CUPS scheduler.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2010 by Apple Inc.
  * Copyright 1997-2005 by Easy Software Products, all rights reserved.
  *
@@ -21,8 +22,6 @@ typedef struct
 			*sub_attrs,	/* Private attributes for subscriptions */
 			*ops;		/* Operations */
 } cupsd_policy_t;
-
-typedef struct cupsd_printer_s cupsd_printer_t;
 
 
 /*

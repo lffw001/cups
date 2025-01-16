@@ -3,7 +3,7 @@
 # Perform the complete set of IPP compliance tests specified in the
 # CUPS Software Test Plan.
 #
-# Copyright © 2020-2023 by OpenPrinting
+# Copyright © 2020-2024 by OpenPrinting
 # Copyright © 2007-2021 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #
@@ -27,12 +27,6 @@ fi
 #
 
 umask 022
-
-#
-# Make the IPP test program...
-#
-
-make
 
 #
 # Solaris has a non-POSIX grep in /bin...
@@ -741,7 +735,6 @@ fail=0
 for file in 4*.test ../examples/ipp-2.1.test; do
 	echo $ac_n "Performing `basename $file`: $ac_c"
 	echo "" >>$strfile
-        echo $ac_n "`date '+[%d/%b/%Y:%H:%M:%S %z]'` $ac_c" >>$strfile
 
 	if test $file = ../examples/ipp-2.1.test; then
 		uri="ipp://localhost:$port/printers/Test1"
@@ -750,6 +743,7 @@ for file in 4*.test ../examples/ipp-2.1.test; do
 		uri="ipp://localhost:$port/printers"
 		options=""
 	fi
+        echo "$(date '+[%d/%b/%Y:%H:%M:%S %z]') ../tools/ipptool -tI $options $uri $file" >>$strfile
 	$runcups $VALGRIND ../tools/ipptool -tI $options $uri $file >> $strfile
 	status=$?
 

@@ -1,7 +1,7 @@
 /*
  * Configuration file definitions for the CUPS scheduler.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -110,6 +110,8 @@ VAR char		*ConfigurationFile	VALUE(NULL),
 					/* Directory for request files */
 			*DocumentRoot		VALUE(NULL);
 					/* Root directory for documents */
+VAR cups_lang_t		*Languages		VALUE(NULL);
+					/* Languages that cupsd is providing */
 VAR cups_array_t	*ServerAlias		VALUE(NULL);
 					/* Alias names for server */
 VAR int			ServerNameIsIP		VALUE(0);
@@ -176,6 +178,8 @@ VAR gid_t		LogFileGroup		VALUE(0);
 					/* Group ID for log files */
 VAR cupsd_loglevel_t	LogLevel		VALUE(CUPSD_LOG_WARN);
 					/* Error log level */
+VAR int			StripUserDomain		VALUE(FALSE);
+					/* Strip domain in local username? */
 VAR cupsd_time_t	LogTimeFormat		VALUE(CUPSD_TIME_STANDARD);
 					/* Log file time format */
 VAR cups_file_t		*LogStderr		VALUE(NULL);
@@ -235,12 +239,10 @@ VAR int			NumMimeTypes		VALUE(0);
 VAR const char		**MimeTypes		VALUE(NULL);
 					/* Array of MIME types */
 
-#ifdef HAVE_TLS
 VAR int			CreateSelfSignedCerts	VALUE(TRUE);
 					/* Automatically create self-signed certs? */
 VAR char		*ServerKeychain		VALUE(NULL);
 					/* Keychain holding cert + key */
-#endif /* HAVE_TLS */
 
 #ifdef HAVE_ONDEMAND
 VAR int			IdleExitTimeout		VALUE(60);
@@ -287,3 +289,4 @@ extern int	cupsdLogPage(cupsd_job_t *job, const char *page);
 extern int	cupsdLogRequest(cupsd_client_t *con, http_status_t code);
 extern int	cupsdReadConfiguration(void);
 extern int	cupsdWriteErrorLog(int level, const char *message);
+extern void	cupsdWriteStrings(void);

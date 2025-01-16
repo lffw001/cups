@@ -1,6 +1,7 @@
 /*
  * Mini-daemon utility definitions for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2014 by Apple Inc.
  * Copyright 1997-2005 by Easy Software Products.
  *
@@ -14,7 +15,6 @@
  * Include necessary headers...
  */
 
-#  include <cups/array-private.h>
 #  include <cups/file-private.h>
 #  include <signal.h>
 
@@ -26,13 +26,6 @@
 #  ifdef __cplusplus
 extern "C" {
 #  endif /* __cplusplus */
-
-
-/*
- * Types...
- */
-
-typedef int (*cupsd_compare_func_t)(const void *, const void *);
 
 
 /*

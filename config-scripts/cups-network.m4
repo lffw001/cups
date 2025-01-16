@@ -1,7 +1,7 @@
 dnl
 dnl Networking stuff for CUPS.
 dnl
-dnl Copyright © 2021 by OpenPrinting.
+dnl Copyright © 2020-2024 by OpenPrinting.
 dnl Copyright © 2007-2016 by Apple Inc.
 dnl Copyright © 1997-2005 by Easy Software Products, all rights reserved.
 dnl
@@ -19,6 +19,8 @@ AC_CHECK_HEADER([resolv.h], [
     #include <netinet/in_systm.h>
     #include <netinet/ip.h>
 ])
+SAVELIBS="$LIBS"
+LIBS=""
 AC_SEARCH_LIBS([socket], [socket])
 AC_SEARCH_LIBS([gethostbyaddr], [nsl])
 AC_SEARCH_LIBS([getifaddrs], [nsl], [
@@ -26,9 +28,6 @@ AC_SEARCH_LIBS([getifaddrs], [nsl], [
 ])
 AC_SEARCH_LIBS([hstrerror], [nsl socket resolv], [
     AC_DEFINE([HAVE_HSTRERROR], [1], [Have the hstrerror function?])
-])
-AC_SEARCH_LIBS([rresvport_af], [nsl], [
-    AC_DEFINE([HAVE_RRESVPORT_AF], [1], [Have the rresvport_af function?])
 ])
 AC_SEARCH_LIBS([__res_init], [resolv bind], [
     AC_DEFINE([HAVE_RES_INIT], [1], [Have res_init function?])
@@ -41,13 +40,8 @@ AC_SEARCH_LIBS([__res_init], [resolv bind], [
 	])
     ])
 ])
-
-AC_SEARCH_LIBS([getaddrinfo], [nsl], [
-    AC_DEFINE([HAVE_GETADDRINFO], [1], [Have the getaddrinfo function?])
-])
-AC_SEARCH_LIBS([getnameinfo], [nsl], [
-    AC_DEFINE([HAVE_GETNAMEINFO], [1], [Have the getnameinfo function?])
-])
+PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $LIBS"
+LIBS="$SAVELIBS $LIBS"
 
 AC_CHECK_MEMBER([struct sockaddr.sa_len],,, [#include <sys/socket.h>])
 AC_CHECK_HEADER([sys/sockio.h], [
@@ -67,7 +61,7 @@ AS_IF([test x$enable_domainsocket != xno -a x$default_domainsocket != xno], [
     AS_IF([test "x$default_domainsocket" = x], [
         AS_CASE(["$host_os_name"], [darwin*], [
 	    # Darwin and macOS do their own thing...
-	    CUPS_DEFAULT_DOMAINSOCKET="$localstatedir/run/cupsd"
+	    CUPS_DEFAULT_DOMAINSOCKET="/private/var/run/cupsd"
 	], [*], [
 	    # All others use FHS standard...
 	    CUPS_DEFAULT_DOMAINSOCKET="$CUPS_STATEDIR/cups.sock"

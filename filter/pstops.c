@@ -1,6 +1,7 @@
 /*
  * PostScript filter for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1993-2007 by Easy Software Products.
  *
@@ -196,9 +197,7 @@ main(int  argc,				/* I - Number of command-line args */
   cups_option_t	*options;		/* Print options */
   char		line[8192];		/* Line buffer */
   ssize_t	len;			/* Length of line buffer */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
  /*
@@ -229,17 +228,11 @@ main(int  argc,				/* I - Number of command-line args */
   * Register a signal handler to cleanly cancel a job.
   */
 
-#ifdef HAVE_SIGSET /* Use System V signals over POSIX to avoid bugs */
-  sigset(SIGTERM, cancel_job);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
 
   sigemptyset(&action.sa_mask);
   action.sa_handler = cancel_job;
   sigaction(SIGTERM, &action, NULL);
-#else
-  signal(SIGTERM, cancel_job);
-#endif /* HAVE_SIGSET */
 
  /*
   * If we have 7 arguments, print the file named on the command-line.
@@ -1397,7 +1390,7 @@ copy_page(cups_file_t  *fp,		/* I - File to read from */
              !strncmp(line, "%%PageMedia:", 12) ||
 	     !strncmp(line, "%%PageOrientation:", 18) ||
 	     !strncmp(line, "%%PageProcessColors:", 20) ||
-	     !strncmp(line, "%%PageRequirements:", 18) ||
+	     !strncmp(line, "%%PageRequirements:", 19) ||
 	     !strncmp(line, "%%PageResources:", 16))
     {
      /*
@@ -1429,7 +1422,7 @@ copy_page(cups_file_t  *fp,		/* I - File to read from */
       * %%PageProcessColors: ...
       */
     }
-    else if (!strncmp(line, "%%PageRequirements:", 18))
+    else if (!strncmp(line, "%%PageRequirements:", 19))
     {
      /*
       * %%PageRequirements: ...

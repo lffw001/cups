@@ -1,18 +1,19 @@
 dnl
 dnl Directory stuff for CUPS.
 dnl
-dnl Copyright © 2021-2023 by OpenPrinting.
+dnl Copyright © 2020-2024 by OpenPrinting.
 dnl Copyright © 2007-2017 by Apple Inc.
 dnl Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 dnl
 dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
 dnl
 
-AC_PREFIX_DEFAULT(/)
-
 dnl Fix "prefix" variable if it hasn't been specified...
-AS_IF([test "$prefix" = "NONE"], [
-    prefix="/"
+AS_IF([test "$prefix" = NONE], [
+    # Default prefix isn't bound until AC_OUTPUT...
+    realprefix="/usr/local"
+], [
+    realprefix="$prefix"
 ])
 
 dnl Fix "exec_prefix" variable if it hasn't been specified...
@@ -20,7 +21,7 @@ AS_IF([test "$exec_prefix" = "NONE"], [
     AS_IF([test "$prefix" = "/"], [
 	exec_prefix="/usr"
     ], [
-	exec_prefix="$prefix"
+	exec_prefix="$realprefix"
     ])
 ])
 
@@ -43,7 +44,7 @@ AS_IF([test "$datarootdir" = "\${prefix}/share"], [
     AS_IF([test "$prefix" = "/"], [
 	datarootdir="/usr/share"
     ], [
-	datarootdir="$prefix/share"
+	datarootdir="$realprefix/share"
     ])
 ])
 
@@ -52,15 +53,19 @@ AS_IF([test "$datadir" = "\${prefix}/share"], [
     AS_IF([test "$prefix" = "/"], [
 	datadir="/usr/share"
     ], [
-	datadir="$prefix/share"
+	datadir="$realprefix/share"
     ])
 ], [test "$datadir" = "\${datarootdir}"], [
     datadir="$datarootdir"
 ])
 
 dnl Fix "includedir" variable if it hasn't been specified...
-AS_IF([test "$includedir" = "\${prefix}/include" -a "$prefix" = "/"], [
-    includedir="/usr/include"
+AS_IF([test "$includedir" = "\${prefix}/include"], [
+    AS_IF([test "$prefix" = "/"], [
+	includedir="/usr/include/libcups2"
+    ], [
+	includedir="$realprefix/include/libcups2"
+    ])
 ])
 AS_IF([test "$includedir" != "/usr/include"], [
     PKGCONFIG_CFLAGS="$PKGCONFIG_CFLAGS -I$includedir"
@@ -75,7 +80,7 @@ AS_IF([test "$localstatedir" = "\${prefix}/var"], [
 	    localstatedir="/var"
 	])
     ], [
-	localstatedir="$prefix/var"
+	localstatedir="$realprefix/var"
     ])
 ])
 
@@ -88,7 +93,7 @@ AS_IF([test "$sysconfdir" = "\${prefix}/etc"], [
 	    sysconfdir="/etc"
 	])
     ], [
-	sysconfdir="$prefix/etc"
+	sysconfdir="$realprefix/etc"
     ])
 ])
 
@@ -184,7 +189,7 @@ AC_SUBST([CUPS_DOCROOT])
 
 # Locale data
 AS_IF([test "$localedir" = "\${datarootdir}/locale"], [
-    AS_CASE(["$host_os_name"], [linux* | gnu* | *bsd* | darwin*], [
+    AS_CASE(["$host_os_name"], [linux* | gnu* | *bsd* | darwin* | solaris*], [
 	CUPS_LOCALEDIR="$datarootdir/locale"
     ], [*], [
 	# This is the standard System V location...
@@ -266,6 +271,12 @@ AC_ARG_WITH([rundir], AS_HELP_STRING([--with-rundir], [set transient run-time st
     AS_CASE(["$host_os_name"], [darwin*], [
 	# Darwin (macOS)
 	CUPS_STATEDIR="$CUPS_SERVERROOT"
+    ], [sunos* | solaris*], [
+	AS_IF([test -d /system/volatile], [
+	     CUPS_STATEDIR="/system/volatile/cups"
+	], [
+	     CUPS_STATEDIR="$localstatedir/run/cups"
+	])
     ], [*], [
 	# All others
 	CUPS_STATEDIR="$localstatedir/run/cups"

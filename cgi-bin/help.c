@@ -1,10 +1,12 @@
 /*
  * Online help CGI for CUPS.
  *
- * Copyright 2007-2011 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products.
+ * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2007-2011 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -26,7 +28,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 		*si;			/* Search index */
   help_node_t	*n;			/* Current help node */
   int		i;			/* Looping var */
-  const char	*query;			/* Search query */
+  const char	*query = NULL;		/* Search query */
   const char	*cache_dir;		/* CUPS_CACHEDIR environment variable */
   const char	*docroot;		/* CUPS_DOCROOT environment variable */
   const char	*helpfile,		/* Current help file */
@@ -170,8 +172,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (cgiGetVariable("CLEAR"))
     cgiSetVariable("QUERY", "");
+  else if ((query = cgiGetTextfield("QUERY")) != NULL)
+    query = strdup(query);
 
-  query = cgiGetVariable("QUERY");
   si    = helpSearchIndex(hi, query, topic, helpfile);
 
   cgiClearVariables();
@@ -193,8 +196,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 
     fprintf(stderr,
-            "DEBUG: si=%p, si->sorted=%p, cupsArrayCount(si->sorted)=%d\n", si,
-            si->sorted, cupsArrayCount(si->sorted));
+            "DEBUG: si=%p, si->sorted=%p, cupsArrayCount(si->sorted)=%d\n", (void *)si,
+            (void *)si->sorted, cupsArrayCount(si->sorted));
 
     for (i = 0, n = (help_node_t *)cupsArrayFirst(si->sorted);
          n;

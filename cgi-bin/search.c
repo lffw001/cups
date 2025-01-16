@@ -1,8 +1,9 @@
 /*
  * Search routines for CUPS.
  *
- * Copyright 2007-2018 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2018 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
@@ -104,14 +105,13 @@ cgiCompileSearch(const char *query)	/* I - Query string */
       if (!*qend)
       {
        /*
-        * No closing quote, error out!
+	* No closing quote, error out!
 	*/
 
 	free(s);
 	free(re);
 
-	if (lword)
-          free(lword);
+	free(lword);
 
 	return (NULL);
       }
@@ -139,7 +139,7 @@ cgiCompileSearch(const char *query)	/* I - Query string */
       */
 
       if (sptr > s)
-        prefix = ".*";
+	prefix = ".*";
 
       qptr = qend;
     }
@@ -150,7 +150,7 @@ cgiCompileSearch(const char *query)	/* I - Query string */
       */
 
       if (sptr > s)
-        prefix = ".*|.*";
+	prefix = ".*|.*";
 
       qptr = qend;
     }
@@ -163,31 +163,31 @@ cgiCompileSearch(const char *query)	/* I - Query string */
 
       wlen = (size_t)(sptr - s) + 2 * 4 * wlen + 2 * strlen(prefix) + 11;
       if (lword)
-        wlen += strlen(lword);
+	wlen += strlen(lword);
 
       if (wlen > slen)
       {
        /*
-        * Expand the RE string buffer...
+	* Expand the RE string buffer...
 	*/
 
-        char *temp;			/* Temporary string pointer */
+	char *temp;			/* Temporary string pointer */
+	const ptrdiff_t pos = sptr - s;	/* Current pointer position (GCC workaround for use-after-free warning after realloc) */
 
 
 	slen = wlen + 128;
-        temp = (char *)realloc(s, slen);
+	temp = (char *)realloc(s, slen);
 	if (!temp)
 	{
 	  free(s);
 	  free(re);
 
-	  if (lword)
-            free(lword);
+	  free(lword);
 
 	  return (NULL);
 	}
 
-        sptr = temp + (sptr - s);
+	sptr = temp + pos;
 	s    = temp;
       }
 
@@ -208,10 +208,10 @@ cgiCompileSearch(const char *query)	/* I - Query string */
       while (qptr < qend)
       {
        /*
-        * Quote: ^ . [ $ ( ) | * + ? { \
+	* Quote: ^ . [ $ ( ) | * + ? { \
 	*/
 
-        if (strchr("^.[$()|*+?{\\", *qptr))
+	if (strchr("^.[$()|*+?{\\", *qptr))
 	  *sptr++ = '\\';
 
 	*sptr++ = *qptr++;
@@ -225,10 +225,10 @@ cgiCompileSearch(const char *query)	/* I - Query string */
 
       if (!strcmp(prefix, ".*") && lword)
       {
-        char *lword2;			/* New "last word" */
+	char *lword2;			/* New "last word" */
 
 
-        if ((lword2 = strdup(sword)) == NULL)
+	if ((lword2 = strdup(sword)) == NULL)
 	{
 	  free(lword);
 	  free(s);
@@ -236,25 +236,24 @@ cgiCompileSearch(const char *query)	/* I - Query string */
 	  return (NULL);
 	}
 
-        memcpy(sptr, ".*|.*", 6);
+	memcpy(sptr, ".*|.*", 6);
 	sptr += 5;
 
 	memcpy(sptr, lword2, strlen(lword2) + 1);
 	sptr += strlen(sptr);
 
-        memcpy(sptr, ".*", 3);
+	memcpy(sptr, ".*", 3);
 	sptr += 2;
 
 	memcpy(sptr, lword, strlen(lword) + 1);
 	sptr += strlen(sptr);
 
-        free(lword);
+	free(lword);
 	lword = lword2;
       }
       else
       {
-	if (lword)
-          free(lword);
+	free(lword);
 
 	lword = strdup(sword);
       }
@@ -270,8 +269,7 @@ cgiCompileSearch(const char *query)	/* I - Query string */
       qptr ++;
   }
 
-  if (lword)
-    free(lword);
+  free(lword);
 
   if (sptr > s)
     memcpy(sptr, ".*", 3);

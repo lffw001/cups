@@ -1,6 +1,7 @@
 /*
  * Online help index routines for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -136,9 +137,9 @@ static int		help_load_file(help_index_t *hi,
 				       const char *relative,
 				       time_t     mtime);
 static help_node_t	*help_new_node(const char *filename, const char *anchor, const char *section, const char *text, time_t mtime, off_t offset, size_t length) _CUPS_NONNULL(1,3,4);
-static int		help_sort_by_name(help_node_t *p1, help_node_t *p2);
-static int		help_sort_by_score(help_node_t *p1, help_node_t *p2);
-static int		help_sort_words(help_word_t *w1, help_word_t *w2);
+static int		help_sort_by_name(help_node_t *p1, help_node_t *p2, void *data);
+static int		help_sort_by_score(help_node_t *p1, help_node_t *p2, void *data);
+static int		help_sort_words(help_word_t *w1, help_word_t *w2, void *data);
 
 
 /*
@@ -336,7 +337,7 @@ helpLoadIndex(const char *hifile,	/* I - Index filename */
 
             *ptr++ = '\0';
 
-            strlcpy(section, sectptr, sizeof(section));
+            cupsCopyString(section, sectptr, sizeof(section));
 
 	    while (isspace(*ptr & 255))
               ptr ++;
@@ -771,7 +772,7 @@ help_load_directory(
     if (relative)
       snprintf(relname, sizeof(relname), "%s/%s", relative, dent->filename);
     else
-      strlcpy(relname, dent->filename, sizeof(relname));
+      cupsCopyString(relname, dent->filename, sizeof(relname));
 
    /*
     * Check if we have a HTML file...
@@ -851,7 +852,7 @@ help_load_file(
   off_t		offset;			/* File offset */
   char		quote;			/* Quote character */
   help_word_t	*word;			/* Current word */
-  int		wordlen;		/* Length of word */
+  size_t		wordlen;		/* Length of word */
 
 
   if ((fp = cupsFileOpen(filename, "r")) == NULL)
@@ -860,7 +861,10 @@ help_load_file(
   node   = NULL;
   offset = 0;
 
-  strlcpy(section, "Other", sizeof(section));
+  if (strstr(filename, "/man-") != NULL)
+    cupsCopyString(section, "Man Pages", sizeof(section));
+  else
+    cupsCopyString(section, "Other", sizeof(section));
 
   while (cupsFileGets(fp, line, sizeof(line)))
   {
@@ -876,7 +880,7 @@ help_load_file(
 
       for (ptr += 13; isspace(*ptr & 255); ptr ++);
 
-      strlcpy(section, ptr, sizeof(section));
+      cupsCopyString(section, ptr, sizeof(section));
       if ((ptr = strstr(section, "-->")) != NULL)
       {
        /*
@@ -1136,9 +1140,9 @@ help_load_file(
 
 	for (text = ptr, ptr ++; *ptr && isalnum(*ptr & 255); ptr ++);
 
-	wordlen = (int)(ptr - text);
+	wordlen = (size_t)(ptr - text);
 
-        memcpy(temp, text, (size_t)wordlen);
+        memcpy(temp, text, wordlen);
 	temp[wordlen] = '\0';
 
         ptr --;
@@ -1206,11 +1210,15 @@ help_new_node(const char   *filename,	/* I - Filename */
  */
 
 static int				/* O - Difference */
-help_sort_by_name(help_node_t *n1,	/* I - First node */
-                  help_node_t *n2)	/* I - Second node */
+help_sort_by_name(
+    help_node_t *n1,			/* I - First node */
+    help_node_t *n2,			/* I - Second node */
+    void        *data)			/* Unused */
 {
-  int		diff;			/* Difference */
+  int	diff;				/* Difference */
 
+
+  (void)data;
 
   if ((diff = strcmp(n1->filename, n2->filename)) != 0)
     return (diff);
@@ -1230,12 +1238,15 @@ help_sort_by_name(help_node_t *n1,	/* I - First node */
  * 'help_sort_nodes_by_score()' - Sort nodes by score and text.
  */
 
-static int				/* O - Difference */
-help_sort_by_score(help_node_t *n1,	/* I - First node */
-                   help_node_t *n2)	/* I - Second node */
+static int                          /* O - Difference */
+help_sort_by_score(help_node_t *n1, /* I - First node */
+                   help_node_t *n2, /* I - Second node */
+                   void *data)      /* I - Unused */
 {
   int		diff;			/* Difference */
 
+
+  (void)data;
 
   if (n1->score != n2->score)
     return (n2->score - n1->score);
@@ -1256,9 +1267,11 @@ help_sort_by_score(help_node_t *n1,	/* I - First node */
  * 'help_sort_words()' - Sort words alphabetically.
  */
 
-static int				/* O - Difference */
-help_sort_words(help_word_t *w1,	/* I - Second word */
-                help_word_t *w2)	/* I - Second word */
+static int                       /* O - Difference */
+help_sort_words(help_word_t *w1, /* I - Second word */
+                help_word_t *w2, /* I - Second word */
+                void *data)      /* Unused */
 {
+  (void)data;
   return (_cups_strcasecmp(w1->text, w2->text));
 }

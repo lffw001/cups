@@ -1,6 +1,7 @@
 //
 // PPD file merge utility for the CUPS PPD Compiler.
 //
+// Copyright © 2020-2024 by OpenPrinting.
 // Copyright © 2007-2018 by Apple Inc.
 // Copyright © 2002-2007 by Easy Software Products.
 //
@@ -174,7 +175,7 @@ main(int  argc,				// I - Number of command-line arguments
 
   // Loop through the PPD files we loaded to generate a new language list...
   if (!languages)
-    languages = cupsArrayNew((cups_array_func_t)strcmp, NULL);
+    languages = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, NULL);
 
   for (ppd = (ppd_file_t *)cupsArrayFirst(ppds);
        ppd;
@@ -334,7 +335,7 @@ ppd_locale(ppd_file_t *ppd)		// I - PPD file
         snprintf(locale, sizeof(locale), "%s_%s", languages[i].language,
 	         ppd->lang_version + vlen + 1);
       else
-        strlcpy(locale, languages[i].language, sizeof(locale));
+        cupsCopyString(locale, languages[i].language, sizeof(locale));
 
       return (locale);
     }

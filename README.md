@@ -1,10 +1,13 @@
-OpenPrinting CUPS v2.4.2
+OpenPrinting CUPS v2.5b1
 ========================
 
 ![Version](https://img.shields.io/github/v/release/openprinting/cups?include_prereleases)
 ![Apache 2.0](https://img.shields.io/github/license/openprinting/cups)
 [![Build and Test](https://github.com/OpenPrinting/cups/workflows/Build%20and%20Test/badge.svg)](https://github.com/OpenPrinting/cups/actions/workflows/build.yml)
 [![Coverity Scan](https://img.shields.io/coverity/scan/23806)](https://scan.coverity.com/projects/openprinting-cups)
+
+> *Note:* This branch is tracking a future CUPS 2.5.x feature release.  Check
+> out the "2.4.x" branch for CUPS 2.4.x.
 
 
 Introduction
@@ -31,7 +34,7 @@ for more information.
 > and iOS at <https://github.com/apple/cups>.
 
 [1]: https://support.apple.com/en-us/HT201311
-[2]: https://www.pwg.org/ipp/everywhere.html
+[2]: https://www.pwg.org/printers
 [3]: https://github.com/openprinting/cups-filters
 
 
@@ -150,10 +153,26 @@ then you need to use the `-oraw` or `-l` options:
 This will prevent the filters from misinterpreting your print file.
 
 
+Contributing Code and Translations
+----------------------------------
+
+Code contributions should be submitted as pull requests on the Github site:
+
+    http://github.com/OpenPrinting/cups/pulls
+
+See the file "CONTRIBUTING.md" for more details.
+
+CUPS uses [Weblate][WL] to manage the localization of the web interface,
+command-line programs, and common IPP attributes and values, and those likewise
+end up as pull requests on Github.
+
+[WL]: https://hosted.weblate.org
+
+
 Legal Stuff
 -----------
 
-Copyright © 2020-2023 by OpenPrinting
+Copyright © 2020-2025 by OpenPrinting
 
 Copyright © 2007-2020 by Apple Inc.
 

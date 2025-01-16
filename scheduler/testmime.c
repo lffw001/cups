@@ -1,6 +1,7 @@
 /*
  * MIME test program for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2014 by Apple Inc.
  * Copyright 1997-2006 by Easy Software Products, all rights reserved.
  *
@@ -303,7 +304,7 @@ add_ppd_filters(mime_t     *mime,	/* I - MIME database */
 		*prefilter;		/* Pre-filter type */
 
 
-  pc = _ppdCacheCreateWithPPD(ppd);
+  pc = _ppdCacheCreateWithPPD(NULL, ppd);
   if (!pc)
     return;
 
@@ -350,7 +351,7 @@ print_rules(mime_magic_t *rules)	/* I - Rules to print */
 
   while (rules != NULL)
   {
-    printf("%s[%p] ", indent, rules);
+    printf("%s[%p] ", indent, (void *)rules);
 
     if (rules->invert)
       printf("NOT ");
@@ -409,7 +410,7 @@ print_rules(mime_magic_t *rules)	/* I - Rules to print */
       else
 	puts("AND (");
 
-      strcat(indent, "\t");
+      cupsConcatString(indent, "\t", sizeof(indent));
       print_rules(rules->child);
       indent[strlen(indent) - 1] = '\0';
       printf("%s)\n", indent);

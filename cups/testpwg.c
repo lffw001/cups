@@ -1,6 +1,7 @@
 /*
  * PWG unit test program for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2009-2016 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
@@ -68,8 +69,8 @@ main(int  argc,				/* I - Number of command-line args */
   else
     puts("PASS");
 
-  fputs("_ppdCacheCreateWithPPD(ppd): ", stdout);
-  if ((pc = _ppdCacheCreateWithPPD(ppd)) == NULL)
+  fputs("_ppdCacheCreateWithPPD(NULL, ppd): ", stdout);
+  if ((pc = _ppdCacheCreateWithPPD(NULL, ppd)) == NULL)
   {
     puts("FAIL");
     status ++;

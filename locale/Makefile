@@ -1,7 +1,7 @@
 #
 # Locale file makefile for CUPS.
 #
-# Copyright © 2021-2023 by OpenPrinting.
+# Copyright © 2020-2024 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1993-2007 by Easy Software Products.
 #
@@ -12,8 +12,8 @@
 include ../Makedefs
 
 
-OBJS	=	checkpo.o po2strings.o
-TARGETS	=	checkpo po2strings
+OBJS	=	checkpo.o
+TARGETS	=	checkpo
 
 
 #
@@ -50,7 +50,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
 
 
 #
@@ -64,9 +64,7 @@ install:	all install-data install-headers install-libs install-exec
 # Install data files...
 #
 
-install-data: $(INSTALL_LANGUAGES)
-
-install-languages:
+install-data:
 	$(INSTALL_DIR) -m 755 $(LOCALEDIR)
 	for loc in en $(LANGUAGES) ; do \
 		if test -f cups_$$loc.po; then \
@@ -74,10 +72,6 @@ install-languages:
 			$(INSTALL_DATA) cups_$$loc.po $(LOCALEDIR)/$$loc/cups_$$loc.po ; \
 		fi ; \
 	done
-
-install-langbundle:
-	$(INSTALL_DIR) -m 755 "$(BUILDROOT)$(RESOURCEDIR)"
-	$(INSTALL_DATA) cups.strings "$(BUILDROOT)$(RESOURCEDIR)"
 
 
 #
@@ -105,15 +99,10 @@ install-libs:
 # Uninstall files...
 #
 
-uninstall: $(UNINSTALL_LANGUAGES)
-
-uninstall-languages:
+uninstall:
 	-for loc in en $(LANGUAGES) ; do \
 		$(RM) $(LOCALEDIR)/$$loc/cups_$$loc.po ; \
 	done
-
-uninstall-langbundle:
-	$(RM) "$(BUILDROOT)$(RESOURCEDIR)/cups.strings"
 
 
 #
@@ -122,7 +111,7 @@ uninstall-langbundle:
 #       xgettext to update the cups.strings file due to known xgettext bugs.
 #
 
-pot:	checkpo po2strings
+pot:	checkpo
 	echo Updating cups.pot...
 	mv cups.pot cups.pot.bck
 	touch cups.pot
@@ -143,12 +132,6 @@ pot:	checkpo po2strings
 		echo Merging changes into $$loc... ; \
 		msgmerge -o $$loc -s -N --no-location $$loc cups.pot ; \
 	done
-	echo Updating cups.strings...
-	./po2strings cups_en.po cups.strings
-
-cups.strings: cups_en.po po2strings
-	echo Updating cups.strings...
-	./po2strings cups_en.po cups.strings
 
 
 #
@@ -166,20 +149,6 @@ checkpo:	checkpo.o ../cups/$(LIBCUPSSTATIC)
 
 checkall:	checkpo
 	./checkpo *.po *.strings
-
-
-#
-# po2strings - A simple utility which uses iconv to convert GNU gettext
-#              message catalogs to macOS .strings files.
-#
-# po2strings filename.po filename.strings
-#
-
-po2strings:	po2strings.o ../cups/$(LIBCUPSSTATIC)
-	echo Linking $@...
-	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o po2strings po2strings.o \
-		$(LINKCUPSSTATIC)
-	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 
 #

@@ -1,7 +1,7 @@
 dnl
 dnl Shared library support for CUPS.
 dnl
-dnl Copyright © 2021-2023 by OpenPrinting.
+dnl Copyright © 2020-2024 by OpenPrinting.
 dnl Copyright © 2007-2018 by Apple Inc.
 dnl Copyright © 1997-2005 by Easy Software Products, all rights reserved.
 dnl
@@ -28,7 +28,7 @@ AS_IF([test x$enable_shared != xno], [
 	DSO="\$(CC)"
 	DSOXX="\$(CXX)"
 	DSOFLAGS="$DSOFLAGS -Wl,-h\`basename \$@\` -G"
-    ], [linux* | gnu* | *bsd*], [
+    ], [linux* | gnu* | *bsd* | solaris*], [
 	LIBCUPS="lib$cupsbase.so.2"
 	AS_IF([test "x$cupsimagebase" != x], [
 	    LIBCUPSIMAGE="lib$cupsimagebase.so.2"
@@ -102,7 +102,7 @@ AS_IF([test "$DSO" != ":"], [
     # Tell the run-time linkers where to find a DSO.  Some platforms
     # need this option, even when the library is installed in a
     # standard location...
-    AS_CASE([$host_os_name], [sunos*], [
+    AS_CASE([$host_os_name], [sunos* | solaris*], [
 	# Solaris...
 	AS_IF([test $exec_prefix != /usr], [
 	    DSOFLAGS="-R$libdir $DSOFLAGS"

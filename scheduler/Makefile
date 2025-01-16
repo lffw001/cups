@@ -115,8 +115,8 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(COBJS:.o=.c) >Dependencies
-	$(CXX) -MM $(ALL_CXXFLAGS) $(CXXOBJS:.o=.cxx) >>Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(COBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
+	$(CXX) -MM $(ALL_CXXFLAGS) $(CXXOBJS:.o=.cxx) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >>Dependencies
 
 
 #
@@ -195,6 +195,7 @@ install-data:
 	if test "x$(SYSTEMD_DIR)" != x; then \
 		echo Installing systemd configuration files...; \
 		$(INSTALL_DIR) $(BUILDROOT)$(SYSTEMD_DIR); \
+		$(INSTALL_DATA) system-cups.slice $(BUILDROOT)$(SYSTEMD_DIR); \
 		$(INSTALL_DATA) cups.path $(BUILDROOT)$(SYSTEMD_DIR); \
 		$(INSTALL_DATA) cups.service $(BUILDROOT)$(SYSTEMD_DIR); \
 		$(INSTALL_DATA) cups.socket $(BUILDROOT)$(SYSTEMD_DIR); \
@@ -311,6 +312,17 @@ uninstall:
 
 
 #
+# Run unit tests...
+#
+
+test:		unittests
+	echo "Tests started at $(date)..." >test.log
+	echo Running MIME API tests...
+	./testmime >>test.log
+	echo "Tests finished at $(date)..." >>test.log
+
+
+#
 # Make the scheduler executable, "cupsd".
 #
 
@@ -417,8 +429,6 @@ testmime:	testmime.o libcupsmime.a ../cups/$(LIBCUPSSTATIC)
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testmime.o libcupsmime.a \
 		$(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running MIME tests...
-	./testmime
 
 
 #

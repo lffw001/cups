@@ -1,7 +1,7 @@
 dnl
 dnl Compiler tests for CUPS.
 dnl
-dnl Copyright © 2021-2023 by OpenPrinting.
+dnl Copyright © 2020-2024 by OpenPrinting.
 dnl Copyright © 2007-2018 by Apple Inc.
 dnl Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 dnl
@@ -105,11 +105,13 @@ AS_IF([test -n "$GCC"], [
     AS_IF([test x$enable_sanitizer = xyes], [
 	# Use -fsanitize=address with debugging...
 	OPTIM="$OPTIM -g -fsanitize=address"
+    ], [echo "$CXXFLAGS $CFLAGS" | grep -q _FORTIFY_SOURCE], [
+        # Don't add _FORTIFY_SOURCE if it is already there
     ], [
 	# Otherwise use the Fortify enhancements to catch any unbounded
 	# string operations...
-	CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=2"
-	CXXFLAGS="$CXXFLAGS -D_FORTIFY_SOURCE=2"
+	CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=3"
+	CXXFLAGS="$CXXFLAGS -D_FORTIFY_SOURCE=3"
     ])
 
     # Default optimization options...
@@ -200,7 +202,7 @@ AS_IF([test -n "$GCC"], [
     ])
 ], [
     # Add vendor-specific compiler options...
-    AS_CASE([$host_os_name], [sunos*], [
+    AS_CASE([$host_os_name], [sunos* | solaris*], [
 	# Solaris
 	AS_IF([test -z "$OPTIM"], [
 	    OPTIM="-xO2"
@@ -223,14 +225,36 @@ AS_IF([test -n "$GCC"], [
 ])
 
 # Add general compiler options per platform...
+AC_MSG_CHECKING([for OS-specific compiler options])
 AS_CASE([$host_os_name], [linux*], [
     # glibc 2.8 and higher breaks peer credentials unless you
-    # define _GNU_SOURCE...
-    OPTIM="$OPTIM -D_GNU_SOURCE"
+    # define _GNU_SOURCE...  32-bit Linux needs 64-bit time/file offsets...
+    OPTIM="$OPTIM -D_GNU_SOURCE -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64"
 
     # The -z relro option is provided by the Linux linker command to
     # make relocatable data read-only.
     AS_IF([test x$enable_relro = xyes], [
 	RELROFLAGS="-Wl,-z,relro,-z,now"
     ])
+
+    AC_MSG_RESULT([-D_GNU_SOURCE -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64 $RELROFLAGS])
+], [darwin*], [
+    # When not building for debug, target macOS 11 or later, "universal"
+    # binaries when possible...
+    AS_IF([echo "$CPPFLAGS $CFLAGS $LDFLAGS $OPTIM" | grep -q "\\-arch "], [
+	# Don't add architecture/min-version flags if they are already present
+	AC_MSG_RESULT([none])
+    ], [echo "$CPPFLAGS $CFLAGS $LDFLAGS $OPTIM" | grep -q "\\-mmacosx-version-"], [
+	# Don't add architecture/min-version flags if they are already present
+	AC_MSG_RESULT([none])
+    ], [test "$host_os_version" -ge 200 -a x$enable_debug != xyes], [
+	# macOS 11.0 and higher support the Apple Silicon (arm64) CPUs
+	OPTIM="$OPTIM -mmacosx-version-min=11.0 -arch x86_64 -arch arm64"
+	AC_MSG_RESULT([-mmacosx-version-min=11.0 -arch x86_64 -arch arm64])
+    ], [
+	# Don't add architecture/min-version flags if debug enabled
+	AC_MSG_RESULT([none])
+    ])
+], [*], [
+    AC_MSG_RESULT([none])
 ])

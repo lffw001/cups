@@ -1,7 +1,7 @@
 /*
  * Authentication certificate routines for the CUPS scheduler.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2016 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -52,7 +52,7 @@ cupsdAddCert(int        pid,		/* I - Process ID */
   * Allocate memory for the certificate...
   */
 
-  if ((cert = calloc(sizeof(cupsd_cert_t), 1)) == NULL)
+  if ((cert = calloc(1, sizeof(cupsd_cert_t))) == NULL)
     return;
 
  /*
@@ -61,7 +61,7 @@ cupsdAddCert(int        pid,		/* I - Process ID */
 
   cert->pid  = pid;
   cert->type = type;
-  strlcpy(cert->username, username, sizeof(cert->username));
+  cupsCopyString(cert->username, username, sizeof(cert->username));
 
   for (i = 0; i < 32; i ++)
     cert->certificate[i] = hex[CUPS_RAND() & 15];
